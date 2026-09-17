@@ -1,4 +1,4 @@
-﻿# Local LLM Probabilistic Decision Engine
+# Local LLM Probabilistic Decision Engine
 
 A local, open-source probabilistic decision engine built on top of open-weight LLMs. It replaces autoregressive output generation with direct candidate scoring, producing typed, normalized decision probabilities with zero generated output tokens.
 
@@ -105,7 +105,7 @@ where `x` is the model context and `C` is the allowed candidate set.
 For arbitrary multi-token candidates, the planned scoring rule is based on sequence log-likelihood:
 
 ```math
-S(c) = \sum_{t=1}^{T_c} \log P(c_t | x, c_{<t})
+S(c) = \sum_{t=1}^{T_c} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
 ```
 
 followed by normalization across candidate scores.
