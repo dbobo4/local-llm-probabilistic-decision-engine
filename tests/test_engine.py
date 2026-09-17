@@ -320,3 +320,150 @@ def test_boolean_uses_true_false_verbalizers():
     assert "PFalse" in seen
     assert "Pyes" not in seen
     assert "Pno" not in seen
+
+def test_choice_list_prompt_remains_unchanged():
+    engine = make_engine()
+    prompts = []
+    original_apply_chat_template = engine.tokenizer.apply_chat_template
+
+    def recording_apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    ):
+        prompts.append(messages[0]["content"])
+        return original_apply_chat_template(
+            messages,
+            tokenize=tokenize,
+            add_generation_prompt=add_generation_prompt,
+        )
+
+    engine.tokenizer.apply_chat_template = recording_apply_chat_template
+
+    engine.choice(
+        state="state",
+        question="question",
+        candidates=["alpha", "beta"],
+    )
+
+    assert prompts == [
+        """STATE:
+state
+
+QUESTION:
+question
+
+CANDIDATES:
+- alpha
+- beta
+
+Return exactly one candidate."""
+    ]
+
+
+def test_choice_supports_candidate_descriptions():
+    engine = make_engine()
+    prompts = []
+    original_apply_chat_template = engine.tokenizer.apply_chat_template
+
+    def recording_apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    ):
+        prompts.append(messages[0]["content"])
+        return original_apply_chat_template(
+            messages,
+            tokenize=tokenize,
+            add_generation_prompt=add_generation_prompt,
+        )
+
+    engine.tokenizer.apply_chat_template = recording_apply_chat_template
+
+    result = engine.choice(
+        state="state",
+        question="question",
+        candidates={
+            "alpha": "The first semantic option.",
+            "beta": "The second semantic option.",
+        },
+    )
+
+    assert result.selected == "alpha"
+    assert list(result.probabilities) == ["alpha", "beta"]
+    assert list(result.scores) == ["alpha", "beta"]
+    assert list(result.token_counts) == ["alpha", "beta"]
+
+    assert prompts == [
+        """STATE:
+state
+
+QUESTION:
+question
+
+CANDIDATE DEFINITIONS:
+- alpha: The first semantic option.
+- beta: The second semantic option.
+
+CANDIDATES:
+- alpha
+- beta
+
+Return exactly one candidate."""
+    ]
+
+
+def test_choice_candidate_descriptions_preserve_insertion_order():
+    engine = make_engine()
+    prompts = []
+    original_apply_chat_template = engine.tokenizer.apply_chat_template
+
+    def recording_apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    ):
+        prompts.append(messages[0]["content"])
+        return original_apply_chat_template(
+            messages,
+            tokenize=tokenize,
+            add_generation_prompt=add_generation_prompt,
+        )
+
+    engine.tokenizer.apply_chat_template = recording_apply_chat_template
+
+    result = engine.choice(
+        state="state",
+        question="question",
+        candidates={
+            "beta": "Second.",
+            "alpha": "First.",
+        },
+    )
+
+    assert list(result.probabilities) == ["beta", "alpha"]
+
+    prompt = prompts[0]
+
+    assert prompt.index("- beta: Second.") < prompt.index("- alpha: First.")
+    assert prompt.index(
+        "CANDIDATES:\n- beta\n- alpha"
+    ) != -1
+
+
+def test_choice_rejects_empty_candidate_description():
+    engine = make_engine()
+
+    with pytest.raises(
+        ValueError,
+        match="descriptions must be non-empty strings",
+    ):
+        engine.choice(
+            state="state",
+            question="question",
+            candidates={
+                "alpha": "Valid description.",
+                "beta": "   ",
+            },
+        )
+

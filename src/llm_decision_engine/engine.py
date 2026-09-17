@@ -29,18 +29,33 @@ class DecisionEngine:
         *,
         state: str,
         question: str,
-        candidates: list[str],
+        candidates: list[str] | dict[str, str],
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> ChoiceResult:
-        if len(candidates) < 2:
+        if isinstance(candidates, dict):
+            candidate_names = list(candidates)
+            candidate_definitions = candidates
+        else:
+            candidate_names = candidates
+            candidate_definitions = None
+
+        if len(candidate_names) < 2:
             raise ValueError("choice() requires at least two candidates.")
 
-        if any(not candidate for candidate in candidates):
+        if any(not candidate for candidate in candidate_names):
             raise ValueError("Candidates must not be empty.")
 
-        if len(set(candidates)) != len(candidates):
+        if len(set(candidate_names)) != len(candidate_names):
             raise ValueError("Candidates must be unique.")
+
+        if candidate_definitions is not None and any(
+            not isinstance(description, str) or not description.strip()
+            for description in candidate_definitions.values()
+        ):
+            raise ValueError(
+                "Candidate descriptions must be non-empty strings."
+            )
 
         if scoring not in {"sum", "mean"}:
             raise ValueError("scoring must be either 'sum' or 'mean'.")
@@ -49,14 +64,34 @@ class DecisionEngine:
             raise ValueError("execution must be either 'sequential' or 'batch'.")
 
         candidate_list = "\n".join(
-            f"- {candidate}" for candidate in candidates
+            f"- {candidate}" for candidate in candidate_names
         )
 
-        user_prompt = f"""STATE:
+        if candidate_definitions is None:
+            user_prompt = f"""STATE:
 {state}
 
 QUESTION:
 {question}
+
+CANDIDATES:
+{candidate_list}
+
+Return exactly one candidate."""
+        else:
+            definition_list = "\n".join(
+                f"- {candidate}: {description}"
+                for candidate, description in candidate_definitions.items()
+            )
+
+            user_prompt = f"""STATE:
+{state}
+
+QUESTION:
+{question}
+
+CANDIDATE DEFINITIONS:
+{definition_list}
 
 CANDIDATES:
 {candidate_list}
@@ -71,7 +106,7 @@ Return exactly one candidate."""
 
         tokenized_candidates = [
             tokenize_continuation(self.tokenizer, prefix, candidate)
-            for candidate in candidates
+            for candidate in candidate_names
         ]
 
         input_device = next(self.model.parameters()).device
@@ -91,11 +126,14 @@ Return exactly one candidate."""
 
         probabilities = normalize_candidate_scores(scores)
 
-        probability_map = dict(zip(candidates, probabilities))
-        score_map = dict(zip(candidates, scores))
+        probability_map = dict(zip(candidate_names, probabilities))
+        score_map = dict(zip(candidate_names, scores))
         token_counts = {
             candidate: len(tokenized.target_token_ids)
-            for candidate, tokenized in zip(candidates, tokenized_candidates)
+            for candidate, tokenized in zip(
+                candidate_names,
+                tokenized_candidates,
+            )
         }
 
         selected_index = max(
@@ -106,7 +144,7 @@ Return exactly one candidate."""
         return ChoiceResult(
             probabilities=probability_map,
             scores=score_map,
-            selected=candidates[selected_index],
+            selected=candidate_names[selected_index],
             generated_output_tokens=0,
             scoring_method=scoring,
             token_counts=token_counts,
