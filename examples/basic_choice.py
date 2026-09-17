@@ -1,4 +1,4 @@
-﻿from llm_decision_engine import DecisionEngine
+from llm_decision_engine import DecisionEngine
 
 
 engine = DecisionEngine(
@@ -6,7 +6,7 @@ engine = DecisionEngine(
 )
 
 result = engine.choice(
-    state="The customer's account has not worked for three days and they are losing sales.",
+    state="The customer account has not worked for three days and they are losing sales.",
     question="Which department should handle this?",
     candidates=[
         "technical support",
@@ -17,11 +17,13 @@ result = engine.choice(
 
 print("Probabilities:")
 for candidate, probability in result.probabilities.items():
-    print(f"  {candidate:<20} {probability:.6f}")
+    print(
+        f"  {candidate:<20} "
+        f"{probability:.6f} "
+        f"score={result.scores[candidate]:.6f} "
+        f"tokens={result.token_counts[candidate]}"
+    )
 
 print(f"\nSelected: {result.selected}")
+print(f"Scoring method: {result.scoring_method}")
 print(f"Generated output tokens: {result.generated_output_tokens}")
-print(
-    "Full-vocabulary candidate mass: "
-    f"{result.full_vocabulary_candidate_mass:.6f}"
-)

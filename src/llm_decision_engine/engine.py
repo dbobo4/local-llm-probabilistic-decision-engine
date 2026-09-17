@@ -1,9 +1,8 @@
-﻿import string
-
 import torch
 
 from .models import load_model
-from .scoring import score_single_token_candidates
+from .scoring import normalize_candidate_scores, score_causal_continuation
+from .tokenization import tokenize_continuation
 from .types import ChoiceResult
 
 
@@ -20,25 +19,23 @@ class DecisionEngine:
         state: str,
         question: str,
         candidates: list[str],
+        scoring: str = "sum",
     ) -> ChoiceResult:
         if len(candidates) < 2:
             raise ValueError("choice() requires at least two candidates.")
 
-        if len(candidates) > 26:
-            raise ValueError(
-                "The current single-token baseline supports at most 26 candidates."
-            )
+        if any(not candidate for candidate in candidates):
+            raise ValueError("Candidates must not be empty.")
 
-        labels = list(string.ascii_uppercase[: len(candidates)])
-        options = "\n".join(
-            f"{label} = {candidate}"
-            for label, candidate in zip(labels, candidates)
+        if len(set(candidates)) != len(candidates):
+            raise ValueError("Candidates must be unique.")
+
+        if scoring not in {"sum", "mean"}:
+            raise ValueError("scoring must be either 'sum' or 'mean'.")
+
+        candidate_list = "\n".join(
+            f"- {candidate}" for candidate in candidates
         )
-
-        if len(labels) == 2:
-            label_instruction = f"{labels[0]} or {labels[1]}"
-        else:
-            label_instruction = ", ".join(labels[:-1]) + f", or {labels[-1]}"
 
         user_prompt = f"""STATE:
 {state}
@@ -46,66 +43,69 @@ class DecisionEngine:
 QUESTION:
 {question}
 
-OPTIONS:
-{options}
+CANDIDATES:
+{candidate_list}
 
-Answer with exactly one label: {label_instruction}."""
+Return exactly one candidate."""
 
         messages = [{"role": "user", "content": user_prompt}]
 
-        prompt = self.tokenizer.apply_chat_template(
+        prefix = self.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True,
         )
 
         input_device = next(self.model.parameters()).device
-        inputs = self.tokenizer(
-            prompt,
-            return_tensors="pt",
-        ).to(input_device)
 
-        candidate_token_ids: list[int] = []
+        scores: list[float] = []
+        token_counts: dict[str, int] = {}
 
-        for label in labels:
-            token_ids = self.tokenizer.encode(
-                label,
-                add_special_tokens=False,
+        for candidate in candidates:
+            tokenized = tokenize_continuation(
+                self.tokenizer,
+                prefix,
+                candidate,
             )
 
-            if len(token_ids) != 1:
-                raise RuntimeError(
-                    f"Internal label {label!r} is not a single token for this tokenizer."
+            input_ids = torch.tensor(
+                [tokenized.input_ids],
+                dtype=torch.long,
+                device=input_device,
+            )
+            attention_mask = torch.ones_like(input_ids)
+
+            with torch.inference_mode():
+                outputs = self.model(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
                 )
 
-            candidate_token_ids.append(token_ids[0])
+            score = score_causal_continuation(
+                outputs.logits[0],
+                tokenized.prefix_length,
+                tokenized.target_token_ids,
+                reduction=scoring,
+            )
 
-        with torch.inference_mode():
-            outputs = self.model(**inputs)
+            scores.append(score)
+            token_counts[candidate] = len(tokenized.target_token_ids)
 
-        next_token_logits = outputs.logits[0, -1, :]
+        probabilities = normalize_candidate_scores(scores)
 
-        logits, probabilities, candidate_mass = score_single_token_candidates(
-            next_token_logits,
-            candidate_token_ids,
+        probability_map = dict(zip(candidates, probabilities))
+        score_map = dict(zip(candidates, scores))
+
+        selected_index = max(
+            range(len(probabilities)),
+            key=probabilities.__getitem__,
         )
-
-        probability_map = {
-            candidate: probabilities[index].item()
-            for index, candidate in enumerate(candidates)
-        }
-
-        logit_map = {
-            candidate: logits[index].item()
-            for index, candidate in enumerate(candidates)
-        }
-
-        selected_index = torch.argmax(probabilities).item()
 
         return ChoiceResult(
             probabilities=probability_map,
-            logits=logit_map,
+            scores=score_map,
             selected=candidates[selected_index],
             generated_output_tokens=0,
-            full_vocabulary_candidate_mass=candidate_mass,
+            scoring_method=scoring,
+            token_counts=token_counts,
         )

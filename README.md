@@ -1,6 +1,6 @@
 # Local LLM Probabilistic Decision Engine
 
-A local, open-source probabilistic decision engine built on top of open-weight LLMs. It replaces autoregressive output generation with direct candidate scoring, producing typed, normalized decision probabilities with zero generated output tokens.
+A local, open-source probabilistic decision engine built on top of open-weight LLMs. It replaces autoregressive answer generation with direct candidate scoring, producing structured, normalized decision probabilities with zero generated output tokens.
 
 ## Independent implementation
 
@@ -10,7 +10,7 @@ This project does not reproduce, reverse-engineer, or claim knowledge of Jev's p
 
 ## What it does
 
-Instead of asking a language model to autoregressively generate a textual answer, the engine directly scores a constrained set of candidate decisions from the model's logits.
+Instead of asking a causal language model to autoregressively generate a textual answer, the engine directly scores the complete token sequence of each allowed candidate. The resulting candidate scores are normalized into a distribution over the supplied decision set.
 
 Example input:
 
@@ -25,17 +25,15 @@ Candidates:
 - sales
 ```
 
-Direct decision:
+Measured result with `Qwen/Qwen2.5-1.5B-Instruct` using sequence log-likelihood scoring:
 
 ```text
-technical support    92.84%
-billing               6.73%
-sales                 0.43%
+technical support    94.65%
+billing               0.64%
+sales                 4.71%
 
 Generated output tokens: 0
 ```
-
-The current baseline performs a single model forward pass, extracts the relevant candidate logits, and normalizes them into a probability distribution over the allowed decision set.
 
 ## Basic usage
 
@@ -43,7 +41,7 @@ The current baseline performs a single model forward pass, extracts the relevant
 from llm_decision_engine import DecisionEngine
 
 engine = DecisionEngine(
-    model="Qwen/Qwen2.5-1.5B-Instruct"
+    model="Qwen/Qwen2.5-1.5B-Instruct",
 )
 
 result = engine.choice(
@@ -63,66 +61,94 @@ Example result:
 
 ```python
 {
-    "technical support": 0.9284,
-    "billing": 0.0673,
-    "sales": 0.0043,
+    "technical support": 0.9465,
+    "billing": 0.0064,
+    "sales": 0.0471,
 }
 ```
 
+Additional result information includes the raw candidate sequence scores, selected candidate, scoring method, candidate token counts, and generated output token count.
+
 ## Current implementation status
 
-The repository currently contains a validated single-token decision-scoring baseline and an installable Python package. The public API is already separated from the experimental implementation so that the scoring backend can evolve without changing normal library usage.
+The repository contains a validated arbitrary multi-token candidate-scoring engine and an installable Python package. The original single-token A/B/C implementation is retained separately as a historical baseline experiment.
 
 Current capabilities:
 
-- Local open-weight Hugging Face models
-- Direct candidate scoring from model logits
-- Normalized candidate probability distributions
+- Local open-weight Hugging Face causal language models
+- Direct arbitrary multi-token candidate scoring
+- Sum log-likelihood scoring
+- Optional mean log-likelihood scoring
+- Normalized candidate-set probability distributions
 - Zero generated output tokens for the decision
 - Structured `ChoiceResult` output
-- Full-vocabulary candidate-mass measurement
+- Tokenizer-boundary validation
+- Correct causal-logit alignment
 - Unit-tested scoring mathematics
 - Installable `llm_decision_engine` Python package
 
-Current baseline limitation: candidate decisions are internally mapped to single-token labels (`A` through `Z`). This is temporary and will be replaced by arbitrary multi-token candidate scoring.
+Candidates are scored directly as their own token sequences. No intermediate A/B/C labels or 26-candidate limit are required.
+
+The current implementation evaluates candidates separately. Batched candidate scoring is planned as a performance optimization.
 
 ## Core idea
 
-For a single-token candidate set with logits
+For a candidate token sequence
 
 ```math
-z = [z_1, z_2, ..., z_n]
+c = (c_1, c_2, ..., c_T)
 ```
 
-the decision distribution is
+the default sequence score is
 
 ```math
-P(c_i | x, c \in C) = \frac{\exp(z_i)}{\sum_j \exp(z_j)}
+S(c) = \sum_{t=1}^{T} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
 ```
 
-where `x` is the model context and `C` is the allowed candidate set.
+where `x` is the model context.
 
-For arbitrary multi-token candidates, the planned scoring rule is based on sequence log-likelihood:
+Candidate scores are then normalized across the allowed set `C`:
 
 ```math
-S(c) = \sum_{t=1}^{T_c} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
+P(c_i \mid x, c_i \in C) = \frac{\exp(S(c_i))}{\sum_j \exp(S(c_j))}
 ```
 
-followed by normalization across candidate scores.
+The optional `mean` scoring mode uses average token log-probability instead of the sum:
+
+```math
+S_{\mathrm{mean}}(c) = \frac{1}{T}\sum_{t=1}^{T} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
+```
+
+The resulting values are normalized model preferences over the supplied candidate set. They should not be interpreted as calibrated probabilities of objective correctness unless calibration has been separately measured.
+
+## Why causal alignment matters
+
+For a prompt followed by candidate tokens `c1, c2`, a causal model predicts:
+
+```text
+last prompt position -> c1
+c1 position          -> c2
+```
+
+The engine explicitly handles this one-token causal shift so that every candidate token is scored from the logits that actually predict it.
 
 ## Engine roadmap
 
 ```text
-ENGINE
-├── Choice
-├── Boolean / proposition probability
-├── Score
-├── arbitrary multi-token candidates
-├── batched candidate scoring
-├── multiple questions per state
-├── probability calibration
-├── Hugging Face / PyTorch backend
-└── later: llama.cpp / GGUF backend
+Implemented
+- Choice
+- arbitrary multi-token candidates
+- sum and mean sequence scoring
+- tokenizer-boundary validation
+- Hugging Face / PyTorch backend
+
+Planned
+- Boolean / proposition probability
+- Score
+- batched candidate scoring
+- multiple questions per state
+- probability calibration
+- llama.cpp / GGUF backend
 ```
 
 ## Research
@@ -166,7 +192,7 @@ results/                   reproducible published results
 ## Development install
 
 ```text
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 Run the example:
@@ -181,10 +207,16 @@ Run the tests:
 python -m pytest -q
 ```
 
+Build the package:
+
+```text
+python -m build
+```
+
 ## Model weights
 
-Model weights are not distributed with this repository. Models are downloaded from their original providers and cached locally by the selected inference backend. Users are responsible for complying with the license and terms of the model they choose.
+Model weights are not distributed with this repository. Models are downloaded from their original providers and cached locally by the selected inference backend. Inference itself runs locally on the user's machine. Users are responsible for complying with the license and terms of the model they choose.
 
 ## Project status
 
-Early development. The current implementation is a validated baseline; multi-token candidate scoring, calibration, benchmarking, and additional decision primitives are under active development.
+Early development. Arbitrary multi-token candidate scoring is implemented and validated. Calibration, batching, benchmarking, additional decision primitives, and backend support remain under active development.

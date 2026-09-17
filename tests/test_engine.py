@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 
 from llm_decision_engine import DecisionEngine
 
@@ -14,12 +14,24 @@ def test_choice_requires_at_least_two_candidates():
         )
 
 
-def test_single_token_baseline_rejects_more_than_26_candidates():
+def test_choice_rejects_duplicate_candidates():
     engine = DecisionEngine.__new__(DecisionEngine)
 
-    with pytest.raises(ValueError, match="at most 26 candidates"):
+    with pytest.raises(ValueError, match="unique"):
         engine.choice(
             state="test state",
             question="test question",
-            candidates=[f"candidate {i}" for i in range(27)],
+            candidates=["billing", "billing"],
+        )
+
+
+def test_choice_rejects_invalid_scoring_method():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(ValueError, match="scoring"):
+        engine.choice(
+            state="test state",
+            question="test question",
+            candidates=["billing", "sales"],
+            scoring="invalid",
         )
