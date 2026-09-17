@@ -1,9 +1,9 @@
-﻿from llm_decision_engine import DecisionEngine
+from llm_decision_engine import DecisionEngine
 
 
 # Option 1: load from a local model directory.
 engine = DecisionEngine(
-    model=r"D:\models\Qwen2.5-1.5B-Instruct",
+    model="/path/to/Qwen2.5-1.5B-Instruct",
     local_files_only=True,
 )
 
