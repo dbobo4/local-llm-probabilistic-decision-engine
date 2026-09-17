@@ -1,0 +1,251 @@
+{
+  "evaluation_type": "calibration_only_content_free_prior",
+  "test_split_used": false,
+  "source_results": "results\\binary_reasoning_model_size_v2_calibration.json",
+  "generated_output_tokens": 0,
+  "uses_target_labels_to_fit_bias": false,
+  "models": [
+    {
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "probes": [
+        {
+          "name": "empty",
+          "state": "",
+          "question": "",
+          "score_true": -3.288639545440674,
+          "score_false": -0.03863959014415741,
+          "bias": -3.2499999552965164,
+          "probability_true": 0.037326883524656296
+        },
+        {
+          "name": "na",
+          "state": "N/A",
+          "question": "N/A",
+          "score_true": -5.134011745452881,
+          "score_false": -0.009011786431074142,
+          "bias": -5.124999959021807,
+          "probability_true": 0.005911069456487894
+        },
+        {
+          "name": "mask",
+          "state": "[MASK]",
+          "question": "[MASK]",
+          "score_true": -2.1432950496673584,
+          "score_false": -0.14329494535923004,
+          "bias": -2.0000001043081284,
+          "probability_true": 0.11920291185379028
+        },
+        {
+          "name": "x",
+          "state": "X",
+          "question": "X",
+          "score_true": -2.588855028152466,
+          "score_false": -0.08885492384433746,
+          "bias": -2.5000001043081284,
+          "probability_true": 0.07585818320512772
+        },
+        {
+          "name": "ellipsis",
+          "state": "...",
+          "question": "...",
+          "score_true": -5.381199836730957,
+          "score_false": -0.006199771072715521,
+          "bias": -5.3750000656582415,
+          "probability_true": 0.004609571769833565
+        }
+      ],
+      "bias_mean": -3.650000037718564,
+      "bias_median": -3.2499999552965164,
+      "bias_stdev": 1.5293993557335306,
+      "raw": {
+        "accuracy": 0.6,
+        "brier": 0.3241875373471041,
+        "nll": 1.0954507866486345,
+        "ece": 0.29194996810367035,
+        "predicted_true_rate": 0.5
+      },
+      "probe_metrics": [
+        {
+          "probe": "empty",
+          "bias": -3.2499999552965164,
+          "accuracy": 0.6,
+          "brier": 0.33907014035795363,
+          "nll": 1.4248592953656654,
+          "ece": 0.3577507386888266,
+          "predicted_true_rate": 0.7166666666666667
+        },
+        {
+          "probe": "na",
+          "bias": -5.124999959021807,
+          "accuracy": 0.6,
+          "brier": 0.36581711528676,
+          "nll": 1.9856326461409688,
+          "ece": 0.36939595457921587,
+          "predicted_true_rate": 0.9
+        },
+        {
+          "probe": "mask",
+          "bias": -2.0000001043081284,
+          "accuracy": 0.575,
+          "brier": 0.33564641823480285,
+          "nll": 1.195423547048346,
+          "ece": 0.3355744927445472,
+          "predicted_true_rate": 0.6416666666666667
+        },
+        {
+          "probe": "x",
+          "bias": -2.5000001043081284,
+          "accuracy": 0.5666666666666667,
+          "brier": 0.33723223438465194,
+          "nll": 1.2726564774739106,
+          "ece": 0.32738871111143675,
+          "predicted_true_rate": 0.6666666666666666
+        },
+        {
+          "probe": "ellipsis",
+          "bias": -5.3750000656582415,
+          "accuracy": 0.6,
+          "brier": 0.3727153603859222,
+          "nll": 2.0778386806792764,
+          "ece": 0.37604094714369346,
+          "predicted_true_rate": 0.9
+        }
+      ],
+      "mean_prior": {
+        "accuracy": 0.5666666666666667,
+        "brier": 0.3412359110260883,
+        "nll": 1.523520131937938,
+        "ece": 0.36870674148634264,
+        "predicted_true_rate": 0.7666666666666667
+      },
+      "median_prior": {
+        "accuracy": 0.6,
+        "brier": 0.33907014035795363,
+        "nll": 1.4248592953656654,
+        "ece": 0.3577507386888266,
+        "predicted_true_rate": 0.7166666666666667
+      }
+    },
+    {
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "probes": [
+        {
+          "name": "empty",
+          "state": "",
+          "question": "",
+          "score_true": -4.6367692947387695,
+          "score_false": -0.011769145727157593,
+          "bias": -4.625000149011612,
+          "probability_true": 0.00970847625285387
+        },
+        {
+          "name": "na",
+          "state": "N/A",
+          "question": "N/A",
+          "score_true": -9.000123977661133,
+          "score_false": -0.00012432756193447858,
+          "bias": -8.999999650099198,
+          "probability_true": 0.00012339458044152707
+        },
+        {
+          "name": "mask",
+          "state": "[MASK]",
+          "question": "[MASK]",
+          "score_true": -19.001358032226562,
+          "score_false": -18.938858032226562,
+          "bias": -0.0625,
+          "probability_true": 0.4843800961971283
+        },
+        {
+          "name": "x",
+          "state": "X",
+          "question": "X",
+          "score_true": -4.410141944885254,
+          "score_false": -3.035141944885254,
+          "bias": -1.375,
+          "probability_true": 0.2018132209777832
+        },
+        {
+          "name": "ellipsis",
+          "state": "...",
+          "question": "...",
+          "score_true": -6.003443241119385,
+          "score_false": -0.003443385474383831,
+          "bias": -5.999999855645001,
+          "probability_true": 0.00247262348420918
+        }
+      ],
+      "bias_mean": -4.212499930951163,
+      "bias_median": -4.625000149011612,
+      "bias_stdev": 3.5902427235691676,
+      "raw": {
+        "accuracy": 0.7333333333333333,
+        "brier": 0.25874546863480324,
+        "nll": 3.5689327559136617,
+        "ece": 0.26192958627400953,
+        "predicted_true_rate": 0.25
+      },
+      "probe_metrics": [
+        {
+          "probe": "empty",
+          "bias": -4.625000149011612,
+          "accuracy": 0.7416666666666667,
+          "brier": 0.24679352843777028,
+          "nll": 2.4667591439323378,
+          "ece": 0.24343937165979324,
+          "predicted_true_rate": 0.275
+        },
+        {
+          "probe": "na",
+          "bias": -8.999999650099198,
+          "accuracy": 0.725,
+          "brier": 0.25227324752913893,
+          "nll": 1.62097379215414,
+          "ece": 0.26228454410615254,
+          "predicted_true_rate": 0.3416666666666667
+        },
+        {
+          "probe": "mask",
+          "bias": -0.0625,
+          "accuracy": 0.7333333333333333,
+          "brier": 0.2586745985743008,
+          "nll": 3.5534864638108545,
+          "ece": 0.2618186671763387,
+          "predicted_true_rate": 0.25
+        },
+        {
+          "probe": "x",
+          "bias": -1.375,
+          "accuracy": 0.7416666666666667,
+          "brier": 0.2569682214861192,
+          "nll": 3.2321166266450705,
+          "ece": 0.2587586344873873,
+          "predicted_true_rate": 0.25833333333333336
+        },
+        {
+          "probe": "ellipsis",
+          "bias": -5.999999855645001,
+          "accuracy": 0.75,
+          "brier": 0.2441414365619246,
+          "nll": 2.170193954843044,
+          "ece": 0.25600709592885956,
+          "predicted_true_rate": 0.2833333333333333
+        }
+      ],
+      "mean_prior": {
+        "accuracy": 0.7416666666666667,
+        "brier": 0.2483509763077549,
+        "nll": 2.5599843620650744,
+        "ece": 0.24430353187061637,
+        "predicted_true_rate": 0.25833333333333336
+      },
+      "median_prior": {
+        "accuracy": 0.7416666666666667,
+        "brier": 0.24679352843777028,
+        "nll": 2.4667591439323378,
+        "ece": 0.24343937165979324,
+        "predicted_true_rate": 0.275
+      }
+    }
+  ]
+}
