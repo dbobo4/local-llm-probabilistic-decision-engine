@@ -6,6 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "local-llm-probabilistic-decision-engine"
 version = "0.1.0"
 description = "Local probabilistic decision inference for open-weight language models using direct candidate scoring."
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["llm", "local-ai", "inference", "decision-engine", "candidate-scoring", "probabilistic-ai"]
 requires-python = ">=3.10"
 dependencies = [
     "torch>=2.14.0",
