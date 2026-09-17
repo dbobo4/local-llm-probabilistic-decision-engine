@@ -13,7 +13,10 @@ def binary_brier_score(probability_true: float, target: bool) -> float:
 
 
 def negative_log_likelihood(probability: float) -> float:
-    if not 0.0 < probability <= 1.0:
-        raise ValueError("probability must be greater than 0 and at most 1.")
+    if not 0.0 <= probability <= 1.0:
+        raise ValueError("probability must be between 0 and 1.")
+
+    if probability == 0.0:
+        return math.inf
 
     return -math.log(probability)

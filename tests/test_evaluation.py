@@ -29,10 +29,13 @@ def test_negative_log_likelihood_penalizes_low_correct_probability():
     assert negative_log_likelihood(0.1) > negative_log_likelihood(0.9)
 
 
-def test_negative_log_likelihood_rejects_zero():
-    with pytest.raises(ValueError, match="greater than 0"):
-        negative_log_likelihood(0.0)
+def test_negative_log_likelihood_returns_infinity_for_zero():
+    assert negative_log_likelihood(0.0) == math.inf
 
 def test_binary_brier_score_rejects_non_boolean_target():
     with pytest.raises(TypeError, match="boolean"):
         binary_brier_score(0.9, 1)
+
+def test_negative_log_likelihood_rejects_out_of_range_probability():
+    with pytest.raises(ValueError, match="between 0 and 1"):
+        negative_log_likelihood(1.1)
