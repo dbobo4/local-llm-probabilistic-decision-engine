@@ -10,8 +10,8 @@ from pathlib import Path
 
 import torch
 
-from llm_decision_engine import (
-    DecisionEngine,
+from llm_decision_engine import DecisionEngine
+from llm_decision_engine.evaluation import (
     evaluate_binary_calibration,
     evaluate_binary_predictions,
 )

@@ -5,8 +5,8 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 
-from llm_decision_engine import (
-    DecisionEngine,
+from llm_decision_engine import DecisionEngine
+from llm_decision_engine.evaluation import (
     evaluate_binary_calibration,
     evaluate_binary_predictions,
 )
