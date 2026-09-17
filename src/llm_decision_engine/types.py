@@ -37,3 +37,20 @@ class BinaryEvaluationResult:
     accuracy: float
     mean_brier: float
     mean_nll: float
+
+@dataclass(frozen=True, slots=True)
+class CalibrationBin:
+    lower_bound: float
+    upper_bound: float
+    count: int
+    mean_probability_true: float
+    observed_true_rate: float
+    absolute_gap: float
+
+
+@dataclass(frozen=True, slots=True)
+class BinaryCalibrationResult:
+    count: int
+    num_bins: int
+    expected_calibration_error: float
+    bins: tuple[CalibrationBin, ...]

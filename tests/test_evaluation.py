@@ -4,6 +4,7 @@ import pytest
 
 from llm_decision_engine.evaluation import (
     binary_brier_score,
+    evaluate_binary_calibration,
     evaluate_binary_predictions,
     negative_log_likelihood,
 )
@@ -92,3 +93,67 @@ def test_evaluate_binary_predictions_propagates_infinite_nll():
     assert result.accuracy == pytest.approx(0.5)
     assert result.mean_brier == pytest.approx(0.505)
     assert result.mean_nll == math.inf
+
+def test_evaluate_binary_calibration_basic():
+    result = evaluate_binary_calibration(
+        [0.1, 0.2, 0.8, 0.9],
+        [False, False, True, False],
+        num_bins=2,
+    )
+
+    assert result.count == 4
+    assert result.num_bins == 2
+    assert result.expected_calibration_error == pytest.approx(0.25)
+    assert len(result.bins) == 2
+    assert result.bins[0].count == 2
+    assert result.bins[0].mean_probability_true == pytest.approx(0.15)
+    assert result.bins[0].observed_true_rate == pytest.approx(0.0)
+    assert result.bins[1].count == 2
+    assert result.bins[1].mean_probability_true == pytest.approx(0.85)
+    assert result.bins[1].observed_true_rate == pytest.approx(0.5)
+
+
+def test_evaluate_binary_calibration_places_one_in_last_bin():
+    result = evaluate_binary_calibration([1.0], [True], num_bins=10)
+    assert len(result.bins) == 1
+    assert result.bins[0].lower_bound == pytest.approx(0.9)
+    assert result.bins[0].upper_bound == pytest.approx(1.0)
+
+
+def test_evaluate_binary_calibration_rejects_length_mismatch():
+    with pytest.raises(ValueError, match="same length"):
+        evaluate_binary_calibration([0.8], [True, False])
+
+
+def test_evaluate_binary_calibration_rejects_empty_dataset():
+    with pytest.raises(ValueError, match="At least one"):
+        evaluate_binary_calibration([], [])
+
+
+def test_evaluate_binary_calibration_rejects_invalid_bin_count():
+    with pytest.raises(ValueError, match="greater than zero"):
+        evaluate_binary_calibration([0.8], [True], num_bins=0)
+
+
+def test_evaluate_binary_calibration_rejects_boolean_bin_count():
+    with pytest.raises(TypeError, match="integer"):
+        evaluate_binary_calibration([0.8], [True], num_bins=True)
+
+def test_evaluate_binary_calibration_bin_boundaries():
+    result = evaluate_binary_calibration(
+        [0.0, 0.5, 1.0],
+        [False, True, True],
+        num_bins=2,
+    )
+
+    assert len(result.bins) == 2
+
+    first, second = result.bins
+
+    assert first.lower_bound == pytest.approx(0.0)
+    assert first.upper_bound == pytest.approx(0.5)
+    assert first.count == 1
+
+    assert second.lower_bound == pytest.approx(0.5)
+    assert second.upper_bound == pytest.approx(1.0)
+    assert second.count == 2
