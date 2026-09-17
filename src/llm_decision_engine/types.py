@@ -30,3 +30,10 @@ class RatingResult:
     generated_output_tokens: int
     scoring_method: str
     execution_mode: str
+
+@dataclass(frozen=True, slots=True)
+class BinaryEvaluationResult:
+    count: int
+    accuracy: float
+    mean_brier: float
+    mean_nll: float
