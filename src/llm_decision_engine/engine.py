@@ -7,9 +7,20 @@ from .types import BooleanResult, ChoiceResult, RatingResult
 
 
 class DecisionEngine:
-    def __init__(self, model: str):
+    def __init__(
+        self,
+        model: str,
+        *,
+        local_files_only: bool = False,
+    ):
         self.model_id = model
-        bundle = load_model(model)
+        self.local_files_only = local_files_only
+
+        bundle = load_model(
+            model,
+            local_files_only=local_files_only,
+        )
+
         self.tokenizer = bundle.tokenizer
         self.model = bundle.model
 
