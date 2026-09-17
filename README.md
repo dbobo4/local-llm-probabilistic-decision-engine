@@ -154,6 +154,45 @@ result = engine.choice(
 
 Batch mode evaluates all candidate continuations in one model forward. The scoring definition is unchanged, but exact numerical equivalence is not guaranteed under reduced-precision inference: GPU kernels and operation ordering can make BF16 results depend slightly on batch shape. For probability-sensitive evaluation, sequential mode remains the default reference.
 
+## Boolean decisions
+
+`boolean()` is a typed convenience primitive built on top of the same candidate-scoring path as `choice()`. It scores the continuations `yes` and `no` directly and returns probabilities plus a Python boolean decision. No answer tokens are generated.
+
+~~~python
+result = engine.boolean(
+    state="The payment was charged twice.",
+    question="Should this be escalated?",
+)
+
+print(result.probability_true)
+print(result.probability_false)
+print(result.selected)
+~~~
+
+The returned `BooleanResult` contains:
+
+- `probability_true`: normalized probability assigned to `yes`
+- `probability_false`: normalized probability assigned to `no`
+- `selected`: `True` when `yes` has the higher candidate score, otherwise `False`
+- `scores`: raw sequence log-likelihood scores for `yes` and `no`
+- `scoring_method`: `sum` or `mean`
+- `execution_mode`: `sequential` or `batch`
+- `generated_output_tokens`: always `0` for this decision primitive
+
+The probabilities are normalized model preferences over the two supplied semantic alternatives. They should not automatically be interpreted as calibrated probabilities of objective truth.
+
+Batched execution is also supported:
+
+~~~python
+result = engine.boolean(
+    state="The payment was charged twice.",
+    question="Should this be escalated?",
+    execution="batch",
+)
+~~~
+
+A runnable example is available at `examples/basic_boolean.py`.
+
 ## Benchmark
 
 A paired, interleaved execution benchmark was run with `Qwen/Qwen2.5-1.5B-Instruct` in BF16 on an NVIDIA GeForce RTX 5070 Ti using three candidate continuations.

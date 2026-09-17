@@ -3,7 +3,7 @@ import torch
 from .models import load_model
 from .scoring import normalize_candidate_scores, score_causal_continuation
 from .tokenization import batch_continuations, tokenize_continuation
-from .types import ChoiceResult
+from .types import BooleanResult, ChoiceResult
 
 
 class DecisionEngine:
@@ -100,6 +100,32 @@ Return exactly one candidate."""
             scoring_method=scoring,
             token_counts=token_counts,
             execution_mode=execution,
+        )
+
+    def boolean(
+        self,
+        *,
+        state: str,
+        question: str,
+        scoring: str = "sum",
+        execution: str = "sequential",
+    ) -> BooleanResult:
+        choice_result = self.choice(
+            state=state,
+            question=question,
+            candidates=["yes", "no"],
+            scoring=scoring,
+            execution=execution,
+        )
+
+        return BooleanResult(
+            probability_true=choice_result.probabilities["yes"],
+            probability_false=choice_result.probabilities["no"],
+            selected=choice_result.selected == "yes",
+            scores=choice_result.scores,
+            generated_output_tokens=choice_result.generated_output_tokens,
+            scoring_method=choice_result.scoring_method,
+            execution_mode=choice_result.execution_mode,
         )
 
     def _score_sequential(self, tokenized_candidates, *, scoring, device):

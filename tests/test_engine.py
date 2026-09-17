@@ -18,6 +18,8 @@ class FakeTokenizer:
             "P": [10, 11],
             "Palpha": [10, 11, 1, 2],
             "Pbeta": [10, 11, 3],
+            "Pyes": [10, 11, 1],
+            "Pno": [10, 11, 3],
         }
         return mapping[text]
 
@@ -151,3 +153,32 @@ def test_sequential_and_batch_match_in_float32_reference():
     )
     assert sequential.token_counts == batched.token_counts
     assert sequential.selected == batched.selected
+
+def test_boolean_returns_typed_probabilities():
+    engine = make_engine()
+
+    result = engine.boolean(
+        state="state",
+        question="question",
+    )
+
+    assert result.probability_true > result.probability_false
+    assert result.selected is True
+    assert result.generated_output_tokens == 0
+    assert result.scoring_method == "sum"
+    assert result.execution_mode == "sequential"
+    assert engine.model.calls == 2
+
+
+def test_boolean_supports_batch_execution():
+    engine = make_engine()
+
+    result = engine.boolean(
+        state="state",
+        question="question",
+        execution="batch",
+    )
+
+    assert result.selected is True
+    assert result.execution_mode == "batch"
+    assert engine.model.calls == 1
