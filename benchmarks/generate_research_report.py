@@ -156,7 +156,7 @@ lines += [
     "The default method uses the full candidate sequence log-likelihood:",
     "",
     "```math",
-    r"S(c) = \sum_t \log P(c_t \mid x, c_{<t})",
+    r"S(c) = \sum_t \log P(c_t \mid x, c_{< t})",
     "```",
     "",
     "A length-normalized mean-log-probability alternative was also tested.",

@@ -60,7 +60,7 @@ The library therefore preserves user-supplied insertion order rather than silent
 The default method uses the full candidate sequence log-likelihood:
 
 ```math
-S(c) = \sum_t \log P(c_t \mid x, c_{<t})
+S(c) = \sum_t \log P(c_t \mid x, c_{< t})
 ```
 
 A length-normalized mean-log-probability alternative was also tested.
