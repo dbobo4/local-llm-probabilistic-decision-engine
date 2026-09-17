@@ -26,6 +26,14 @@ class DecisionEngine:
         *,
         local_files_only: bool = False,
     ):
+        _validate_string_argument(model, "model")
+
+        if not model.strip():
+            raise ValueError("model must not be empty.")
+
+        if not isinstance(local_files_only, bool):
+            raise TypeError("local_files_only must be a boolean.")
+
         self.model_id = model
         self.local_files_only = local_files_only
 

@@ -128,3 +128,22 @@ def test_load_model_forwards_local_files_only(
     assert bundle.tokenizer is tokenizer
     assert bundle.model is fake_model
     assert fake_model.eval_called is True
+
+
+@pytest.mark.parametrize("model", [None, 123])
+def test_decision_engine_rejects_invalid_model_argument(model):
+    with pytest.raises(TypeError, match="model must be a string"):
+        DecisionEngine(model=model)
+
+
+def test_decision_engine_rejects_empty_model():
+    with pytest.raises(ValueError, match="model must not be empty"):
+        DecisionEngine(model="   ")
+
+
+def test_decision_engine_rejects_non_boolean_local_files_only():
+    with pytest.raises(TypeError, match="local_files_only must be a boolean"):
+        DecisionEngine(
+            model="Qwen/Qwen2.5-1.5B-Instruct",
+            local_files_only=1,
+        )
