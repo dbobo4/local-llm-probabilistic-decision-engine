@@ -17,6 +17,12 @@ dependencies = [
     "safetensors>=0.8.0,<1",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=9,<10",
+    "build>=1.6,<2",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
