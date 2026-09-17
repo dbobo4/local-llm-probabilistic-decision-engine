@@ -1,0 +1,842 @@
+[
+  {
+    "id": "calibration_comparison_false_06",
+    "category": "comparison",
+    "state": "46 is greater than 106.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_03",
+    "category": "addition",
+    "state": "7 + 21 = 35.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_true_04",
+    "category": "divisibility",
+    "state": "133 is divisible by 7.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_true_01",
+    "category": "comparison",
+    "state": "46 is less than 164.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_true_03",
+    "category": "multiplication",
+    "state": "10 times 6 equals 60.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_01",
+    "category": "divisibility",
+    "state": "180 is divisible by 11.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_04",
+    "category": "addition",
+    "state": "75 + 17 = 89.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_true_02",
+    "category": "multiplication",
+    "state": "6 times 14 equals 84.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_07",
+    "category": "parity",
+    "state": "25 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_07",
+    "category": "addition",
+    "state": "44 + 98 = 142.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_09",
+    "category": "parity",
+    "state": "120 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_true_04",
+    "category": "multiplication",
+    "state": "16 times 16 equals 256.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_08",
+    "category": "divisibility",
+    "state": "33 is divisible by 2.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_06",
+    "category": "parity",
+    "state": "124 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_03",
+    "category": "divisibility",
+    "state": "205 is divisible by 11.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_false_04",
+    "category": "comparison",
+    "state": "138 is less than 56.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_01",
+    "category": "addition",
+    "state": "80 + 18 = 98.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_true_06",
+    "category": "addition",
+    "state": "49 + 72 = 121.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_08",
+    "category": "comparison",
+    "state": "191 is less than 128.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_02",
+    "category": "subtraction",
+    "state": "118 - 66 = 52.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_true_04",
+    "category": "subtraction",
+    "state": "100 - 70 = 30.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_true_08",
+    "category": "addition",
+    "state": "71 + 68 = 139.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_07",
+    "category": "multiplication",
+    "state": "17 times 9 equals 161.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_false_04",
+    "category": "multiplication",
+    "state": "7 times 10 equals 79.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_true_01",
+    "category": "divisibility",
+    "state": "18 is divisible by 9.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_true_05",
+    "category": "divisibility",
+    "state": "24 is divisible by 12.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_true_04",
+    "category": "comparison",
+    "state": "142 is greater than 26.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_04",
+    "category": "parity",
+    "state": "47 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_false_01",
+    "category": "comparison",
+    "state": "122 is less than 102.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_09",
+    "category": "subtraction",
+    "state": "91 - 5 = 86.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_06",
+    "category": "subtraction",
+    "state": "31 - 5 = 28.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_true_06",
+    "category": "divisibility",
+    "state": "57 is divisible by 3.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_true_07",
+    "category": "divisibility",
+    "state": "9 is divisible by 3.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_10",
+    "category": "comparison",
+    "state": "21 is greater than 25.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_false_03",
+    "category": "subtraction",
+    "state": "21 - 11 = 11.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_09",
+    "category": "addition",
+    "state": "28 + 85 = 113.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_true_05",
+    "category": "multiplication",
+    "state": "11 times 6 equals 66.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_true_05",
+    "category": "parity",
+    "state": "37 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_10",
+    "category": "parity",
+    "state": "153 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_06",
+    "category": "comparison",
+    "state": "85 is less than 108.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_01",
+    "category": "multiplication",
+    "state": "4 times 5 equals 27.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_false_05",
+    "category": "parity",
+    "state": "15 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_08",
+    "category": "comparison",
+    "state": "58 is less than 134.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_false_09",
+    "category": "addition",
+    "state": "34 + 30 = 60.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_07",
+    "category": "subtraction",
+    "state": "146 - 11 = 135.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_01",
+    "category": "parity",
+    "state": "146 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_false_03",
+    "category": "parity",
+    "state": "75 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_03",
+    "category": "parity",
+    "state": "88 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_06",
+    "category": "divisibility",
+    "state": "43 is divisible by 9.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_false_05",
+    "category": "comparison",
+    "state": "108 is greater than 139.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_06",
+    "category": "addition",
+    "state": "2 + 65 = 70.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_02",
+    "category": "parity",
+    "state": "83 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_09",
+    "category": "comparison",
+    "state": "91 is less than 10.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_false_09",
+    "category": "divisibility",
+    "state": "39 is divisible by 2.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_02",
+    "category": "addition",
+    "state": "85 + 98 = 183.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_02",
+    "category": "subtraction",
+    "state": "53 - 46 = 4.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_02",
+    "category": "comparison",
+    "state": "10 is less than 31.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_01",
+    "category": "subtraction",
+    "state": "72 - 58 = 15.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_false_07",
+    "category": "subtraction",
+    "state": "37 - 13 = 20.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_false_06",
+    "category": "parity",
+    "state": "101 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_01",
+    "category": "parity",
+    "state": "199 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_04",
+    "category": "subtraction",
+    "state": "48 - 7 = 36.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_false_10",
+    "category": "subtraction",
+    "state": "33 - 17 = 22.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_08",
+    "category": "subtraction",
+    "state": "46 - 5 = 41.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_true_09",
+    "category": "multiplication",
+    "state": "9 times 10 equals 90.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_07",
+    "category": "divisibility",
+    "state": "208 is divisible by 10.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_true_06",
+    "category": "multiplication",
+    "state": "19 times 13 equals 247.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_09",
+    "category": "multiplication",
+    "state": "8 times 15 equals 122.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_05",
+    "category": "addition",
+    "state": "5 + 65 = 75.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_false_05",
+    "category": "multiplication",
+    "state": "12 times 19 equals 231.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_08",
+    "category": "parity",
+    "state": "186 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_08",
+    "category": "subtraction",
+    "state": "45 - 39 = 5.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_04",
+    "category": "parity",
+    "state": "73 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_false_10",
+    "category": "addition",
+    "state": "55 + 61 = 123.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_10",
+    "category": "parity",
+    "state": "126 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_03",
+    "category": "multiplication",
+    "state": "10 times 18 equals 192.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_true_03",
+    "category": "divisibility",
+    "state": "60 is divisible by 4.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_true_09",
+    "category": "parity",
+    "state": "68 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_true_03",
+    "category": "subtraction",
+    "state": "81 - 29 = 52.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_true_02",
+    "category": "divisibility",
+    "state": "8 is divisible by 4.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_true_10",
+    "category": "addition",
+    "state": "29 + 63 = 92.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_false_02",
+    "category": "addition",
+    "state": "49 + 94 = 148.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_true_07",
+    "category": "parity",
+    "state": "155 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_07",
+    "category": "comparison",
+    "state": "160 is greater than 195.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_07",
+    "category": "comparison",
+    "state": "198 is greater than 17.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_true_01",
+    "category": "subtraction",
+    "state": "71 - 7 = 64.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_true_05",
+    "category": "comparison",
+    "state": "46 is less than 100.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_true_09",
+    "category": "divisibility",
+    "state": "50 is divisible by 5.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_addition_true_03",
+    "category": "addition",
+    "state": "41 + 35 = 76.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_10",
+    "category": "divisibility",
+    "state": "22 is divisible by 5.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_01",
+    "category": "addition",
+    "state": "87 + 52 = 132.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_false_02",
+    "category": "divisibility",
+    "state": "96 is divisible by 10.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_08",
+    "category": "addition",
+    "state": "99 + 80 = 177.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_10",
+    "category": "subtraction",
+    "state": "89 - 14 = 75.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_parity_false_02",
+    "category": "parity",
+    "state": "116 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_05",
+    "category": "addition",
+    "state": "2 + 20 = 22.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_04",
+    "category": "divisibility",
+    "state": "101 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_parity_false_08",
+    "category": "parity",
+    "state": "41 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_divisibility_true_08",
+    "category": "divisibility",
+    "state": "12 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_false_05",
+    "category": "divisibility",
+    "state": "37 is divisible by 2.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_false_07",
+    "category": "addition",
+    "state": "69 + 22 = 97.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_false_02",
+    "category": "multiplication",
+    "state": "15 times 3 equals 56.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_09",
+    "category": "comparison",
+    "state": "159 is greater than 66.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_02",
+    "category": "comparison",
+    "state": "153 is less than 75.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_true_05",
+    "category": "subtraction",
+    "state": "98 - 94 = 4.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_divisibility_true_10",
+    "category": "divisibility",
+    "state": "45 is divisible by 9.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_false_05",
+    "category": "subtraction",
+    "state": "117 - 111 = 13.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_comparison_true_03",
+    "category": "comparison",
+    "state": "179 is greater than 60.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_subtraction_true_06",
+    "category": "subtraction",
+    "state": "47 - 38 = 9.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_true_08",
+    "category": "multiplication",
+    "state": "2 times 11 equals 22.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_true_01",
+    "category": "multiplication",
+    "state": "14 times 16 equals 224.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_true_10",
+    "category": "comparison",
+    "state": "198 is greater than 184.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_08",
+    "category": "multiplication",
+    "state": "18 times 4 equals 62.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_addition_true_04",
+    "category": "addition",
+    "state": "73 + 32 = 105.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_10",
+    "category": "multiplication",
+    "state": "9 times 4 equals 28.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_true_10",
+    "category": "multiplication",
+    "state": "10 times 11 equals 110.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_comparison_false_03",
+    "category": "comparison",
+    "state": "108 is greater than 134.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_subtraction_false_09",
+    "category": "subtraction",
+    "state": "135 - 134 = -6.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "calibration_multiplication_true_07",
+    "category": "multiplication",
+    "state": "12 times 2 equals 24.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "calibration_multiplication_false_06",
+    "category": "multiplication",
+    "state": "11 times 6 equals 67.",
+    "question": "Is the statement correct?",
+    "target": false
+  }
+]

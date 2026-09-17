@@ -1,0 +1,842 @@
+[
+  {
+    "id": "test_multiplication_true_08",
+    "category": "multiplication",
+    "state": "16 times 15 equals 240.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_true_01",
+    "category": "multiplication",
+    "state": "13 times 13 equals 169.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_true_01",
+    "category": "addition",
+    "state": "41 + 21 = 62.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_true_05",
+    "category": "addition",
+    "state": "43 + 86 = 129.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_false_04",
+    "category": "multiplication",
+    "state": "13 times 13 equals 164.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_07",
+    "category": "multiplication",
+    "state": "5 times 4 equals 21.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_07",
+    "category": "comparison",
+    "state": "157 is less than 123.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_true_04",
+    "category": "multiplication",
+    "state": "4 times 2 equals 8.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_false_08",
+    "category": "multiplication",
+    "state": "16 times 4 equals 65.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_03",
+    "category": "multiplication",
+    "state": "7 times 12 equals 82.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_08",
+    "category": "addition",
+    "state": "10 + 73 = 78.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_false_03",
+    "category": "divisibility",
+    "state": "82 is divisible by 11.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_01",
+    "category": "addition",
+    "state": "26 + 7 = 31.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_true_05",
+    "category": "comparison",
+    "state": "42 is less than 90.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_true_03",
+    "category": "multiplication",
+    "state": "17 times 5 equals 85.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_true_06",
+    "category": "addition",
+    "state": "22 + 47 = 69.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_10",
+    "category": "comparison",
+    "state": "120 is greater than 47.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_false_05",
+    "category": "multiplication",
+    "state": "7 times 11 equals 81.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_09",
+    "category": "divisibility",
+    "state": "80 is divisible by 10.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_true_10",
+    "category": "divisibility",
+    "state": "12 is divisible by 3.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_10",
+    "category": "subtraction",
+    "state": "113 - 94 = 23.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_true_09",
+    "category": "parity",
+    "state": "62 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_true_04",
+    "category": "addition",
+    "state": "47 + 82 = 129.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_true_02",
+    "category": "parity",
+    "state": "138 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_04",
+    "category": "subtraction",
+    "state": "131 - 82 = 54.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_true_10",
+    "category": "parity",
+    "state": "156 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_07",
+    "category": "comparison",
+    "state": "29 is less than 62.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_false_02",
+    "category": "parity",
+    "state": "150 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_true_07",
+    "category": "addition",
+    "state": "96 + 16 = 112.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_false_05",
+    "category": "divisibility",
+    "state": "58 is divisible by 8.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_true_03",
+    "category": "addition",
+    "state": "79 + 57 = 136.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_true_01",
+    "category": "divisibility",
+    "state": "84 is divisible by 7.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_false_04",
+    "category": "addition",
+    "state": "79 + 82 = 167.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_subtraction_true_05",
+    "category": "subtraction",
+    "state": "81 - 23 = 58.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_false_08",
+    "category": "divisibility",
+    "state": "21 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_05",
+    "category": "comparison",
+    "state": "50 is greater than 200.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_04",
+    "category": "comparison",
+    "state": "193 is less than 90.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_true_08",
+    "category": "addition",
+    "state": "72 + 77 = 149.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_08",
+    "category": "subtraction",
+    "state": "24 - 6 = 18.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_false_09",
+    "category": "parity",
+    "state": "125 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_subtraction_true_02",
+    "category": "subtraction",
+    "state": "87 - 55 = 32.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_false_04",
+    "category": "divisibility",
+    "state": "119 is divisible by 12.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_false_01",
+    "category": "parity",
+    "state": "178 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_true_10",
+    "category": "addition",
+    "state": "14 + 29 = 43.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_02",
+    "category": "subtraction",
+    "state": "101 - 82 = 16.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_false_08",
+    "category": "parity",
+    "state": "23 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_true_09",
+    "category": "multiplication",
+    "state": "8 times 14 equals 112.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_07",
+    "category": "subtraction",
+    "state": "62 - 50 = 12.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_08",
+    "category": "comparison",
+    "state": "137 is less than 176.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_true_08",
+    "category": "divisibility",
+    "state": "80 is divisible by 8.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_false_03",
+    "category": "addition",
+    "state": "79 + 39 = 114.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_true_02",
+    "category": "comparison",
+    "state": "121 is greater than 40.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_09",
+    "category": "comparison",
+    "state": "163 is greater than 119.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_true_06",
+    "category": "parity",
+    "state": "66 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_false_10",
+    "category": "divisibility",
+    "state": "125 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_04",
+    "category": "divisibility",
+    "state": "200 is divisible by 10.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_05",
+    "category": "subtraction",
+    "state": "135 - 12 = 119.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_false_05",
+    "category": "parity",
+    "state": "46 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_subtraction_false_09",
+    "category": "subtraction",
+    "state": "73 - 2 = 70.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_02",
+    "category": "divisibility",
+    "state": "108 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_10",
+    "category": "subtraction",
+    "state": "149 - 16 = 133.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_01",
+    "category": "subtraction",
+    "state": "49 - 26 = 23.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_03",
+    "category": "subtraction",
+    "state": "86 - 9 = 77.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_false_10",
+    "category": "parity",
+    "state": "78 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_true_04",
+    "category": "parity",
+    "state": "67 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_false_02",
+    "category": "divisibility",
+    "state": "122 is divisible by 12.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_true_02",
+    "category": "multiplication",
+    "state": "18 times 18 equals 324.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_04",
+    "category": "subtraction",
+    "state": "90 - 67 = 23.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_true_09",
+    "category": "addition",
+    "state": "49 + 17 = 66.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_true_10",
+    "category": "multiplication",
+    "state": "9 times 11 equals 99.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_divisibility_true_06",
+    "category": "divisibility",
+    "state": "143 is divisible by 11.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_09",
+    "category": "subtraction",
+    "state": "35 - 3 = 32.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_true_08",
+    "category": "parity",
+    "state": "98 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_false_06",
+    "category": "addition",
+    "state": "73 + 30 = 107.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_true_03",
+    "category": "parity",
+    "state": "128 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_false_06",
+    "category": "parity",
+    "state": "73 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_09",
+    "category": "comparison",
+    "state": "44 is greater than 100.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_true_01",
+    "category": "comparison",
+    "state": "158 is greater than 59.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_true_06",
+    "category": "subtraction",
+    "state": "86 - 6 = 80.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_false_06",
+    "category": "comparison",
+    "state": "131 is less than 61.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_false_07",
+    "category": "parity",
+    "state": "27 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_true_02",
+    "category": "addition",
+    "state": "81 + 8 = 89.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_03",
+    "category": "comparison",
+    "state": "135 is greater than 94.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_true_06",
+    "category": "multiplication",
+    "state": "16 times 18 equals 288.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_01",
+    "category": "subtraction",
+    "state": "27 - 15 = 6.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_false_01",
+    "category": "divisibility",
+    "state": "81 is divisible by 5.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_10",
+    "category": "comparison",
+    "state": "160 is greater than 198.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_02",
+    "category": "multiplication",
+    "state": "16 times 13 equals 215.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_10",
+    "category": "addition",
+    "state": "84 + 78 = 157.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_01",
+    "category": "comparison",
+    "state": "20 is greater than 180.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_09",
+    "category": "multiplication",
+    "state": "4 times 2 equals -3.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_07",
+    "category": "addition",
+    "state": "71 + 65 = 138.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_02",
+    "category": "addition",
+    "state": "25 + 87 = 119.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_true_07",
+    "category": "parity",
+    "state": "18 is an even number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_false_08",
+    "category": "comparison",
+    "state": "91 is greater than 120.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_true_05",
+    "category": "multiplication",
+    "state": "13 times 16 equals 208.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_comparison_true_04",
+    "category": "comparison",
+    "state": "29 is less than 48.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_07",
+    "category": "subtraction",
+    "state": "123 - 102 = 25.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_parity_false_04",
+    "category": "parity",
+    "state": "152 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_06",
+    "category": "multiplication",
+    "state": "10 times 13 equals 125.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_02",
+    "category": "comparison",
+    "state": "164 is less than 41.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_07",
+    "category": "divisibility",
+    "state": "36 is divisible by 3.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_addition_false_05",
+    "category": "addition",
+    "state": "65 + 89 = 151.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_addition_false_09",
+    "category": "addition",
+    "state": "27 + 18 = 41.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_false_07",
+    "category": "divisibility",
+    "state": "113 is divisible by 12.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_false_03",
+    "category": "comparison",
+    "state": "111 is less than 93.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_comparison_true_06",
+    "category": "comparison",
+    "state": "89 is less than 158.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_multiplication_false_10",
+    "category": "multiplication",
+    "state": "10 times 19 equals 179.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_false_06",
+    "category": "divisibility",
+    "state": "79 is divisible by 8.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_05",
+    "category": "divisibility",
+    "state": "72 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_true_01",
+    "category": "parity",
+    "state": "195 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_true_05",
+    "category": "parity",
+    "state": "23 is an odd number.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_parity_false_03",
+    "category": "parity",
+    "state": "65 is an even number.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_false_01",
+    "category": "multiplication",
+    "state": "10 times 6 equals 54.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_true_03",
+    "category": "divisibility",
+    "state": "96 is divisible by 6.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_06",
+    "category": "subtraction",
+    "state": "131 - 118 = 20.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_divisibility_false_09",
+    "category": "divisibility",
+    "state": "13 is divisible by 2.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_subtraction_false_08",
+    "category": "subtraction",
+    "state": "29 - 8 = 19.",
+    "question": "Is the statement correct?",
+    "target": false
+  },
+  {
+    "id": "test_multiplication_true_07",
+    "category": "multiplication",
+    "state": "12 times 8 equals 96.",
+    "question": "Is the statement correct?",
+    "target": true
+  },
+  {
+    "id": "test_subtraction_false_03",
+    "category": "subtraction",
+    "state": "134 - 64 = 64.",
+    "question": "Is the statement correct?",
+    "target": false
+  }
+]
