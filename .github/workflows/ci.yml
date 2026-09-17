@@ -64,3 +64,16 @@ jobs:
 
       - name: Check distribution metadata
         run: python -m twine check dist/*
+
+      - name: Install built wheel
+        run: python -m pip install dist/*.whl
+
+      - name: Check installed dependencies
+        run: python -m pip check
+
+      - name: Smoke-test installed wheel
+        working-directory: /tmp
+        run: |
+          python -c "from importlib.metadata import version; assert version('llm-decision-engine') == '0.1.0'"
+          python -c "import llm_decision_engine; print(llm_decision_engine.__file__)"
+          python -c "from llm_decision_engine import DecisionEngine, Choice, Boolean, Rating, ChoiceResult, BooleanResult, RatingResult, DecisionResult; print('PASS: public v0.1.0 API imports')"
