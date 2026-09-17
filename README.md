@@ -67,7 +67,7 @@ Example result:
 }
 ```
 
-Additional result information includes the raw candidate sequence scores, selected candidate, scoring method, candidate token counts, and generated output token count.
+Additional result information includes the raw candidate sequence scores, selected candidate, scoring method, execution mode, candidate token counts, and generated output token count.
 
 ## Current implementation status
 
@@ -77,6 +77,7 @@ Current capabilities:
 
 - Local open-weight Hugging Face causal language models
 - Direct arbitrary multi-token candidate scoring
+- Sequential reference execution with optional batched execution
 - Sum log-likelihood scoring
 - Optional mean log-likelihood scoring
 - Normalized candidate-set probability distributions
@@ -89,7 +90,7 @@ Current capabilities:
 
 Candidates are scored directly as their own token sequences. No intermediate A/B/C labels or 26-candidate limit are required.
 
-The current implementation evaluates candidates separately. Batched candidate scoring is planned as a performance optimization.
+Sequential execution is the default reference mode. Batched execution is available as an opt-in performance mode and evaluates all candidates in one model forward.
 
 ## Core idea
 
@@ -132,6 +133,27 @@ c1 position          -> c2
 
 The engine explicitly handles this one-token causal shift so that every candidate token is scored from the logits that actually predict it.
 
+## Execution modes
+
+The default execution mode is:
+
+```python
+execution="sequential"
+```
+
+Sequential mode performs one model forward per candidate and is treated as the numerical reference path.
+
+Batched execution is available with:
+
+```python
+result = engine.choice(
+    ...,
+    execution="batch",
+)
+```
+
+Batch mode evaluates all candidate continuations in one model forward. The scoring definition is unchanged, but exact numerical equivalence is not guaranteed under reduced-precision inference: GPU kernels and operation ordering can make BF16 results depend slightly on batch shape. For probability-sensitive evaluation, sequential mode remains the default reference.
+
 ## Engine roadmap
 
 ```text
@@ -139,13 +161,13 @@ Implemented
 - Choice
 - arbitrary multi-token candidates
 - sum and mean sequence scoring
+- sequential and batched execution modes
 - tokenizer-boundary validation
 - Hugging Face / PyTorch backend
 
 Planned
 - Boolean / proposition probability
 - Score
-- batched candidate scoring
 - multiple questions per state
 - probability calibration
 - llama.cpp / GGUF backend
@@ -219,4 +241,4 @@ Model weights are not distributed with this repository. Models are downloaded fr
 
 ## Project status
 
-Early development. Arbitrary multi-token candidate scoring is implemented and validated. Calibration, batching, benchmarking, additional decision primitives, and backend support remain under active development.
+Early development. Arbitrary multi-token candidate scoring and batched execution are implemented and validated. Calibration, benchmarking, additional decision primitives, and backend support remain under active development.
