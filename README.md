@@ -154,6 +154,27 @@ result = engine.choice(
 
 Batch mode evaluates all candidate continuations in one model forward. The scoring definition is unchanged, but exact numerical equivalence is not guaranteed under reduced-precision inference: GPU kernels and operation ordering can make BF16 results depend slightly on batch shape. For probability-sensitive evaluation, sequential mode remains the default reference.
 
+## Benchmark
+
+A paired, interleaved execution benchmark was run with `Qwen/Qwen2.5-1.5B-Instruct` in BF16 on an NVIDIA GeForce RTX 5070 Ti using three candidate continuations.
+
+~~~text
+Sequential median latency:    54.551 ms
+Batch median latency:         23.869 ms
+Median paired speedup:         2.288x
+Mean paired speedup:           2.262x
+Sequential p95 latency:       98.988 ms
+Batch p95 latency:            43.956 ms
+Max probability delta:         0.002875
+Selected candidate agreement: true
+~~~text
+
+The benchmark alternates execution order between sequential and batch runs to reduce time-dependent GPU and system effects. These measurements are hardware-, model-, prompt-, candidate-set-, and precision-specific and should not be interpreted as universal performance guarantees.
+
+Under BF16, sequential and batched execution can produce slightly different numerical probabilities even though they implement the same candidate-scoring definition. FP32 control experiments showed near-equivalence, indicating that the observed drift is primarily a reduced-precision numerical effect.
+
+The reproducible benchmark is available in `benchmarks/execution_modes_paired.py`.
+
 ## Engine roadmap
 
 ```text

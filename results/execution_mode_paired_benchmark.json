@@ -1,0 +1,36 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "pairs": 30,
+  "warmup": 3,
+  "device": "cuda:0",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "dtype": "torch.bfloat16",
+  "sequential_latency_ms": {
+    "mean": 61.5351266667858,
+    "median": 54.55149999943387,
+    "p95": 98.9879299995664,
+    "min": 48.95980000037525,
+    "max": 111.90010000063921
+  },
+  "batch_latency_ms": {
+    "mean": 28.022053333612956,
+    "median": 23.86914999988221,
+    "p95": 43.95566000139297,
+    "min": 21.52100000057544,
+    "max": 45.143800000005285
+  },
+  "paired_speedup": {
+    "mean": 2.2619213385740427,
+    "median": 2.2876044777938533,
+    "p95": 3.066866357124096,
+    "min": 1.1257913600810239,
+    "max": 3.3488294270701466
+  },
+  "max_probability_delta": 0.0028748521581292152,
+  "probability_delta": {
+    "technical support": 0.0027385354042053223,
+    "billing": 0.0028748521581292152,
+    "sales": 0.00013632327318191528
+  },
+  "selected_candidate_agreement": true
+}
