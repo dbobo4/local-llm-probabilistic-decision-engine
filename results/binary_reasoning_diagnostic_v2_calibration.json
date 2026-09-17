@@ -1,0 +1,3684 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "split": "calibration",
+  "example_count": 120,
+  "test_split_used": false,
+  "summary": {
+    "direct_accuracy": 0.6,
+    "greedy_accuracy": 0.6,
+    "reasoning_accuracy": 0.3,
+    "greedy_parse_rate": 1.0,
+    "reasoning_parse_rate": 0.38333333333333336,
+    "direct_greedy_agreement": 1.0,
+    "direct_reasoning_agreement": 0.5652173913043478,
+    "greedy_reasoning_agreement": 0.5652173913043478,
+    "reasoning_fixes_direct_errors": 14,
+    "reasoning_breaks_direct_correct": 6,
+    "greedy_generated_tokens_total": 240,
+    "reasoning_generated_tokens_total": 7237,
+    "greedy_generated_tokens_mean": 2,
+    "reasoning_generated_tokens_mean": 60.30833333333333,
+    "greedy_latency_median_ms": 37.372599997979705,
+    "reasoning_latency_median_ms": 964.9933500004408
+  },
+  "agreements": {
+    "direct_vs_greedy": {
+      "matches": 120,
+      "comparable": 120
+    },
+    "direct_vs_reasoning": {
+      "matches": 26,
+      "comparable": 46
+    },
+    "greedy_vs_reasoning": {
+      "matches": 26,
+      "comparable": 46
+    }
+  },
+  "categories": [
+    {
+      "category": "addition",
+      "count": 20,
+      "direct_accuracy": 0.4,
+      "greedy_accuracy": 0.4,
+      "reasoning_accuracy": 0.65
+    },
+    {
+      "category": "comparison",
+      "count": 20,
+      "direct_accuracy": 0.75,
+      "greedy_accuracy": 0.75,
+      "reasoning_accuracy": 0.2
+    },
+    {
+      "category": "divisibility",
+      "count": 20,
+      "direct_accuracy": 0.6,
+      "greedy_accuracy": 0.6,
+      "reasoning_accuracy": 0.15
+    },
+    {
+      "category": "multiplication",
+      "count": 20,
+      "direct_accuracy": 0.9,
+      "greedy_accuracy": 0.9,
+      "reasoning_accuracy": 0.2
+    },
+    {
+      "category": "parity",
+      "count": 20,
+      "direct_accuracy": 0.45,
+      "greedy_accuracy": 0.45,
+      "reasoning_accuracy": 0.1
+    },
+    {
+      "category": "subtraction",
+      "count": 20,
+      "direct_accuracy": 0.5,
+      "greedy_accuracy": 0.5,
+      "reasoning_accuracy": 0.5
+    }
+  ],
+  "examples": [
+    {
+      "id": "calibration_comparison_false_06",
+      "category": "comparison",
+      "state": "46 is greater than 106.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0011695101857185364,
+        "score_delta": -6.749999985913746,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.6538849999997183
+      },
+      "reasoning": {
+        "text": "The statement \"46 is greater than 106\" is **False**.\n\nFinal Answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 1.0873518000007607
+      }
+    },
+    {
+      "id": "calibration_addition_false_03",
+      "category": "addition",
+      "state": "7 + 21 = 35.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7772998809814453,
+        "score_delta": 1.2500000298023224,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.10576829999990878
+      },
+      "reasoning": {
+        "text": "The given equation is \\(7 + 21 = 35\\).\n\nLet's break it down step-by-step:\n\n1. **Addition of Integers**: \n   - We start with the numbers 7 and 21.\n   - Adding these together gives us \\(7 + 21 = 28\\).\n\nSo, the correct result of adding 7 and 21 is 28, not 35.\n\n**Conclusion**: The statement \"7 + 21 = 35\" is incorrect.\n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 115,
+        "seconds": 5.096384799999214
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_04",
+      "category": "divisibility",
+      "state": "133 is divisible by 7.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.7499999552965164,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.11872090000179014
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"133 is divisible by 7\" is correct, we can perform the division:\n\n\\[ 133 \\div 7 = 19 \\]\n\nSince 19 is an integer, it confirms that 133 is indeed divisible by 7.\n\nTherefore, the statement is **correct**.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 74,
+        "seconds": 3.357684299997345
+      }
+    },
+    {
+      "id": "calibration_comparison_true_01",
+      "category": "comparison",
+      "state": "46 is less than 164.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.022977370768785477,
+        "score_delta": -3.750000013038516,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.0911286000009568
+      },
+      "reasoning": {
+        "text": "The statement \"46 is less than 164\" is **True** because 46 is indeed smaller than 164 on the number line.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 35,
+        "seconds": 1.7195952000001853
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_03",
+      "category": "multiplication",
+      "state": "10 times 6 equals 60.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8807970285415649,
+        "score_delta": 1.9999999105930328,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.08970079999926384
+      },
+      "reasoning": {
+        "text": "The statement \"10 times 6 equals 60\" is **True** because \\(10 \\times 6 = 60\\).\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 35,
+        "seconds": 1.7243983000007574
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_01",
+      "category": "divisibility",
+      "state": "180 is divisible by 11.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.75,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.10082350000084261
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"180 is divisible by 11\" is correct, we need to check if there exists an integer \\( k \\) such that:\n\n\\[ 180 = 11k \\]\n\nWe can solve for \\( k \\):\n\n\\[ k = \\frac{180}{11} \\approx 16.36 \\]\n\nSince \\( k \\) is not an integer (it's approximately 16.36), it means that 180 is not divisible by 11.\n\nTherefore, the statement \"180 is divisible by 11\"",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 5.674097300001449
+      }
+    },
+    {
+      "id": "calibration_addition_false_04",
+      "category": "addition",
+      "state": "75 + 17 = 89.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7549149990081787,
+        "score_delta": 1.1250000298023224,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.0886737999971956
+      },
+      "reasoning": {
+        "text": "The sum of 75 and 17 is indeed 92, not 89. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 27,
+        "seconds": 1.4013250999996671
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_02",
+      "category": "multiplication",
+      "state": "6 times 14 equals 84.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8175744414329529,
+        "score_delta": 1.5000000149011612,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.1290898000006564
+      },
+      "reasoning": {
+        "text": "The statement \"6 times 14 equals 84\" is correct.\n\nFinal: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 20,
+        "seconds": 0.8827307999999903
+      }
+    },
+    {
+      "id": "calibration_parity_false_07",
+      "category": "parity",
+      "state": "25 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9046505093574524,
+        "score_delta": 2.2500000596046448,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.12649389999933192
+      },
+      "reasoning": {
+        "text": "The statement \"25 is an even number\" is **True** because 25 can be divided evenly by 2 (i.e., \\(25 \\div 2 = 12.5\\), but since it's not possible to have half of something, we consider only whole numbers). Even numbers are integers that are divisible by 2 without leaving a remainder. Therefore, 25 fits this definition perfectly.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 88,
+        "seconds": 4.117385000001377
+      }
+    },
+    {
+      "id": "calibration_addition_true_07",
+      "category": "addition",
+      "state": "44 + 98 = 142.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.3208213150501251,
+        "score_delta": -0.75,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.12184170000182348
+      },
+      "reasoning": {
+        "text": "The given equation is \\(44 + 98 = 142\\).\n\nLet's verify it step-by-step:\n\n1. First, add the numbers on the left side of the equation:\n   \\[\n   44 + 98 = 142\n   \\]\n\n2. The result matches the right side of the equation.\n\nTherefore, the statement is correct.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 84,
+        "seconds": 2.0394058999991103
+      }
+    },
+    {
+      "id": "calibration_parity_false_09",
+      "category": "parity",
+      "state": "120 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.14804719388484955,
+        "score_delta": -1.75,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03452430000106688
+      },
+      "reasoning": {
+        "text": "The statement \"120 is an odd number\" is **False**.\n\nReasoning: \n- An odd number is defined as any integer that cannot be divided evenly by 2.\n- The number 120 can be divided evenly by 2 (120 \u00f7 2 = 60), which means it is not an odd number but rather an even number.\n\nFinal: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 83,
+        "seconds": 1.3493314999977883
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_04",
+      "category": "multiplication",
+      "state": "16 times 16 equals 256.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8175744414329529,
+        "score_delta": 1.5000000447034836,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.039339700000709854
+      },
+      "reasoning": {
+        "text": "The statement \"16 times 16 equals 256\" is correct.\n\nFinal answer: True",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 0.36471399999936693
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_08",
+      "category": "divisibility",
+      "state": "33 is divisible by 2.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.970687747001648,
+        "score_delta": 3.4999999534338713,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.0393450000010489
+      },
+      "reasoning": {
+        "text": "The statement \"33 is divisible by 2\" is **False** because when you divide 33 by 2, the result is not an integer (it's 16. 5), which means it does not have no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 52,
+        "seconds": 0.827510600000096
+      }
+    },
+    {
+      "id": "calibration_parity_true_06",
+      "category": "parity",
+      "state": "124 is an even number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.7499999701976776,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03468319999956293
+      },
+      "reasoning": {
+        "text": "The statement \"124 is an even number\" is **True** because 124 can be divided evenly by 2 (i.e., \\(124 \\div 2 = 62\\)). Even numbers are integers that are divisible by 2 without leaving a remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 61,
+        "seconds": 0.9847650999981852
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_03",
+      "category": "divisibility",
+      "state": "205 is divisible by 11.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9241418242454529,
+        "score_delta": 2.499999977648258,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.037188400001468835
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"205 is divisible by 11\" is correct, we can use the divisibility rule for 11. The rule states that a number is divisible by 11 if the difference between the sum of the digits in the odd positions and the sum of the digits in the even positions is either 0 or a multiple of 11 (including -1, 0, and 11).\n\nLet's apply this rule to the number 205:\n\n- Sum of digits in odd positions: \\(2 + 5 = 7\\)\n- Sum of digits in even positions",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.0783360000023094
+      }
+    },
+    {
+      "id": "calibration_comparison_false_04",
+      "category": "comparison",
+      "state": "138 is less than 56.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0011695101857185364,
+        "score_delta": -6.750000101630576,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.037365299998782575
+      },
+      "reasoning": {
+        "text": "The statement \"138 is less than 56\" is **False**.\n\nFinal Answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 0.37071999999898253
+      }
+    },
+    {
+      "id": "calibration_addition_true_01",
+      "category": "addition",
+      "state": "80 + 18 = 98.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.5,
+        "score_delta": 0.0,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.04074580000087735
+      },
+      "reasoning": {
+        "text": "The given equation is \\(80 + 18 = 98\\).\n\nLet's verify it step-by-step:\n\n1. Start with the left side of the equation: \\(80 + 18\\).\n2. Add the numbers together: \\(80 + 18 = 98\\).\n\nSince both sides of the equation equal 98, the statement is correct.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 85,
+        "seconds": 1.3602480000008654
+      }
+    },
+    {
+      "id": "calibration_addition_true_06",
+      "category": "addition",
+      "state": "49 + 72 = 121.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.2689414322376251,
+        "score_delta": -1.0,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03717300000062096
+      },
+      "reasoning": {
+        "text": "The sum of 49 and 72 is indeed 121. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 23,
+        "seconds": 0.36539389999961713
+      }
+    },
+    {
+      "id": "calibration_comparison_false_08",
+      "category": "comparison",
+      "state": "191 is less than 128.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.037326883524656296,
+        "score_delta": -3.249999888241291,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.038826899999548914
+      },
+      "reasoning": {
+        "text": "The statement \"191 is less than 128\" is **False**.\n\nFinal Answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 24,
+        "seconds": 0.3842272000001685
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_02",
+      "category": "subtraction",
+      "state": "118 - 66 = 52.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.07585818320512772,
+        "score_delta": -2.500000111758709,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03678070000023581
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because when you subtract 66 from 118, you get:\n\n\\[ 118 - 66 = 52 \\]\n\nHowever, if we were to add 66 to 118 instead of subtracting it, then the result would be:\n\n\\[ 118 + 66 = 184 \\]\n\nSo, depending on whether you're adding or subtracting, the answer can either be 52 or 184. Therefore, the original statement \"118 - 66 = 52\" is not always true; it",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.0123000999992655
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_04",
+      "category": "subtraction",
+      "state": "100 - 70 = 30.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.04208773002028465,
+        "score_delta": -3.1250000968575478,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03628770000068471
+      },
+      "reasoning": {
+        "text": "The given equation is:\n\n\\[ 100 - 70 = 30 \\]\n\nLet's solve it step-by-step to determine if the statement is correct:\n\n1. Start with the left side of the equation: \\( 100 - 70 \\)\n2. Perform the subtraction: \n   \\[ 100 - 70 = 30 \\]\n\nSo, the equation holds true because both sides equal 30.\n\n**Final Answer:** True",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 101,
+        "seconds": 1.5944558000010147
+      }
+    },
+    {
+      "id": "calibration_addition_true_08",
+      "category": "addition",
+      "state": "71 + 68 = 139.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.007577241398394108,
+        "score_delta": -4.874999864026904,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03775570000289008
+      },
+      "reasoning": {
+        "text": "The sum of 71 and 68 is indeed 139. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 23,
+        "seconds": 0.36732759999722475
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_07",
+      "category": "multiplication",
+      "state": "17 times 9 equals 161.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.014063626527786255,
+        "score_delta": -4.250000196509063,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03800440000122762
+      },
+      "reasoning": {
+        "text": "The statement \"17 times 9 equals 161\" is incorrect. \n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 0.3876233000009961
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_04",
+      "category": "multiplication",
+      "state": "7 times 10 equals 79.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.002182716503739357,
+        "score_delta": -6.1250002179294825,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0421864000018104
+      },
+      "reasoning": {
+        "text": "The statement \"7 times 10 equals 79\" is **False**.\n\nExplanation:\n- When you multiply any number by 10, the result is that number followed by zero digits.\n- For example, \\(7 \\times 10 = 70\\).\n- Therefore, 7 times 10 does not equal 79; it equals 70.\n\nFinal: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 84,
+        "seconds": 1.3339350000023842
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_01",
+      "category": "divisibility",
+      "state": "18 is divisible by 9.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.75,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.039702300000499235
+      },
+      "reasoning": {
+        "text": "The statement \"18 is divisible by 9\" is **True** because when you divide 18 by 9, the result is an integer (2), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 42,
+        "seconds": 0.6672037999996974
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_05",
+      "category": "divisibility",
+      "state": "24 is divisible by 12.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9525741338729858,
+        "score_delta": 2.9999999441206455,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036087700002099155
+      },
+      "reasoning": {
+        "text": "The statement \"24 is divisible by 12\" is **True** because 24 divided by 12 equals 2, which is an integer.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 35,
+        "seconds": 0.5532133999986399
+      }
+    },
+    {
+      "id": "calibration_comparison_true_04",
+      "category": "comparison",
+      "state": "142 is greater than 26.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7772998809814453,
+        "score_delta": 1.2500000596046448,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.038190300001588184
+      },
+      "reasoning": {
+        "text": "The statement \"142 is greater than 26\" is correct because 142 has a higher numerical value compared to 26.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 35,
+        "seconds": 0.5498248000003514
+      }
+    },
+    {
+      "id": "calibration_parity_false_04",
+      "category": "parity",
+      "state": "47 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9046505093574524,
+        "score_delta": 2.249999985098839,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03655770000113989
+      },
+      "reasoning": {
+        "text": "The statement \"47 is an even number\" is **False**.\n\nReasoning: An even number is defined as any integer that can be divided by 2 without leaving a remainder. Since 47 divided by 2 gives a quotient of 23 with a remainder of 1 (i.e., \\(47 = 2 \\times 23 + 1\\)), it does not meet the criteria for being an even number. Therefore, 47 is not an even number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 103,
+        "seconds": 1.6260423000021547
+      }
+    },
+    {
+      "id": "calibration_comparison_false_01",
+      "category": "comparison",
+      "state": "122 is less than 102.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.005911069456487894,
+        "score_delta": -5.1249998840503395,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.033871600000566104
+      },
+      "reasoning": {
+        "text": "The statement \"122 is less than 102\" is **False** because 122 is greater than 102.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 32,
+        "seconds": 0.5051654000017152
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_09",
+      "category": "subtraction",
+      "state": "91 - 5 = 86.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.01590639166533947,
+        "score_delta": -4.125000203028321,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03780630000255769
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect because:\n\n91 - 5 equals 86, not 86. Therefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 28,
+        "seconds": 0.4438430999980483
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_06",
+      "category": "subtraction",
+      "state": "31 - 5 = 28.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.037326883524656296,
+        "score_delta": -3.2500000335276127,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.034817700001440244
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect because:\n\n31 - 5 equals 26, not 28.\n\nFinal answer: \nFalse",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 28,
+        "seconds": 0.44471469999916735
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_06",
+      "category": "divisibility",
+      "state": "57 is divisible by 3.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9933071732521057,
+        "score_delta": 4.999999798368663,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.038401099998736754
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"57 is divisible by 3\" is correct, we need to check if there exists an integer \\( k \\) such that:\n\n\\[ 57 = 3k \\]\n\nWe can solve for \\( k \\):\n\n\\[ k = \\frac{57}{3} = 19 \\]\n\nSince 19 is an integer, it confirms that 57 is indeed divisible by 3.\n\nTherefore, the statement \"57 is divisible by 3\" is **True**.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 108,
+        "seconds": 1.6901916000024357
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_07",
+      "category": "divisibility",
+      "state": "9 is divisible by 3.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9947799444198608,
+        "score_delta": 5.250000098254532,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03641830000196933
+      },
+      "reasoning": {
+        "text": "The statement \"9 is divisible by 3\" is **True** because when you divide 9 by 3, the result is an integer (specifically, 3), which means there is no remainder. This confirms that 9 can be evenly divided by 3 without any leftover parts.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 61,
+        "seconds": 0.9825277999989339
+      }
+    },
+    {
+      "id": "calibration_comparison_false_10",
+      "category": "comparison",
+      "state": "21 is greater than 25.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0008040859247557819,
+        "score_delta": -7.12499986164039,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03820429999905173
+      },
+      "reasoning": {
+        "text": "The statement \"21 is greater than 25\" is **False** because 21 is less than 25.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 28,
+        "seconds": 0.4783796000010625
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_03",
+      "category": "subtraction",
+      "state": "21 - 11 = 11.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.22270014882087708,
+        "score_delta": -1.2499999403953552,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03715449999799603
+      },
+      "reasoning": {
+        "text": "The given statement is:\n\n21 - 11 = 11\n\nLet's evaluate it step-by-step:\n\n1. We start with the left side of the equation: 21.\n2. We subtract 11 from 21.\n3. Performing the subtraction gives us: 21 - 11 = 10.\n\nTherefore, the correct result should be 10, not 11.\n\nFinal answer: \nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 96,
+        "seconds": 3.3525363999979163
+      }
+    },
+    {
+      "id": "calibration_addition_true_09",
+      "category": "addition",
+      "state": "28 + 85 = 113.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9399133324623108,
+        "score_delta": 2.750000085681677,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0908982000000833
+      },
+      "reasoning": {
+        "text": "The given equation is \\(28 + 85 = 113\\).\n\nLet's verify it step-by-step:\n\n1. First, add the numbers on the left side of the equation:\n   \\[\n   28 + 85 = 113\n   \\]\n\n2. The result matches the number on the right side of the equation.\n\nTherefore, the statement is correct.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 87,
+        "seconds": 3.8704581999991206
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_05",
+      "category": "multiplication",
+      "state": "11 times 6 equals 66.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.11920291185379028,
+        "score_delta": -1.9999999850988388,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.09204269999827375
+      },
+      "reasoning": {
+        "text": "The statement \"11 times 6 equals 66\" is incorrect. The correct calculation is:\n\n\\[ 11 \\times 6 = 66 \\]\n\nHowever, if we consider the reverse operation (dividing both sides), it would be true that \\( 66 \\div 6 = 11 \\).\n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 73,
+        "seconds": 3.318248499999754
+      }
+    },
+    {
+      "id": "calibration_parity_true_05",
+      "category": "parity",
+      "state": "37 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.6791787147521973,
+        "score_delta": 0.7499999403953552,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.08620390000214684
+      },
+      "reasoning": {
+        "text": "The statement \"37 is an odd number\" is **True** because 37 can be divided evenly by 2 (resulting in 18 remainder 1), which means it leaves a remainder of 1 when divided by 2. Odd numbers always leave a remainder of either 0 or 1 when divided by 2. Therefore, 37 is indeed an odd number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 82,
+        "seconds": 3.493633400001272
+      }
+    },
+    {
+      "id": "calibration_parity_false_10",
+      "category": "parity",
+      "state": "153 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8175744414329529,
+        "score_delta": 1.4999999850988388,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.08909810000113794
+      },
+      "reasoning": {
+        "text": "The statement \"153 is an even number\" is **False**.\n\n**Reasoning:** An even number is defined as any integer that can be divided by 2 without leaving a remainder. The number 153 divided by 2 gives a quotient of 76 with a remainder of 1. Therefore, 153 is not divisible by 2, making it an odd number, not an even number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 89,
+        "seconds": 3.9799516999992193
+      }
+    },
+    {
+      "id": "calibration_comparison_true_06",
+      "category": "comparison",
+      "state": "85 is less than 108.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.06008664891123772,
+        "score_delta": -2.749999910593033,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.11536150000029011
+      },
+      "reasoning": {
+        "text": "The statement \"85 is less than 108\" is **True** because 85 comes before 108 in ascending order of numbers.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 34,
+        "seconds": 1.563602299997001
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_01",
+      "category": "multiplication",
+      "state": "4 times 5 equals 27.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0011695101857185364,
+        "score_delta": -6.7500001101288944,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.11178379999910248
+      },
+      "reasoning": {
+        "text": "The statement \"4 times 5 equals 27\" is **False**.\n\nExplanation:\n- The multiplication of 4 and 5 results in \\(4 \\times 5 = 20\\).\n- Therefore, the given statement is incorrect because it claims that 4 times 5 equals 27 instead of the actual product which is 20.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 75,
+        "seconds": 3.4417620999993233
+      }
+    },
+    {
+      "id": "calibration_parity_false_05",
+      "category": "parity",
+      "state": "15 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8807970285415649,
+        "score_delta": 1.9999999701976776,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.10244009999951231
+      },
+      "reasoning": {
+        "text": "The statement \"15 is an even number\" is **False**.\n\nReasoning: An even number is defined as any integer that can be divided by 2 without leaving a remainder. The number 15 cannot be divided by 2 without a remainder (since \\(15 \\div 2 = 7\\) with a remainder of 1). Therefore, 15 is not an even number; it is an odd number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 90,
+        "seconds": 4.055418699997972
+      }
+    },
+    {
+      "id": "calibration_comparison_true_08",
+      "category": "comparison",
+      "state": "58 is less than 134.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.022977370768785477,
+        "score_delta": -3.7500001080334187,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.09960049999790499
+      },
+      "reasoning": {
+        "text": "The statement \"58 is less than 134\" is **False** because 58 is actually greater than 134.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 31,
+        "seconds": 0.5316915000003064
+      }
+    },
+    {
+      "id": "calibration_addition_false_09",
+      "category": "addition",
+      "state": "34 + 30 = 60.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.7499999850988388,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.035015800000110175
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because \\(34 + 30\\) equals \\(64\\), not \\(60\\).\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 29,
+        "seconds": 0.4695843000008608
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_07",
+      "category": "subtraction",
+      "state": "146 - 11 = 135.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.06754668802022934,
+        "score_delta": -2.625000111758709,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.035787600001640385
+      },
+      "reasoning": {
+        "text": "The given equation is:\n\n\\[ 146 - 11 = 135 \\]\n\nLet's perform the subtraction on the left side of the equation:\n\n\\[ 146 - 11 = 135 \\]\n\nSubtracting 11 from 146 gives us:\n\n\\[ 135 \\]\n\nSo, the equation \\( 146 - 11 = 135 \\) is indeed true.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 99,
+        "seconds": 1.5913925999993808
+      }
+    },
+    {
+      "id": "calibration_parity_false_01",
+      "category": "parity",
+      "state": "146 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.4378235340118408,
+        "score_delta": -0.25,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03556829999797628
+      },
+      "reasoning": {
+        "text": "The statement \"146 is an odd number\" is **True** because 146 ends in 6, which means it is divisible by 2 but not by 5, making it an even number. However, if we consider the possibility of misinterpretation or error, the initial premise might be incorrect, leading to confusion about whether 146 is indeed odd or even. \n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 86,
+        "seconds": 1.385975100001815
+      }
+    },
+    {
+      "id": "calibration_parity_false_03",
+      "category": "parity",
+      "state": "75 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8807970285415649,
+        "score_delta": 1.9999998807907104,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03805629999988014
+      },
+      "reasoning": {
+        "text": "The statement \"75 is an even number\" is **False**.\n\n**Reasoning:** An even number is defined as any integer that can be divided by 2 without leaving a remainder. Since 75 divided by 2 gives a quotient of 37 with a remainder of 1 (i.e., \\(75 = 2 \\times 37 + 1\\)), it does not meet the criteria for being an even number. Therefore, 75 is not an even number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 104,
+        "seconds": 1.6825920000010228
+      }
+    },
+    {
+      "id": "calibration_parity_true_03",
+      "category": "parity",
+      "state": "88 is an even number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9525741338729858,
+        "score_delta": 2.9999998845160007,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036694900001748465
+      },
+      "reasoning": {
+        "text": "The statement \"88 is an even number\" is **True** because 88 can be divided evenly by 2 (i.e., \\( 88 \\div 2 = 44 \\)). Even numbers are integers that are divisible by 2 without leaving a remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 59,
+        "seconds": 0.96033080000052
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_06",
+      "category": "divisibility",
+      "state": "43 is divisible by 9.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8807970285415649,
+        "score_delta": 2.0000001043081284,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.0515400000003865
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"43 is divisible by 9\" is correct, we need to check if there exists an integer \\( k \\) such that:\n\n\\[ 43 = 9k \\]\n\nLet's solve for \\( k \\):\n\n\\[ k = \\frac{43}{9} \\approx 4.7778 \\]\n\nSince \\( k \\) is not an integer (it has a decimal part), it means that 43 cannot be divided evenly by 9 without leaving a remainder. Therefore, 43 is **not** divisible by 9.\n\nFinal answer: \nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 128,
+        "seconds": 2.0734613000022364
+      }
+    },
+    {
+      "id": "calibration_comparison_false_05",
+      "category": "comparison",
+      "state": "108 is greater than 139.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0008040859247557819,
+        "score_delta": -7.125000211584847,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03490299999975832
+      },
+      "reasoning": {
+        "text": "The statement \"108 is greater than 139\" is **False**.\n\nFinal Answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 24,
+        "seconds": 0.8375925000000279
+      }
+    },
+    {
+      "id": "calibration_addition_false_06",
+      "category": "addition",
+      "state": "2 + 65 = 70.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9324532747268677,
+        "score_delta": 2.6250000819563866,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.08323539999764762
+      },
+      "reasoning": {
+        "text": "The given statement is:\n\n\\[ 2 + 65 = 70 \\]\n\nTo verify if this statement is correct, we can perform the addition on both sides of the equation:\n\nLeft side: \\( 2 + 65 = 67 \\)\n\nRight side: \\( 70 \\)\n\nSince \\( 67 \\neq 70 \\), the left side does not equal the right side.\n\nTherefore, the statement is **False**.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 96,
+        "seconds": 3.620767899999919
+      }
+    },
+    {
+      "id": "calibration_parity_true_02",
+      "category": "parity",
+      "state": "83 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.4378235340118408,
+        "score_delta": -0.25,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.037433299999975134
+      },
+      "reasoning": {
+        "text": "The statement \"83 is an odd number\" is **True**.\n\nReasoning: An odd number is any integer that cannot be divided evenly by 2. Since 83 can be divided by 2 without leaving a remainder (83 \u00f7 2 = 41 remainder 1), it is indeed an odd number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 70,
+        "seconds": 1.1440706999965187
+      }
+    },
+    {
+      "id": "calibration_comparison_false_09",
+      "category": "comparison",
+      "state": "91 is less than 10.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.006692850962281227,
+        "score_delta": -4.999999862164259,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035896400000638096
+      },
+      "reasoning": {
+        "text": "The statement \"91 is less than 10\" is **False** because 91 is greater than 10.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 28,
+        "seconds": 0.44093399999837857
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_09",
+      "category": "divisibility",
+      "state": "39 is divisible by 2.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9626730680465698,
+        "score_delta": 3.2499999403953552,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03470519999973476
+      },
+      "reasoning": {
+        "text": "The statement \"39 is divisible by 2\" is **False** because when you divide 39 by 2, the result is not an integer (it's 19.5), which means it does not have no remainder. Divisibility rules for even numbers state that a number must be divisible by 2 if its last digit is even. Since 39 ends in 9, it cannot be divisible by 2.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 92,
+        "seconds": 1.4759814999997616
+      }
+    },
+    {
+      "id": "calibration_addition_true_02",
+      "category": "addition",
+      "state": "85 + 98 = 183.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.5,
+        "score_delta": 0.0,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.039119500001106644
+      },
+      "reasoning": {
+        "text": "The sum of 85 and 98 is indeed 183. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 23,
+        "seconds": 0.3656754000003275
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_02",
+      "category": "subtraction",
+      "state": "53 - 46 = 4.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.022977370768785477,
+        "score_delta": -3.7499999441206455,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035347599998203805
+      },
+      "reasoning": {
+        "text": "The statement \"53 - 46 = 4\" is incorrect because:\n\n53 - 46 equals 7, not 4.\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 35,
+        "seconds": 0.556236300002638
+      }
+    },
+    {
+      "id": "calibration_comparison_true_02",
+      "category": "comparison",
+      "state": "10 is less than 31.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.07585818320512772,
+        "score_delta": -2.500000037252903,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.04052359999695909
+      },
+      "reasoning": {
+        "text": "The statement \"10 is less than 31\" is **True** because 10 is indeed smaller than 31 on the number line.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 33,
+        "seconds": 0.5320100999997521
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_01",
+      "category": "subtraction",
+      "state": "72 - 58 = 15.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.02931223064661026,
+        "score_delta": -3.499999927356839,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03817490000074031
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because when you subtract 58 from 72, you get:\n\n\\[ 72 - 58 = 14 \\]\n\nSo, the correct answer is not 15 but 14. Therefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 54,
+        "seconds": 0.8798905000003288
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_07",
+      "category": "subtraction",
+      "state": "37 - 13 = 20.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.18242551386356354,
+        "score_delta": -1.5000000596046448,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036907699999574106
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because \\(37 - 13\\) equals \\(24\\), not \\(20\\).\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 29,
+        "seconds": 0.4658226999999897
+      }
+    },
+    {
+      "id": "calibration_parity_false_06",
+      "category": "parity",
+      "state": "101 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7310585975646973,
+        "score_delta": 0.9999999701976776,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.038870599997608224
+      },
+      "reasoning": {
+        "text": "The statement \"101 is an even number\" is **False**.\n\n**Reasoning:** An even number is defined as any integer that can be divided by 2 without leaving a remainder. The number 101 cannot be divided by 2 without a remainder (since \\(101 \\div 2 = 50\\) with a remainder of 1). Therefore, 101 is not an even number; it is an odd number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 96,
+        "seconds": 1.555775699998776
+      }
+    },
+    {
+      "id": "calibration_parity_true_01",
+      "category": "parity",
+      "state": "199 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.2689414322376251,
+        "score_delta": -1.0,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03466649999973015
+      },
+      "reasoning": {
+        "text": "The statement \"199 is an odd number\" is **True**.\n\n**Reasoning:** An odd number is any integer that cannot be divided evenly by 2. Since 199 can be divided by 2 without leaving a remainder (199 \u00f7 2 = 99.5), it is not an even number but rather an odd number. Therefore, the statement is correct.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 85,
+        "seconds": 1.3841604000008374
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_04",
+      "category": "subtraction",
+      "state": "48 - 7 = 36.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.02595735527575016,
+        "score_delta": -3.625000037252903,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03560759999891161
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect because:\n\n48 - 7 equals 41, not 36.\n\nTherefore,\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 28,
+        "seconds": 0.44955819999813684
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_10",
+      "category": "subtraction",
+      "state": "33 - 17 = 22.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.10669060051441193,
+        "score_delta": -2.1250000968575478,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035567200000514276
+      },
+      "reasoning": {
+        "text": "The given equation is:\n\n\\[ 33 - 17 = 22 \\]\n\nLet's perform the subtraction to verify:\n\n\\[ 33 - 17 = 16 \\]\n\nSo, \\( 33 - 17 = 22 \\) is incorrect because it should be equal to 16, not 22.\n\n**Final Answer:** False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 80,
+        "seconds": 1.2896975000003295
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_08",
+      "category": "subtraction",
+      "state": "46 - 5 = 41.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.014063626527786255,
+        "score_delta": -4.249999823048711,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03640409999934491
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect because:\n\n46 - 5 equals 41, not 40.\n\nTherefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 28,
+        "seconds": 0.45283659999768133
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_09",
+      "category": "multiplication",
+      "state": "9 times 10 equals 90.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.562176525592804,
+        "score_delta": 0.25,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.034962699999596225
+      },
+      "reasoning": {
+        "text": "The statement \"9 times 10 equals 90\" is incorrect. The correct product of 9 and 10 is actually 90, not 90. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 43,
+        "seconds": 0.6869650999979058
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_07",
+      "category": "divisibility",
+      "state": "208 is divisible by 10.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8175744414329529,
+        "score_delta": 1.4999999403953552,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.035683300000528106
+      },
+      "reasoning": {
+        "text": "The statement \"208 is divisible by 10\" is **False**.\n\n**Reasoning:** A number is divisible by 10 if it ends in zero (0). The last digit of 208 is 8, which does not end in zero. Therefore, 208 is not divisible by 10.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 72,
+        "seconds": 1.163392099999328
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_06",
+      "category": "multiplication",
+      "state": "19 times 13 equals 247.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.562176525592804,
+        "score_delta": 0.25,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.039881799999420764
+      },
+      "reasoning": {
+        "text": "The statement \"19 times 13 equals 247\" is incorrect. The correct product of 19 and 13 is actually 247, but it's important to note that the question asks if the statement is correct, not what the actual result is. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 65,
+        "seconds": 1.0607319000009738
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_09",
+      "category": "multiplication",
+      "state": "8 times 15 equals 122.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0017007224960252643,
+        "score_delta": -6.37499997660052,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03556939999907627
+      },
+      "reasoning": {
+        "text": "The statement \"8 times 15 equals 122\" is **False**.\n\nExplanation:\n- To verify this, we calculate \\( 8 \\times 15 = 120 \\).\n- The given statement claims that \\( 8 \\times 15 = 122 \\), which is incorrect.\n- Therefore, the statement is false because it does not match the result of the multiplication operation.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 88,
+        "seconds": 1.4462800000001153
+      }
+    },
+    {
+      "id": "calibration_addition_false_05",
+      "category": "addition",
+      "state": "5 + 65 = 75.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8807970285415649,
+        "score_delta": 1.9999999701976776,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03892529999939143
+      },
+      "reasoning": {
+        "text": "The given statement is:\n\n5 + 65 = 75\n\nLet's calculate it step-by-step to verify if the equation holds true:\n\n1. Start with the left side of the equation: \\(5\\)\n2. Add \\(65\\) to \\(5\\): \\(5 + 65 = 70\\)\n\nSo, the left side equals \\(70\\), not \\(75\\).\n\nTherefore, the statement is **False**.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 96,
+        "seconds": 1.5786178999987897
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_05",
+      "category": "multiplication",
+      "state": "12 times 19 equals 231.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.3208213150501251,
+        "score_delta": -0.75,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03622980000000098
+      },
+      "reasoning": {
+        "text": "The statement \"12 times 19 equals 231\" is incorrect. The correct product of 12 and 19 is:\n\n\\[ 12 \\times 19 = 228 \\]\n\nSo, the FINAL answer is:\nFalse",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 56,
+        "seconds": 0.9119203000009293
+      }
+    },
+    {
+      "id": "calibration_parity_true_08",
+      "category": "parity",
+      "state": "186 is an even number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9046505093574524,
+        "score_delta": 2.2499999329447746,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036576000002241926
+      },
+      "reasoning": {
+        "text": "The statement \"186 is an even number\" is **True** because 186 can be divided evenly by 2 (i.e., \\(186 \\div 2 = 93\\)). Even numbers are integers that are divisible by 2 without leaving a remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 61,
+        "seconds": 0.9821775999989768
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_08",
+      "category": "subtraction",
+      "state": "45 - 39 = 5.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.09534946084022522,
+        "score_delta": -2.2499999552965164,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.037322199998016004
+      },
+      "reasoning": {
+        "text": "The statement \"45 - 39 = 5\" is incorrect because:\n\n- When you subtract 39 from 45, you get 6, not 5.\n  \nTherefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 45,
+        "seconds": 0.7247257999988506
+      }
+    },
+    {
+      "id": "calibration_parity_true_04",
+      "category": "parity",
+      "state": "73 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.622459352016449,
+        "score_delta": 0.5,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035865399997419445
+      },
+      "reasoning": {
+        "text": "The statement \"73 is an odd number\" is **True**.\n\n**Reasoning:** An odd number is any integer that cannot be divided evenly by 2. Since 73 can be divided by 2 without leaving a remainder (73 \u00f7 2 = 36.5), it is not an even number but rather an odd number. Therefore, the statement is correct.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 82,
+        "seconds": 1.3307459999996354
+      }
+    },
+    {
+      "id": "calibration_addition_false_10",
+      "category": "addition",
+      "state": "55 + 61 = 123.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.22270014882087708,
+        "score_delta": -1.2500000596046448,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03614920000109123
+      },
+      "reasoning": {
+        "text": "The sum of 55 and 61 is indeed 123. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 0.36770940000133123
+      }
+    },
+    {
+      "id": "calibration_parity_true_10",
+      "category": "parity",
+      "state": "126 is an even number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9399133324623108,
+        "score_delta": 2.749999910593033,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036774899999727495
+      },
+      "reasoning": {
+        "text": "The statement \"126 is an even number\" is **True**.\n\n**Reasoning:** An even number is defined as any integer that can be divided by 2 without leaving a remainder. Since 126 can be divided by 2 (126 \u00f7 2 = 63), it meets the criteria for being an even number. Therefore, the statement is correct.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 82,
+        "seconds": 1.3397474999983388
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_03",
+      "category": "multiplication",
+      "state": "10 times 18 equals 192.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.622459352016449,
+        "score_delta": 0.5000000298023224,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03544119999787654
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because \\(10 \\times 18 = 180\\), not 192.\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 30,
+        "seconds": 0.4839180999988457
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_03",
+      "category": "divisibility",
+      "state": "60 is divisible by 4.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9924227595329285,
+        "score_delta": 4.874999895691872,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0386410999999498
+      },
+      "reasoning": {
+        "text": "The statement \"60 is divisible by 4\" is **True** because when you divide 60 by 4, the result is an integer (15), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 43,
+        "seconds": 0.6970664000000397
+      }
+    },
+    {
+      "id": "calibration_parity_true_09",
+      "category": "parity",
+      "state": "68 is an even number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9525741338729858,
+        "score_delta": 2.999999985098839,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03778559999773279
+      },
+      "reasoning": {
+        "text": "The statement \"68 is an even number\" is **True** because 68 can be divided evenly by 2 (i.e., \\(68 \\div 2 = 34\\)). Even numbers are integers that are divisible by 2 without leaving a remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 58,
+        "seconds": 0.9485576000006404
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_03",
+      "category": "subtraction",
+      "state": "81 - 29 = 52.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.020332353189587593,
+        "score_delta": -3.8749998807907104,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03631949999908102
+      },
+      "reasoning": {
+        "text": "The given equation is:\n\n\\[ 81 - 29 = 52 \\]\n\nLet's perform the subtraction step-by-step to verify if it holds true:\n\n1. Start with 81.\n2. Subtract 29 from 81.\n\n\\[\n81 - 29 = 52\n\\]\n\nThis calculation shows that \\( 81 - 29 = 52 \\), which means the statement is correct.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 97,
+        "seconds": 1.6110627999987628
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_02",
+      "category": "divisibility",
+      "state": "8 is divisible by 4.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9859364032745361,
+        "score_delta": 4.250000111758709,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.04049890000169398
+      },
+      "reasoning": {
+        "text": "The statement \"8 is divisible by 4\" is **True** because when you divide 8 by 4, the result is an integer (2), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 40,
+        "seconds": 0.6609570000000531
+      }
+    },
+    {
+      "id": "calibration_addition_true_10",
+      "category": "addition",
+      "state": "29 + 63 = 92.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7310585975646973,
+        "score_delta": 0.9999999403953552,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03835070000059204
+      },
+      "reasoning": {
+        "text": "The sum of 29 and 63 is indeed 92. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 22,
+        "seconds": 0.36483489999955054
+      }
+    },
+    {
+      "id": "calibration_addition_false_02",
+      "category": "addition",
+      "state": "49 + 94 = 148.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7772998809814453,
+        "score_delta": 1.2500000596046448,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03734370000165654
+      },
+      "reasoning": {
+        "text": "The sum of 49 and 94 is indeed 143, not 148. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 29,
+        "seconds": 0.47441949999847566
+      }
+    },
+    {
+      "id": "calibration_parity_true_07",
+      "category": "parity",
+      "state": "155 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.3775406777858734,
+        "score_delta": -0.5,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.037546999999904074
+      },
+      "reasoning": {
+        "text": "The statement \"155 is an odd number\" is **True**.\n\n**Reasoning:** An odd number is any integer that cannot be divided evenly by 2. Since 155 can be divided by 2 (resulting in 77), it is not an odd number; instead, it is an even number. Therefore, the given statement is incorrect.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 78,
+        "seconds": 1.3072785000003933
+      }
+    },
+    {
+      "id": "calibration_comparison_false_07",
+      "category": "comparison",
+      "state": "160 is greater than 195.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0017007224960252643,
+        "score_delta": -6.375000038766302,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0385113000011188
+      },
+      "reasoning": {
+        "text": "The statement \"160 is greater than 195\" is **False** because 160 is actually less than 195.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 33,
+        "seconds": 0.5285645999974804
+      }
+    },
+    {
+      "id": "calibration_comparison_true_07",
+      "category": "comparison",
+      "state": "198 is greater than 17.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9399133324623108,
+        "score_delta": 2.7500000819563866,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036150799998722505
+      },
+      "reasoning": {
+        "text": "The statement \"198 is greater than 17\" is correct because 198 is indeed larger than 17 when compared using standard numerical values.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 38,
+        "seconds": 0.6191482000031101
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_01",
+      "category": "subtraction",
+      "state": "71 - 7 = 64.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.006692850962281227,
+        "score_delta": -4.999999856110662,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03670129999954952
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect. The correct calculation should be:\n\n\\[ 71 - 7 = 64 \\]\n\nHowever, \\( 71 - 7 = 64 \\) is not true because the result of subtracting 7 from 71 is actually 64, but it's important to note that the original equation was written incorrectly as \"71 - 7 = 64,\" which implies an error in the problem setup or interpretation. \n\nTherefore, the final answer is:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 109,
+        "seconds": 1.821713000001182
+      }
+    },
+    {
+      "id": "calibration_comparison_true_05",
+      "category": "comparison",
+      "state": "46 is less than 100.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.622459352016449,
+        "score_delta": 0.5,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035354999999981374
+      },
+      "reasoning": {
+        "text": "The statement \"46 is less than 100\" is **True** because 46 is indeed smaller than 100 on the number line.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 35,
+        "seconds": 0.5706225000030827
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_09",
+      "category": "divisibility",
+      "state": "50 is divisible by 5.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9964063763618469,
+        "score_delta": 5.625000100582838,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03659160000097472
+      },
+      "reasoning": {
+        "text": "The statement \"50 is divisible by 5\" is **True** because when you divide 50 by 5, the result is an integer (10), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 43,
+        "seconds": 0.7043843999999808
+      }
+    },
+    {
+      "id": "calibration_addition_true_03",
+      "category": "addition",
+      "state": "41 + 35 = 76.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.06008664891123772,
+        "score_delta": -2.7500000782310963,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.038480200000776676
+      },
+      "reasoning": {
+        "text": "The sum of 41 and 35 is indeed 76. Therefore:\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 22,
+        "seconds": 0.3632982999988599
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_10",
+      "category": "divisibility",
+      "state": "22 is divisible by 5.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.622459352016449,
+        "score_delta": 0.4999999701976776,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03928920000180369
+      },
+      "reasoning": {
+        "text": "The statement \"22 is divisible by 5\" is **False**.\n\n**Reasoning:** A number is divisible by another if there exists an integer quotient without any remainder. For 22 to be divisible by 5, it must divide evenly into 22 without leaving a remainder. However, when we perform the division of 22 by 5 (i.e., \\(22 \\div 5\\)), we get approximately 4.4, which means there is a remainder. Therefore, 22 is not divisible by 5.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 115,
+        "seconds": 1.9027693000025465
+      }
+    },
+    {
+      "id": "calibration_addition_false_01",
+      "category": "addition",
+      "state": "87 + 52 = 132.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.29421496391296387,
+        "score_delta": -0.8750000298023224,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03497559999959776
+      },
+      "reasoning": {
+        "text": "The sum of 87 and 52 is indeed 139, not 132. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 29,
+        "seconds": 0.4949698000018543
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_02",
+      "category": "divisibility",
+      "state": "96 is divisible by 10.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.4378235340118408,
+        "score_delta": -0.25,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036296199999924283
+      },
+      "reasoning": {
+        "text": "The statement \"96 is divisible by 10\" is **False**.\n\n**Reasoning:** A number is divisible by 10 if it ends in zero (0). The last digit of 96 is 6, which does not end in zero. Therefore, 96 is not divisible by 10.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 69,
+        "seconds": 1.2344778000006045
+      }
+    },
+    {
+      "id": "calibration_addition_false_08",
+      "category": "addition",
+      "state": "99 + 80 = 177.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.010986942797899246,
+        "score_delta": -4.4999998938292265,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0357746000008774
+      },
+      "reasoning": {
+        "text": "The given equation is \\( 99 + 80 = 177 \\).\n\nLet's break it down step-by-step:\n\n1. **Addition of Whole Numbers**:\n   - Adding two whole numbers together involves combining their values.\n   - Here, we add 99 and 80.\n\n2. **Step-by-Step Calculation**:\n   - Start with 99.\n   - Add 80 to 99.\n\n3. **Result**:\n   - When you add 99 and 80, you get 177.\n\n4. **Verification**:\n   - The",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.114317100000335
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_10",
+      "category": "subtraction",
+      "state": "89 - 14 = 75.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.02931223064661026,
+        "score_delta": -3.4999999925494194,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.037239000001136446
+      },
+      "reasoning": {
+        "text": "The given equation is:\n\n\\[ 89 - 14 = 75 \\]\n\nLet's perform the subtraction on the left side of the equation:\n\n\\[ 89 - 14 = 75 \\]\n\nSubtracting 14 from 89 gives us:\n\n\\[ 75 = 75 \\]\n\nThis is true because both sides of the equation are equal to 75.\n\nTherefore, the statement is correct.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 96,
+        "seconds": 1.6581657999995514
+      }
+    },
+    {
+      "id": "calibration_parity_false_02",
+      "category": "parity",
+      "state": "116 is an odd number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.5,
+        "score_delta": 0.0,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.04294829999707872
+      },
+      "reasoning": {
+        "text": "The statement \"116 is an odd number\" is **False**.\n\n**Reasoning:** \n- An odd number is defined as any integer that cannot be divided evenly by 2.\n- The number 116 can be divided evenly by 2 (116 \u00f7 2 = 58).\n- Since 116 can be divided by 2 without leaving a remainder, it is not an odd number but rather an even number.\n\nTherefore, the statement is incorrect.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 103,
+        "seconds": 2.284991500000615
+      }
+    },
+    {
+      "id": "calibration_addition_true_05",
+      "category": "addition",
+      "state": "2 + 20 = 22.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.562176525592804,
+        "score_delta": 0.25,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.049462899998616194
+      },
+      "reasoning": {
+        "text": "The statement \"2 + 20 = 22\" is incorrect because when you add 2 to 20, you get 22, not 42 (which would be the case if it were true). Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 53,
+        "seconds": 1.1917914000005112
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_04",
+      "category": "divisibility",
+      "state": "101 is divisible by 6.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.2689414322376251,
+        "score_delta": -1.0000000596046448,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.053137400002015056
+      },
+      "reasoning": {
+        "text": "To determine if the statement \"101 is divisible by 6\" is correct, we need to check if there exists an integer \\( k \\) such that:\n\n\\[ 101 = 6k \\]\n\nLet's solve for \\( k \\):\n\n\\[ k = \\frac{101}{6} \\]\n\nPerforming the division:\n\n\\[ \\frac{101}{6} \\approx 16.8333 \\]\n\nSince \\( k \\) must be an integer (as it represents a count of groups), and \\( 16.8333 \\) is not an integer",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.718620399999054
+      }
+    },
+    {
+      "id": "calibration_parity_false_08",
+      "category": "parity",
+      "state": "41 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9399133324623108,
+        "score_delta": 2.750000011175871,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.057265600000391714
+      },
+      "reasoning": {
+        "text": "The statement \"41 is an even number\" is **False**.\n\nReasoning: An even number is defined as any integer that can be divided by 2 without leaving a remainder. The number 41 cannot be divided by 2 without a remainder (since \\(41 \\div 2 = 20.5\\), which is not an integer). Therefore, 41 is not an even number; it is an odd number.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 93,
+        "seconds": 1.6016490000001795
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_08",
+      "category": "divisibility",
+      "state": "12 is divisible by 6.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9626730680465698,
+        "score_delta": 3.2500000931322575,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.034469199999875855
+      },
+      "reasoning": {
+        "text": "The statement \"12 is divisible by 6\" is **True** because when you divide 12 by 6, the result is an integer (2), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 42,
+        "seconds": 0.6924605000021984
+      }
+    },
+    {
+      "id": "calibration_divisibility_false_05",
+      "category": "divisibility",
+      "state": "37 is divisible by 2.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.977022647857666,
+        "score_delta": 3.750000039115548,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03894800000125542
+      },
+      "reasoning": {
+        "text": "The statement \"37 is divisible by 2\" is **False** because 37 divided by 2 does not result in an integer (the quotient is 18.5).\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 43,
+        "seconds": 0.7058875000002445
+      }
+    },
+    {
+      "id": "calibration_addition_false_07",
+      "category": "addition",
+      "state": "69 + 22 = 97.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.562176525592804,
+        "score_delta": 0.25,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03699319999941508
+      },
+      "reasoning": {
+        "text": "The sum of 69 and 22 is indeed 91, not 97. Therefore:\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 27,
+        "seconds": 0.4402340999986336
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_02",
+      "category": "multiplication",
+      "state": "15 times 3 equals 56.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0019267345778644085,
+        "score_delta": -6.2500001303851604,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.036467400001129135
+      },
+      "reasoning": {
+        "text": "The statement \"15 times 3 equals 56\" is **False**.\n\nFinal Answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 23,
+        "seconds": 0.37918290000015986
+      }
+    },
+    {
+      "id": "calibration_comparison_true_09",
+      "category": "comparison",
+      "state": "159 is greater than 66.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9626730680465698,
+        "score_delta": 3.249999910593033,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03418980000060401
+      },
+      "reasoning": {
+        "text": "The statement \"159 is greater than 66\" is correct because 159 has a higher numerical value compared to 66.\n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 35,
+        "seconds": 0.5532473999992362
+      }
+    },
+    {
+      "id": "calibration_comparison_false_02",
+      "category": "comparison",
+      "state": "153 is less than 75.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.00247262348420918,
+        "score_delta": -6.000000106869265,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03732690000106231
+      },
+      "reasoning": {
+        "text": "The statement \"153 is less than 75\" is **False** because 153 is greater than 75.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 30,
+        "seconds": 0.49913590000141994
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_05",
+      "category": "subtraction",
+      "state": "98 - 94 = 4.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.006692850962281227,
+        "score_delta": -5.00000019185245,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.03521530000216444
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect because:\n\n98 - 94 equals 4, not 0.\n\nTherefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 27,
+        "seconds": 0.4415283000016643
+      }
+    },
+    {
+      "id": "calibration_divisibility_true_10",
+      "category": "divisibility",
+      "state": "45 is divisible by 9.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.9626730680465698,
+        "score_delta": 3.2499999962747097,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.037469599999894854
+      },
+      "reasoning": {
+        "text": "The statement \"45 is divisible by 9\" is **True** because when you divide 45 by 9, the result is an integer (specifically, 5), which means there is no remainder.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 46,
+        "seconds": 0.7581764000024123
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_05",
+      "category": "subtraction",
+      "state": "117 - 111 = 13.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.03308597952127457,
+        "score_delta": -3.375000074505806,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03732700000182376
+      },
+      "reasoning": {
+        "text": "The statement is incorrect because when you subtract 111 from 117, you get:\n\n\\[ 117 - 111 = 6 \\]\n\nSo, the correct answer is not 13 but 6. Therefore,\n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 56,
+        "seconds": 0.920970800001669
+      }
+    },
+    {
+      "id": "calibration_comparison_true_03",
+      "category": "comparison",
+      "state": "179 is greater than 60.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.970687747001648,
+        "score_delta": 3.499999912455678,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03555150000102003
+      },
+      "reasoning": {
+        "text": "The statement \"179 is greater than 60\" is correct because 179 is indeed larger than 60 when compared using standard numerical values. \n\nFINAL: True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 39,
+        "seconds": 0.734991400000581
+      }
+    },
+    {
+      "id": "calibration_subtraction_true_06",
+      "category": "subtraction",
+      "state": "47 - 38 = 9.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.020332353189587593,
+        "score_delta": -3.8749999161809683,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.04978829999890877
+      },
+      "reasoning": {
+        "text": "The statement \"47 - 38 = 9\" is incorrect. Let's break it down:\n\n1. **Subtraction Operation**: \n   - When you subtract 38 from 47, you get \\( 47 - 38 \\).\n\n2. **Calculation**:\n   - Performing the subtraction gives us \\( 47 - 38 = 9 \\).\n\nHowever, there seems to be an error because when you subtract 38 from 47, the result should actually be 9, not 0. The correct calculation is:\n\n\\[ 47 - 38 =",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.586323400002584
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_08",
+      "category": "multiplication",
+      "state": "2 times 11 equals 22.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.8519527316093445,
+        "score_delta": 1.7499999403953552,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03915110000161803
+      },
+      "reasoning": {
+        "text": "The statement \"2 times 11 equals 22\" is **True** because when you multiply 2 by 11, you get 22.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 35,
+        "seconds": 0.5871508999989601
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_01",
+      "category": "multiplication",
+      "state": "14 times 16 equals 224.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.5,
+        "score_delta": 0.0,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03683830000227317
+      },
+      "reasoning": {
+        "text": "The statement \"14 times 16 equals 224\" is incorrect. The correct product of 14 and 16 is actually 224 divided by 10, which simplifies to 35. \n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 54,
+        "seconds": 0.9021482000025571
+      }
+    },
+    {
+      "id": "calibration_comparison_true_10",
+      "category": "comparison",
+      "state": "198 is greater than 184.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.4378235340118408,
+        "score_delta": -0.25,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.036613000000215834
+      },
+      "reasoning": {
+        "text": "The statement \"198 is greater than 184\" is **True** because when comparing two numbers, if the first number has more digits or its digits are larger even after ignoring leading zeros, it is considered greater. In this case, 198 has more digits than 184, so it is indeed greater.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 71,
+        "seconds": 1.181703500002186
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_08",
+      "category": "multiplication",
+      "state": "18 times 4 equals 62.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.03308597952127457,
+        "score_delta": -3.3749999590218067,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.035744000000704546
+      },
+      "reasoning": {
+        "text": "The statement \"18 times 4 equals 62\" is incorrect. \n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 22,
+        "seconds": 0.3499201999984507
+      }
+    },
+    {
+      "id": "calibration_addition_true_04",
+      "category": "addition",
+      "state": "73 + 32 = 105.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.020332353189587593,
+        "score_delta": -3.8749999832361937,
+        "correct": false,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 2,
+        "seconds": 0.036198900001181755
+      },
+      "reasoning": {
+        "text": "The given equation is \\(73 + 32 = 105\\).\n\nLet's break it down step-by-step:\n\n1. **Addition of Numbers**: \n   - First, add the digits of 73: \\(7 + 3 = 10\\).\n   - Then, add the result to the next digit of 73: \\(10 + 7 = 17\\).\n   - Finally, add the last digit of 73: \\(17 + 3 = 20\\).\n\nSo, \\(73 + 32 = 105\\) is",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 128,
+        "seconds": 2.1178454000000784
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_10",
+      "category": "multiplication",
+      "state": "9 times 4 equals 28.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.13296422362327576,
+        "score_delta": -1.8750000894069672,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.0353477999997267
+      },
+      "reasoning": {
+        "text": "The statement \"9 times 4 equals 28\" is incorrect. \n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 21,
+        "seconds": 0.34012409999922966
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_10",
+      "category": "multiplication",
+      "state": "10 times 11 equals 110.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.7772998809814453,
+        "score_delta": 1.2500000596046448,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03586390000054962
+      },
+      "reasoning": {
+        "text": "The statement \"10 times 11 equals 110\" is incorrect. The correct product of 10 and 11 is actually 110, but if we consider it as a multiplication problem where each digit of 11 is multiplied separately (i.e., \\(1 \\times 1 = 1\\) for each place value), then the result would be 110. However, without specifying how the multiplication was performed, the initial statement is misleading. \n\nFINAL: False",
+        "selected": false,
+        "parsed": true,
+        "correct": false,
+        "generated_output_tokens": 105,
+        "seconds": 1.7313957000005757
+      }
+    },
+    {
+      "id": "calibration_comparison_false_03",
+      "category": "comparison",
+      "state": "108 is greater than 134.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.0035936026833951473,
+        "score_delta": -5.624999850988388,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.03770230000009178
+      },
+      "reasoning": {
+        "text": "The statement \"108 is greater than 134\" is **False** because 108 is actually less than 134.",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 33,
+        "seconds": 0.5399595000017143
+      }
+    },
+    {
+      "id": "calibration_subtraction_false_09",
+      "category": "subtraction",
+      "state": "135 - 134 = -6.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.00970847625285387,
+        "score_delta": -4.625000001862645,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.041393600000446895
+      },
+      "reasoning": {
+        "text": "The given statement is incorrect. The correct calculation should be:\n\n\\[ 135 - 134 = 1 \\]\n\nSo, the FINAL answer is:\nFalse",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 36,
+        "seconds": 0.6093572999998287
+      }
+    },
+    {
+      "id": "calibration_multiplication_true_07",
+      "category": "multiplication",
+      "state": "12 times 2 equals 24.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "direct": {
+        "selected": true,
+        "probability_true": 0.622459352016449,
+        "score_delta": 0.5,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "True",
+        "selected": true,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.037379899997176835
+      },
+      "reasoning": {
+        "text": "The statement \"12 times 2 equals 24\" is correct because:\n\n12 * 2 = 24\n\nFinal answer: True",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 32,
+        "seconds": 0.6317367000010563
+      }
+    },
+    {
+      "id": "calibration_multiplication_false_06",
+      "category": "multiplication",
+      "state": "11 times 6 equals 67.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "direct": {
+        "selected": false,
+        "probability_true": 0.00247262348420918,
+        "score_delta": -5.999999943887815,
+        "correct": true,
+        "generated_output_tokens": 0
+      },
+      "greedy": {
+        "text": "False",
+        "selected": false,
+        "parsed": true,
+        "correct": true,
+        "generated_output_tokens": 2,
+        "seconds": 0.055525700001453515
+      },
+      "reasoning": {
+        "text": "The statement \"11 times 6 equals 67\" is incorrect. The correct product of 11 and 6 is:\n\n\\[ 11 \\times 6 = 66 \\]\n\nFinal answer: False",
+        "selected": null,
+        "parsed": false,
+        "correct": false,
+        "generated_output_tokens": 47,
+        "seconds": 0.9696559000003617
+      }
+    }
+  ]
+}
