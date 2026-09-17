@@ -1,0 +1,22 @@
+[
+  {"id":"math_01","category":"math","state":"2 + 2 = 4.","question":"Is the statement correct?","target":true},
+  {"id":"math_02","category":"math","state":"7 is an even number.","question":"Is the statement correct?","target":false},
+  {"id":"math_03","category":"math","state":"The square root of 81 is 9.","question":"Is the statement correct?","target":true},
+  {"id":"math_04","category":"math","state":"10 is less than 3.","question":"Is the statement correct?","target":false},
+  {"id":"geometry_01","category":"geometry","state":"A triangle has three sides.","question":"Is the statement correct?","target":true},
+  {"id":"geometry_02","category":"geometry","state":"A square has five sides.","question":"Is the statement correct?","target":false},
+  {"id":"science_01","category":"science","state":"Water freezes at 0 degrees Celsius at standard atmospheric pressure.","question":"Is the statement correct?","target":true},
+  {"id":"science_02","category":"science","state":"The Earth is the fourth planet from the Sun.","question":"Is the statement correct?","target":false},
+  {"id":"science_03","category":"science","state":"The Earth is the third planet from the Sun.","question":"Is the statement correct?","target":true},
+  {"id":"science_04","category":"science","state":"Venus is farther from the Sun than Earth.","question":"Is the statement correct?","target":false},
+  {"id":"computing_01","category":"computing","state":"A byte commonly contains 8 bits.","question":"Is the statement correct?","target":true},
+  {"id":"computing_02","category":"computing","state":"The binary numeral 10 represents decimal 3.","question":"Is the statement correct?","target":false},
+  {"id":"python_01","category":"python","state":"Python lists are mutable.","question":"Is the statement correct?","target":true},
+  {"id":"python_02","category":"python","state":"A Python tuple can always be modified in place.","question":"Is the statement correct?","target":false},
+  {"id":"logic_01","category":"logic","state":"If all A are B and x is A, then x is B.","question":"Is the statement correct?","target":true},
+  {"id":"logic_02","category":"logic","state":"If some A are B, then all A are B.","question":"Is the statement correct?","target":false},
+  {"id":"math_05","category":"math","state":"15 is divisible by 3.","question":"Is the statement correct?","target":true},
+  {"id":"math_06","category":"math","state":"17 is divisible by 4.","question":"Is the statement correct?","target":false},
+  {"id":"geometry_03","category":"geometry","state":"The interior angles of a Euclidean triangle sum to 180 degrees.","question":"Is the statement correct?","target":true},
+  {"id":"math_07","category":"math","state":"0.5 is greater than 0.75.","question":"Is the statement correct?","target":false}
+]
