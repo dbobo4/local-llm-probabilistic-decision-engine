@@ -383,66 +383,45 @@ examples/decide.py
 
 For a candidate token sequence
 
-$$
-c = (c_1, c_2, \dots, c_T)
-$$
+```math
+c=(c_1,c_2,\dots,c_T)
+```
 
 the default sequence score is
 
-$$
-S(c)
-=
-\sum_{t=1}^{T}
-\log P(c_t \mid x, c_1, \dots, c_{t-1})
-$$
+```math
+S(c)=\sum_{t=1}^{T}\log P(c_t \mid x,c_1,\dots,c_{t-1})
+```
 
 where $x$ is the complete model context.
 
 In probability space, this corresponds to the probability of the complete candidate continuation:
 
-$$
-P(c \mid x)
-=
-\prod_{t=1}^{T}
-P(c_t \mid x, c_1, \dots, c_{t-1})
-$$
+```math
+P(c \mid x)=\prod_{t=1}^{T}P(c_t \mid x,c_1,\dots,c_{t-1})
+```
 
 Written out explicitly:
 
-$$
-P(c \mid x)
-=
-P(c_1 \mid x)
-\cdot
-P(c_2 \mid x, c_1)
-\cdot
-\dots
-\cdot
-P(c_T \mid x, c_1, \dots, c_{T-1})
-$$
+```math
+P(c \mid x)=P(c_1 \mid x)\cdot P(c_2 \mid x,c_1)\cdot\dots\cdot P(c_T \mid x,c_1,\dots,c_{T-1})
+```
 
 The implementation works in log-space because adding log-probabilities is numerically more stable than multiplying many small probabilities.
 
 Candidate scores are then normalized across the supplied candidate set $C$:
 
-$$
-P(c_i \mid x,\; c_i \in C)
-=
-\frac{\exp(S(c_i))}
-{\sum_j \exp(S(c_j))}
-$$
+```math
+P(c_i \mid x,\;c_i\in C)=\frac{\exp(S(c_i))}{\sum_j\exp(S(c_j))}
+```
 
 This produces a probability distribution over the supplied candidate set.
 
 The optional `mean` scoring mode uses average token log-probability instead of the sum:
 
-$$
-S_{\mathrm{mean}}(c)
-=
-\frac{1}{T}
-\sum_{t=1}^{T}
-\log P(c_t \mid x, c_1, \dots, c_{t-1})
-$$
+```math
+S_{\mathrm{mean}}(c)=\frac{1}{T}\sum_{t=1}^{T}\log P(c_t \mid x,c_1,\dots,c_{t-1})
+```
 
 The resulting normalized values represent model preferences over the supplied candidates. They should not automatically be interpreted as calibrated probabilities of objective correctness unless calibration has been evaluated separately.
 
