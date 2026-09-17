@@ -80,3 +80,20 @@ def test_batch_continuations_right_pads_sequences():
 def test_batch_continuations_requires_input():
     with pytest.raises(ValueError, match="must not be empty"):
         batch_continuations([], pad_token_id=0)
+
+
+def test_tokenize_continuation_rejects_prefix_with_no_tokens():
+    class EmptyPrefixTokenizer:
+        def encode(self, text, add_special_tokens=False):
+            mapping = {
+                "Prompt": [],
+                "Prompt candidate": [42],
+            }
+            return mapping[text]
+
+    with pytest.raises(ValueError, match="prefix produced no tokens"):
+        tokenize_continuation(
+            EmptyPrefixTokenizer(),
+            "Prompt",
+            " candidate",
+        )

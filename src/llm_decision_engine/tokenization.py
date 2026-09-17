@@ -34,6 +34,9 @@ def tokenize_continuation(
         add_special_tokens=False,
     )
 
+    if not prefix_ids:
+        raise ValueError("prefix produced no tokens.")
+
     full_ids = tokenizer.encode(
         prefix + continuation,
         add_special_tokens=False,

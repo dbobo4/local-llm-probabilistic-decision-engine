@@ -73,8 +73,20 @@ def normalize_candidate_scores(scores: list[float]) -> list[float]:
     if len(scores) < 2:
         raise ValueError("At least two candidate scores are required.")
 
+    score_tensor = torch.tensor(scores, dtype=torch.float32)
+
+    if torch.isnan(score_tensor).any() or torch.isposinf(score_tensor).any():
+        raise ValueError(
+            "Candidate scores must not contain NaN or positive infinity."
+        )
+
+    if torch.isneginf(score_tensor).all():
+        raise ValueError(
+            "At least one candidate score must be finite."
+        )
+
     probabilities = torch.softmax(
-        torch.tensor(scores, dtype=torch.float32),
+        score_tensor,
         dim=-1,
     )
 

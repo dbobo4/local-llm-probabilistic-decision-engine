@@ -46,3 +46,25 @@ def test_sequence_scoring_rejects_misaligned_lengths():
             token_logits,
             [1],
         )
+
+
+def test_normalize_candidate_scores_rejects_undefined_scores():
+    invalid_scores = [
+        [float("nan"), 0.0],
+        [float("inf"), 0.0],
+        [float("-inf"), float("-inf")],
+    ]
+
+    for scores in invalid_scores:
+        with pytest.raises(ValueError):
+            normalize_candidate_scores(scores)
+
+
+def test_normalize_candidate_scores_allows_negative_infinity():
+    probabilities = normalize_candidate_scores([
+        float("-inf"),
+        0.0,
+    ])
+
+    assert probabilities[0] == pytest.approx(0.0)
+    assert probabilities[1] == pytest.approx(1.0)
