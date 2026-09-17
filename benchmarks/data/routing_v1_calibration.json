@@ -1,0 +1,863 @@
+{
+  "benchmark": "routing_v1",
+  "split": "calibration",
+  "seed": 20260919,
+  "candidates": [
+    "billing",
+    "technical support",
+    "sales",
+    "account access",
+    "cancellation",
+    "shipping"
+  ],
+  "intent_definitions": {
+    "billing": "Charges, invoices, payments, receipts, refunds, and unexpected fees.",
+    "technical support": "Product failures, crashes, errors, broken features, synchronization, or other technical problems.",
+    "sales": "Pre-purchase questions about pricing, quotes, demos, plans, licenses, or volume purchases.",
+    "account access": "Login, password, authentication, locked-account, or two-factor-access problems.",
+    "cancellation": "Requests to end, discontinue, or stop renewal of an existing subscription or service.",
+    "shipping": "Delivery, parcels, tracking, courier status, delivery address, or arrival-time questions."
+  },
+  "examples": [
+    {
+      "id": "calibration_billing_wrong_invoice_05",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "wrong_invoice",
+      "text": "The invoice for order E592 has the wrong total."
+    },
+    {
+      "id": "calibration_account_access_locked_out_05",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "locked_out",
+      "text": "I'm locked out after several failed login attempts."
+    },
+    {
+      "id": "calibration_billing_refund_charge_01",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "refund_charge",
+      "text": "I need a refund for the duplicate charge on order F120."
+    },
+    {
+      "id": "calibration_billing_missing_receipt_04",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "missing_receipt",
+      "text": "A payment of €44 was taken, but no receipt arrived."
+    },
+    {
+      "id": "calibration_account_access_email_change_02",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "email_change",
+      "text": "I cannot sign in after changing my email to a personal address."
+    },
+    {
+      "id": "calibration_account_access_two_factor_05",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "two_factor",
+      "text": "My two-factor code is not arriving on my tablet."
+    },
+    {
+      "id": "calibration_account_access_locked_out_01",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "locked_out",
+      "text": "I'm locked out after three failed login attempts."
+    },
+    {
+      "id": "calibration_technical_support_error_code_03",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "error_code",
+      "text": "The program shows error code A09 and stops working."
+    },
+    {
+      "id": "calibration_shipping_address_update_02",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "address_update",
+      "text": "Can I change the delivery address to my new apartment before the parcel arrives?"
+    },
+    {
+      "id": "calibration_account_access_locked_out_03",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "locked_out",
+      "text": "I'm locked out after five failed login attempts."
+    },
+    {
+      "id": "calibration_shipping_arrival_date_03",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "arrival_date",
+      "text": "When should parcel P347 reach me?"
+    },
+    {
+      "id": "calibration_technical_support_app_crash_03",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "app_crash",
+      "text": "The app crashes every time I try to export a file."
+    },
+    {
+      "id": "calibration_sales_volume_discount_01",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "volume_discount",
+      "text": "Do you offer a discount if we purchase 20 licenses?"
+    },
+    {
+      "id": "calibration_cancellation_end_subscription_01",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "end_subscription",
+      "text": "I want to end my subscription today."
+    },
+    {
+      "id": "calibration_account_access_email_change_04",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "email_change",
+      "text": "I cannot sign in after changing my email to a new domain."
+    },
+    {
+      "id": "calibration_sales_enterprise_price_04",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "enterprise_price",
+      "text": "What would the enterprise plan cost for a company of 150 people?"
+    },
+    {
+      "id": "calibration_cancellation_terminate_service_02",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "terminate_service",
+      "text": "Please terminate my current service after this month."
+    },
+    {
+      "id": "calibration_technical_support_app_crash_05",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "app_crash",
+      "text": "The app crashes every time I try to upload an image."
+    },
+    {
+      "id": "calibration_shipping_address_update_01",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "address_update",
+      "text": "Can I change the delivery address to my office before the parcel arrives?"
+    },
+    {
+      "id": "calibration_technical_support_app_crash_01",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "app_crash",
+      "text": "The app crashes every time I try to open a project."
+    },
+    {
+      "id": "calibration_shipping_arrival_date_01",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "arrival_date",
+      "text": "When should parcel P104 reach me?"
+    },
+    {
+      "id": "calibration_shipping_tracking_stuck_02",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "tracking_stuck",
+      "text": "The tracking page has been stuck on label created for days."
+    },
+    {
+      "id": "calibration_cancellation_stop_renewal_04",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "stop_renewal",
+      "text": "Please stop my plan from renewing on the next date."
+    },
+    {
+      "id": "calibration_billing_refund_charge_04",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "refund_charge",
+      "text": "I need a refund for the duplicate charge on order J487."
+    },
+    {
+      "id": "calibration_shipping_arrival_date_05",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "arrival_date",
+      "text": "When should parcel P589 reach me?"
+    },
+    {
+      "id": "calibration_technical_support_error_code_01",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "error_code",
+      "text": "The program shows error code E17 and stops working."
+    },
+    {
+      "id": "calibration_technical_support_feature_loading_02",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "feature_loading",
+      "text": "The reports screen never finishes loading."
+    },
+    {
+      "id": "calibration_technical_support_upload_failure_03",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "upload_failure",
+      "text": "Files fail every time I try to upload a photo."
+    },
+    {
+      "id": "calibration_sales_volume_discount_02",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "volume_discount",
+      "text": "Do you offer a discount if we purchase 50 licenses?"
+    },
+    {
+      "id": "calibration_technical_support_app_crash_04",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "app_crash",
+      "text": "The app crashes every time I try to start a call."
+    },
+    {
+      "id": "calibration_technical_support_upload_failure_04",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "upload_failure",
+      "text": "Files fail every time I try to upload a presentation."
+    },
+    {
+      "id": "calibration_sales_enterprise_price_03",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "enterprise_price",
+      "text": "What would the enterprise plan cost for a company of 90 people?"
+    },
+    {
+      "id": "calibration_sales_volume_discount_05",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "volume_discount",
+      "text": "Do you offer a discount if we purchase 250 licenses?"
+    },
+    {
+      "id": "calibration_sales_seat_quote_03",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "seat_quote",
+      "text": "Can you give me a price quote for 40 seats?"
+    },
+    {
+      "id": "calibration_cancellation_end_subscription_03",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "end_subscription",
+      "text": "I want to end my subscription at the end of the month."
+    },
+    {
+      "id": "calibration_shipping_address_update_04",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "address_update",
+      "text": "Can I change the delivery address to my parents' house before the parcel arrives?"
+    },
+    {
+      "id": "calibration_cancellation_close_plan_01",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "close_plan",
+      "text": "I no longer need the service and want the plan closed now."
+    },
+    {
+      "id": "calibration_cancellation_stop_renewal_01",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "stop_renewal",
+      "text": "Please stop my plan from renewing next month."
+    },
+    {
+      "id": "calibration_sales_demo_request_01",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "demo_request",
+      "text": "I'd like to see a demo for our engineering team."
+    },
+    {
+      "id": "calibration_sales_volume_discount_04",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "volume_discount",
+      "text": "Do you offer a discount if we purchase 100 licenses?"
+    },
+    {
+      "id": "calibration_account_access_two_factor_03",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "two_factor",
+      "text": "My two-factor code is not arriving on my authenticator."
+    },
+    {
+      "id": "calibration_technical_support_feature_loading_01",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "feature_loading",
+      "text": "The dashboard screen never finishes loading."
+    },
+    {
+      "id": "calibration_account_access_password_loop_02",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "password_loop",
+      "text": "The password reset keeps sending me back to the verification page."
+    },
+    {
+      "id": "calibration_shipping_tracking_stuck_01",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "tracking_stuck",
+      "text": "The tracking page has been stuck on in transit for days."
+    },
+    {
+      "id": "calibration_sales_enterprise_price_01",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "enterprise_price",
+      "text": "What would the enterprise plan cost for a company of 30 people?"
+    },
+    {
+      "id": "calibration_shipping_tracking_stuck_05",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "tracking_stuck",
+      "text": "The tracking page has been stuck on outbound facility for days."
+    },
+    {
+      "id": "calibration_shipping_tracking_stuck_04",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "tracking_stuck",
+      "text": "The tracking page has been stuck on processing for days."
+    },
+    {
+      "id": "calibration_sales_demo_request_03",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "demo_request",
+      "text": "I'd like to see a demo for our design team."
+    },
+    {
+      "id": "calibration_technical_support_error_code_04",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "error_code",
+      "text": "The program shows error code X31 and stops working."
+    },
+    {
+      "id": "calibration_cancellation_terminate_service_05",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "terminate_service",
+      "text": "Please terminate my current service at the end of today."
+    },
+    {
+      "id": "calibration_shipping_package_missing_02",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "package_missing",
+      "text": "My package was supposed to arrive Monday, but it is still missing."
+    },
+    {
+      "id": "calibration_account_access_password_loop_03",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "password_loop",
+      "text": "The password reset keeps sending me back to the welcome page."
+    },
+    {
+      "id": "calibration_cancellation_close_plan_05",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "close_plan",
+      "text": "I no longer need the service and want the plan closed before renewal."
+    },
+    {
+      "id": "calibration_billing_wrong_invoice_01",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "wrong_invoice",
+      "text": "The invoice for order A104 has the wrong total."
+    },
+    {
+      "id": "calibration_technical_support_upload_failure_05",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "upload_failure",
+      "text": "Files fail every time I try to upload a text document."
+    },
+    {
+      "id": "calibration_shipping_tracking_stuck_03",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "tracking_stuck",
+      "text": "The tracking page has been stuck on at depot for days."
+    },
+    {
+      "id": "calibration_billing_wrong_invoice_02",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "wrong_invoice",
+      "text": "The invoice for order B227 has the wrong total."
+    },
+    {
+      "id": "calibration_billing_missing_receipt_05",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "missing_receipt",
+      "text": "A payment of £67 was taken, but no receipt arrived."
+    },
+    {
+      "id": "calibration_shipping_arrival_date_02",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "arrival_date",
+      "text": "When should parcel P225 reach me?"
+    },
+    {
+      "id": "calibration_sales_demo_request_04",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "demo_request",
+      "text": "I'd like to see a demo for our operations team."
+    },
+    {
+      "id": "calibration_account_access_locked_out_02",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "locked_out",
+      "text": "I'm locked out after four failed login attempts."
+    },
+    {
+      "id": "calibration_technical_support_upload_failure_02",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "upload_failure",
+      "text": "Files fail every time I try to upload a spreadsheet."
+    },
+    {
+      "id": "calibration_sales_volume_discount_03",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "volume_discount",
+      "text": "Do you offer a discount if we purchase 80 licenses?"
+    },
+    {
+      "id": "calibration_account_access_password_loop_05",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "password_loop",
+      "text": "The password reset keeps sending me back to the security page."
+    },
+    {
+      "id": "calibration_shipping_package_missing_03",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "package_missing",
+      "text": "My package was supposed to arrive two days ago, but it is still missing."
+    },
+    {
+      "id": "calibration_account_access_two_factor_04",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "two_factor",
+      "text": "My two-factor code is not arriving on my new device."
+    },
+    {
+      "id": "calibration_technical_support_feature_loading_03",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "feature_loading",
+      "text": "The settings screen never finishes loading."
+    },
+    {
+      "id": "calibration_sales_demo_request_02",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "demo_request",
+      "text": "I'd like to see a demo for our finance team."
+    },
+    {
+      "id": "calibration_cancellation_stop_renewal_05",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "stop_renewal",
+      "text": "Please stop my plan from renewing after the current term."
+    },
+    {
+      "id": "calibration_cancellation_terminate_service_03",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "terminate_service",
+      "text": "Please terminate my current service after the paid period."
+    },
+    {
+      "id": "calibration_billing_refund_charge_05",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "refund_charge",
+      "text": "I need a refund for the duplicate charge on order K508."
+    },
+    {
+      "id": "calibration_technical_support_feature_loading_04",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "feature_loading",
+      "text": "The analytics screen never finishes loading."
+    },
+    {
+      "id": "calibration_technical_support_error_code_02",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "error_code",
+      "text": "The program shows error code E42 and stops working."
+    },
+    {
+      "id": "calibration_billing_duplicate_charge_02",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "duplicate_charge",
+      "text": "I was charged $42 twice on my card."
+    },
+    {
+      "id": "calibration_cancellation_close_plan_04",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "close_plan",
+      "text": "I no longer need the service and want the plan closed after this period."
+    },
+    {
+      "id": "calibration_billing_missing_receipt_01",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "missing_receipt",
+      "text": "A payment of $16 was taken, but no receipt arrived."
+    },
+    {
+      "id": "calibration_account_access_email_change_03",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "email_change",
+      "text": "I cannot sign in after changing my email to my company address."
+    },
+    {
+      "id": "calibration_shipping_arrival_date_04",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "arrival_date",
+      "text": "When should parcel P468 reach me?"
+    },
+    {
+      "id": "calibration_account_access_password_loop_01",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "password_loop",
+      "text": "The password reset keeps sending me back to the sign-in page."
+    },
+    {
+      "id": "calibration_sales_seat_quote_02",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "seat_quote",
+      "text": "Can you give me a price quote for 25 seats?"
+    },
+    {
+      "id": "calibration_billing_refund_charge_02",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "refund_charge",
+      "text": "I need a refund for the duplicate charge on order G245."
+    },
+    {
+      "id": "calibration_technical_support_app_crash_02",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "app_crash",
+      "text": "The app crashes every time I try to save a document."
+    },
+    {
+      "id": "calibration_cancellation_close_plan_02",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "close_plan",
+      "text": "I no longer need the service and want the plan closed after Friday."
+    },
+    {
+      "id": "calibration_account_access_two_factor_01",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "two_factor",
+      "text": "My two-factor code is not arriving on my phone."
+    },
+    {
+      "id": "calibration_technical_support_feature_loading_05",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "feature_loading",
+      "text": "The workspace screen never finishes loading."
+    },
+    {
+      "id": "calibration_shipping_address_update_03",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "address_update",
+      "text": "Can I change the delivery address to a nearby pickup point before the parcel arrives?"
+    },
+    {
+      "id": "calibration_shipping_address_update_05",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "address_update",
+      "text": "Can I change the delivery address to another street before the parcel arrives?"
+    },
+    {
+      "id": "calibration_technical_support_error_code_05",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "error_code",
+      "text": "The program shows error code R88 and stops working."
+    },
+    {
+      "id": "calibration_account_access_email_change_05",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "email_change",
+      "text": "I cannot sign in after changing my email to another mailbox."
+    },
+    {
+      "id": "calibration_account_access_password_loop_04",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "password_loop",
+      "text": "The password reset keeps sending me back to the profile page."
+    },
+    {
+      "id": "calibration_cancellation_end_subscription_05",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "end_subscription",
+      "text": "I want to end my subscription immediately."
+    },
+    {
+      "id": "calibration_cancellation_stop_renewal_02",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "stop_renewal",
+      "text": "Please stop my plan from renewing next week."
+    },
+    {
+      "id": "calibration_billing_duplicate_charge_05",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "duplicate_charge",
+      "text": "I was charged £28 twice on my card."
+    },
+    {
+      "id": "calibration_billing_duplicate_charge_01",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "duplicate_charge",
+      "text": "I was charged $19 twice on my card."
+    },
+    {
+      "id": "calibration_sales_demo_request_05",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "demo_request",
+      "text": "I'd like to see a demo for our research team."
+    },
+    {
+      "id": "calibration_billing_duplicate_charge_04",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "duplicate_charge",
+      "text": "I was charged €35 twice on my card."
+    },
+    {
+      "id": "calibration_cancellation_stop_renewal_03",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "stop_renewal",
+      "text": "Please stop my plan from renewing after this cycle."
+    },
+    {
+      "id": "calibration_account_access_email_change_01",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "email_change",
+      "text": "I cannot sign in after changing my email to a new work address."
+    },
+    {
+      "id": "calibration_sales_seat_quote_01",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "seat_quote",
+      "text": "Can you give me a price quote for 12 seats?"
+    },
+    {
+      "id": "calibration_billing_duplicate_charge_03",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "duplicate_charge",
+      "text": "I was charged $73 twice on my card."
+    },
+    {
+      "id": "calibration_account_access_locked_out_04",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "locked_out",
+      "text": "I'm locked out after six failed login attempts."
+    },
+    {
+      "id": "calibration_billing_missing_receipt_02",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "missing_receipt",
+      "text": "A payment of $31 was taken, but no receipt arrived."
+    },
+    {
+      "id": "calibration_sales_enterprise_price_05",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "enterprise_price",
+      "text": "What would the enterprise plan cost for a company of 300 people?"
+    },
+    {
+      "id": "calibration_billing_wrong_invoice_04",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "wrong_invoice",
+      "text": "The invoice for order D441 has the wrong total."
+    },
+    {
+      "id": "calibration_billing_wrong_invoice_03",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "wrong_invoice",
+      "text": "The invoice for order C318 has the wrong total."
+    },
+    {
+      "id": "calibration_technical_support_upload_failure_01",
+      "split": "calibration",
+      "intent": "technical support",
+      "family": "upload_failure",
+      "text": "Files fail every time I try to upload a PDF."
+    },
+    {
+      "id": "calibration_account_access_two_factor_02",
+      "split": "calibration",
+      "intent": "account access",
+      "family": "two_factor",
+      "text": "My two-factor code is not arriving on my email."
+    },
+    {
+      "id": "calibration_cancellation_close_plan_03",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "close_plan",
+      "text": "I no longer need the service and want the plan closed at month end."
+    },
+    {
+      "id": "calibration_sales_enterprise_price_02",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "enterprise_price",
+      "text": "What would the enterprise plan cost for a company of 60 people?"
+    },
+    {
+      "id": "calibration_sales_seat_quote_04",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "seat_quote",
+      "text": "Can you give me a price quote for 75 seats?"
+    },
+    {
+      "id": "calibration_cancellation_terminate_service_04",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "terminate_service",
+      "text": "Please terminate my current service before renewal."
+    },
+    {
+      "id": "calibration_shipping_package_missing_05",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "package_missing",
+      "text": "My package was supposed to arrive last Friday, but it is still missing."
+    },
+    {
+      "id": "calibration_cancellation_terminate_service_01",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "terminate_service",
+      "text": "Please terminate my current service as soon as possible."
+    },
+    {
+      "id": "calibration_cancellation_end_subscription_04",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "end_subscription",
+      "text": "I want to end my subscription before the next cycle."
+    },
+    {
+      "id": "calibration_shipping_package_missing_01",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "package_missing",
+      "text": "My package was supposed to arrive yesterday, but it is still missing."
+    },
+    {
+      "id": "calibration_billing_refund_charge_03",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "refund_charge",
+      "text": "I need a refund for the duplicate charge on order H366."
+    },
+    {
+      "id": "calibration_sales_seat_quote_05",
+      "split": "calibration",
+      "intent": "sales",
+      "family": "seat_quote",
+      "text": "Can you give me a price quote for 120 seats?"
+    },
+    {
+      "id": "calibration_shipping_package_missing_04",
+      "split": "calibration",
+      "intent": "shipping",
+      "family": "package_missing",
+      "text": "My package was supposed to arrive this morning, but it is still missing."
+    },
+    {
+      "id": "calibration_billing_missing_receipt_03",
+      "split": "calibration",
+      "intent": "billing",
+      "family": "missing_receipt",
+      "text": "A payment of $58 was taken, but no receipt arrived."
+    },
+    {
+      "id": "calibration_cancellation_end_subscription_02",
+      "split": "calibration",
+      "intent": "cancellation",
+      "family": "end_subscription",
+      "text": "I want to end my subscription this week."
+    }
+  ]
+}

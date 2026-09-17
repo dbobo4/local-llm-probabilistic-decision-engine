@@ -1,0 +1,863 @@
+{
+  "benchmark": "routing_v1",
+  "split": "test",
+  "seed": 20260920,
+  "candidates": [
+    "billing",
+    "technical support",
+    "sales",
+    "account access",
+    "cancellation",
+    "shipping"
+  ],
+  "intent_definitions": {
+    "billing": "Charges, invoices, payments, receipts, refunds, and unexpected fees.",
+    "technical support": "Product failures, crashes, errors, broken features, synchronization, or other technical problems.",
+    "sales": "Pre-purchase questions about pricing, quotes, demos, plans, licenses, or volume purchases.",
+    "account access": "Login, password, authentication, locked-account, or two-factor-access problems.",
+    "cancellation": "Requests to end, discontinue, or stop renewal of an existing subscription or service.",
+    "shipping": "Delivery, parcels, tracking, courier status, delivery address, or arrival-time questions."
+  },
+  "examples": [
+    {
+      "id": "test_billing_failed_payment_03",
+      "split": "test",
+      "intent": "billing",
+      "family": "failed_payment",
+      "text": "Payment for order U438 failed, but the money still left my bank."
+    },
+    {
+      "id": "test_cancellation_discontinue_plan_05",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "discontinue_plan",
+      "text": "I would like to discontinue my current plan before it renews."
+    },
+    {
+      "id": "test_sales_buy_licenses_02",
+      "split": "test",
+      "intent": "sales",
+      "family": "buy_licenses",
+      "text": "Our company is considering buying 45 user licenses."
+    },
+    {
+      "id": "test_billing_unknown_fee_03",
+      "split": "test",
+      "intent": "billing",
+      "family": "unknown_fee",
+      "text": "The receipt for order N843 contains a fee I do not recognize."
+    },
+    {
+      "id": "test_sales_annual_quote_05",
+      "split": "test",
+      "intent": "sales",
+      "family": "annual_quote",
+      "text": "Could you prepare an annual quote for our data department?"
+    },
+    {
+      "id": "test_cancellation_end_after_date_03",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "end_after_date",
+      "text": "Keep the service until the renewal date, then end it."
+    },
+    {
+      "id": "test_cancellation_membership_end_02",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "membership_end",
+      "text": "I don't need the membership anymore; please end it after this month."
+    },
+    {
+      "id": "test_account_access_credentials_rejected_04",
+      "split": "test",
+      "intent": "account access",
+      "family": "credentials_rejected",
+      "text": "My credentials are rejected even though I can use them on a second device."
+    },
+    {
+      "id": "test_shipping_tracking_no_update_02",
+      "split": "test",
+      "intent": "shipping",
+      "family": "tracking_no_update",
+      "text": "Tracking number ZX202 has not updated since it left the warehouse."
+    },
+    {
+      "id": "test_billing_failed_payment_02",
+      "split": "test",
+      "intent": "billing",
+      "family": "failed_payment",
+      "text": "Payment for order T327 failed, but the money still left my bank."
+    },
+    {
+      "id": "test_technical_support_screen_freeze_02",
+      "split": "test",
+      "intent": "technical support",
+      "family": "screen_freeze",
+      "text": "The application freezes whenever I open the calendar."
+    },
+    {
+      "id": "test_technical_support_screen_freeze_03",
+      "split": "test",
+      "intent": "technical support",
+      "family": "screen_freeze",
+      "text": "The application freezes whenever I open the search panel."
+    },
+    {
+      "id": "test_billing_unknown_fee_02",
+      "split": "test",
+      "intent": "billing",
+      "family": "unknown_fee",
+      "text": "The receipt for order M732 contains a fee I do not recognize."
+    },
+    {
+      "id": "test_technical_support_sync_failure_01",
+      "split": "test",
+      "intent": "technical support",
+      "family": "sync_failure",
+      "text": "Synchronization stops when it reaches my laptop."
+    },
+    {
+      "id": "test_shipping_wrong_location_03",
+      "split": "test",
+      "intent": "shipping",
+      "family": "wrong_location",
+      "text": "The courier says parcel YT338 was delivered somewhere else."
+    },
+    {
+      "id": "test_shipping_parcel_delayed_04",
+      "split": "test",
+      "intent": "shipping",
+      "family": "parcel_delayed",
+      "text": "The parcel is already a week late. When will it arrive?"
+    },
+    {
+      "id": "test_billing_unexpected_debit_04",
+      "split": "test",
+      "intent": "billing",
+      "family": "unexpected_debit",
+      "text": "Why did my card get debited €32 more than I expected?"
+    },
+    {
+      "id": "test_technical_support_sync_failure_02",
+      "split": "test",
+      "intent": "technical support",
+      "family": "sync_failure",
+      "text": "Synchronization stops when it reaches the cloud folder."
+    },
+    {
+      "id": "test_sales_compare_plans_01",
+      "split": "test",
+      "intent": "sales",
+      "family": "compare_plans",
+      "text": "We're evaluating the product and want to compare plans for 15 users."
+    },
+    {
+      "id": "test_cancellation_disable_renewal_05",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "disable_renewal",
+      "text": "Please turn off the next renewal on this contract."
+    },
+    {
+      "id": "test_technical_support_screen_freeze_01",
+      "split": "test",
+      "intent": "technical support",
+      "family": "screen_freeze",
+      "text": "The application freezes whenever I open the editor."
+    },
+    {
+      "id": "test_cancellation_end_after_date_05",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "end_after_date",
+      "text": "Keep the service until the paid period finishes, then end it."
+    },
+    {
+      "id": "test_sales_team_trial_04",
+      "split": "test",
+      "intent": "sales",
+      "family": "team_trial",
+      "text": "Can we arrange a product trial for a team of 80 people before buying?"
+    },
+    {
+      "id": "test_cancellation_membership_end_03",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "membership_end",
+      "text": "I don't need the membership anymore; please end it after the current period."
+    },
+    {
+      "id": "test_cancellation_disable_renewal_03",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "disable_renewal",
+      "text": "Please turn off the next renewal on my current service."
+    },
+    {
+      "id": "test_account_access_reset_expired_05",
+      "split": "test",
+      "intent": "account access",
+      "family": "reset_expired",
+      "text": "The password recovery link says it expired after I changed devices."
+    },
+    {
+      "id": "test_account_access_credentials_rejected_05",
+      "split": "test",
+      "intent": "account access",
+      "family": "credentials_rejected",
+      "text": "My credentials are rejected even though I can use them on the web portal."
+    },
+    {
+      "id": "test_shipping_parcel_delayed_03",
+      "split": "test",
+      "intent": "shipping",
+      "family": "parcel_delayed",
+      "text": "The parcel is already three days late. When will it arrive?"
+    },
+    {
+      "id": "test_cancellation_discontinue_plan_02",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "discontinue_plan",
+      "text": "I would like to discontinue my current plan after this cycle."
+    },
+    {
+      "id": "test_shipping_parcel_delayed_01",
+      "split": "test",
+      "intent": "shipping",
+      "family": "parcel_delayed",
+      "text": "The parcel is already one day late. When will it arrive?"
+    },
+    {
+      "id": "test_shipping_delivery_progress_05",
+      "split": "test",
+      "intent": "shipping",
+      "family": "delivery_progress",
+      "text": "Where is parcel RV565, and how long until it reaches my address?"
+    },
+    {
+      "id": "test_technical_support_desktop_closes_04",
+      "split": "test",
+      "intent": "technical support",
+      "family": "desktop_closes",
+      "text": "The desktop client closes by itself while I search files."
+    },
+    {
+      "id": "test_billing_failed_payment_01",
+      "split": "test",
+      "intent": "billing",
+      "family": "failed_payment",
+      "text": "Payment for order S216 failed, but the money still left my bank."
+    },
+    {
+      "id": "test_billing_unexpected_debit_02",
+      "split": "test",
+      "intent": "billing",
+      "family": "unexpected_debit",
+      "text": "Why did my card get debited $26 more than I expected?"
+    },
+    {
+      "id": "test_billing_invoice_extra_05",
+      "split": "test",
+      "intent": "billing",
+      "family": "invoice_extra",
+      "text": "Please explain the extra £21 on my latest invoice."
+    },
+    {
+      "id": "test_shipping_delivery_progress_04",
+      "split": "test",
+      "intent": "shipping",
+      "family": "delivery_progress",
+      "text": "Where is parcel RV454, and how long until it reaches my address?"
+    },
+    {
+      "id": "test_shipping_parcel_delayed_02",
+      "split": "test",
+      "intent": "shipping",
+      "family": "parcel_delayed",
+      "text": "The parcel is already two days late. When will it arrive?"
+    },
+    {
+      "id": "test_billing_failed_payment_04",
+      "split": "test",
+      "intent": "billing",
+      "family": "failed_payment",
+      "text": "Payment for order V549 failed, but the money still left my bank."
+    },
+    {
+      "id": "test_cancellation_end_after_date_02",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "end_after_date",
+      "text": "Keep the service until month end, then end it."
+    },
+    {
+      "id": "test_account_access_verification_block_02",
+      "split": "test",
+      "intent": "account access",
+      "family": "verification_block",
+      "text": "I cannot get past the identity verification step on my work computer."
+    },
+    {
+      "id": "test_account_access_new_phone_05",
+      "split": "test",
+      "intent": "account access",
+      "family": "new_phone",
+      "text": "I changed phones and can no longer authenticate on my member portal."
+    },
+    {
+      "id": "test_shipping_delivery_progress_02",
+      "split": "test",
+      "intent": "shipping",
+      "family": "delivery_progress",
+      "text": "Where is parcel RV232, and how long until it reaches my address?"
+    },
+    {
+      "id": "test_sales_annual_quote_03",
+      "split": "test",
+      "intent": "sales",
+      "family": "annual_quote",
+      "text": "Could you prepare an annual quote for our engineering department?"
+    },
+    {
+      "id": "test_sales_annual_quote_02",
+      "split": "test",
+      "intent": "sales",
+      "family": "annual_quote",
+      "text": "Could you prepare an annual quote for our legal department?"
+    },
+    {
+      "id": "test_technical_support_desktop_closes_02",
+      "split": "test",
+      "intent": "technical support",
+      "family": "desktop_closes",
+      "text": "The desktop client closes by itself while I join a meeting."
+    },
+    {
+      "id": "test_account_access_new_phone_03",
+      "split": "test",
+      "intent": "account access",
+      "family": "new_phone",
+      "text": "I changed phones and can no longer authenticate on my company login."
+    },
+    {
+      "id": "test_sales_compare_plans_04",
+      "split": "test",
+      "intent": "sales",
+      "family": "compare_plans",
+      "text": "We're evaluating the product and want to compare plans for 85 users."
+    },
+    {
+      "id": "test_cancellation_disable_renewal_02",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "disable_renewal",
+      "text": "Please turn off the next renewal for this subscription."
+    },
+    {
+      "id": "test_account_access_verification_block_04",
+      "split": "test",
+      "intent": "account access",
+      "family": "verification_block",
+      "text": "I cannot get past the identity verification step on my tablet."
+    },
+    {
+      "id": "test_shipping_wrong_location_05",
+      "split": "test",
+      "intent": "shipping",
+      "family": "wrong_location",
+      "text": "The courier says parcel YT550 was delivered somewhere else."
+    },
+    {
+      "id": "test_shipping_wrong_location_01",
+      "split": "test",
+      "intent": "shipping",
+      "family": "wrong_location",
+      "text": "The courier says parcel YT116 was delivered somewhere else."
+    },
+    {
+      "id": "test_billing_unexpected_debit_01",
+      "split": "test",
+      "intent": "billing",
+      "family": "unexpected_debit",
+      "text": "Why did my card get debited $11 more than I expected?"
+    },
+    {
+      "id": "test_cancellation_disable_renewal_01",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "disable_renewal",
+      "text": "Please turn off the next renewal for my plan."
+    },
+    {
+      "id": "test_account_access_verification_block_03",
+      "split": "test",
+      "intent": "account access",
+      "family": "verification_block",
+      "text": "I cannot get past the identity verification step on my phone."
+    },
+    {
+      "id": "test_shipping_tracking_no_update_01",
+      "split": "test",
+      "intent": "shipping",
+      "family": "tracking_no_update",
+      "text": "Tracking number ZX101 has not updated since it left the warehouse."
+    },
+    {
+      "id": "test_shipping_tracking_no_update_04",
+      "split": "test",
+      "intent": "shipping",
+      "family": "tracking_no_update",
+      "text": "Tracking number ZX404 has not updated since it left the warehouse."
+    },
+    {
+      "id": "test_shipping_tracking_no_update_03",
+      "split": "test",
+      "intent": "shipping",
+      "family": "tracking_no_update",
+      "text": "Tracking number ZX303 has not updated since it left the warehouse."
+    },
+    {
+      "id": "test_billing_invoice_extra_03",
+      "split": "test",
+      "intent": "billing",
+      "family": "invoice_extra",
+      "text": "Please explain the extra $24 on my latest invoice."
+    },
+    {
+      "id": "test_technical_support_api_error_04",
+      "split": "test",
+      "intent": "technical support",
+      "family": "api_error",
+      "text": "The API returns a timeout whenever my integration sends a request."
+    },
+    {
+      "id": "test_sales_compare_plans_03",
+      "split": "test",
+      "intent": "sales",
+      "family": "compare_plans",
+      "text": "We're evaluating the product and want to compare plans for 55 users."
+    },
+    {
+      "id": "test_billing_failed_payment_05",
+      "split": "test",
+      "intent": "billing",
+      "family": "failed_payment",
+      "text": "Payment for order W650 failed, but the money still left my bank."
+    },
+    {
+      "id": "test_sales_team_trial_01",
+      "split": "test",
+      "intent": "sales",
+      "family": "team_trial",
+      "text": "Can we arrange a product trial for a team of 10 people before buying?"
+    },
+    {
+      "id": "test_billing_unknown_fee_01",
+      "split": "test",
+      "intent": "billing",
+      "family": "unknown_fee",
+      "text": "The receipt for order L611 contains a fee I do not recognize."
+    },
+    {
+      "id": "test_technical_support_api_error_02",
+      "split": "test",
+      "intent": "technical support",
+      "family": "api_error",
+      "text": "The API returns status 502 whenever my integration sends a request."
+    },
+    {
+      "id": "test_account_access_reset_expired_03",
+      "split": "test",
+      "intent": "account access",
+      "family": "reset_expired",
+      "text": "The password recovery link says it expired after I opened it."
+    },
+    {
+      "id": "test_shipping_wrong_location_04",
+      "split": "test",
+      "intent": "shipping",
+      "family": "wrong_location",
+      "text": "The courier says parcel YT449 was delivered somewhere else."
+    },
+    {
+      "id": "test_shipping_delivery_progress_03",
+      "split": "test",
+      "intent": "shipping",
+      "family": "delivery_progress",
+      "text": "Where is parcel RV343, and how long until it reaches my address?"
+    },
+    {
+      "id": "test_cancellation_end_after_date_04",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "end_after_date",
+      "text": "Keep the service until tomorrow, then end it."
+    },
+    {
+      "id": "test_cancellation_end_after_date_01",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "end_after_date",
+      "text": "Keep the service until Friday, then end it."
+    },
+    {
+      "id": "test_technical_support_api_error_05",
+      "split": "test",
+      "intent": "technical support",
+      "family": "api_error",
+      "text": "The API returns an empty response whenever my integration sends a request."
+    },
+    {
+      "id": "test_technical_support_desktop_closes_05",
+      "split": "test",
+      "intent": "technical support",
+      "family": "desktop_closes",
+      "text": "The desktop client closes by itself while I switch workspaces."
+    },
+    {
+      "id": "test_billing_unknown_fee_05",
+      "split": "test",
+      "intent": "billing",
+      "family": "unknown_fee",
+      "text": "The receipt for order R165 contains a fee I do not recognize."
+    },
+    {
+      "id": "test_account_access_reset_expired_04",
+      "split": "test",
+      "intent": "account access",
+      "family": "reset_expired",
+      "text": "The password recovery link says it expired after I switched browsers."
+    },
+    {
+      "id": "test_account_access_credentials_rejected_03",
+      "split": "test",
+      "intent": "account access",
+      "family": "credentials_rejected",
+      "text": "My credentials are rejected even though I can use them on the mobile app."
+    },
+    {
+      "id": "test_shipping_tracking_no_update_05",
+      "split": "test",
+      "intent": "shipping",
+      "family": "tracking_no_update",
+      "text": "Tracking number ZX505 has not updated since it left the warehouse."
+    },
+    {
+      "id": "test_cancellation_membership_end_05",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "membership_end",
+      "text": "I don't need the membership anymore; please end it before the next charge."
+    },
+    {
+      "id": "test_billing_invoice_extra_04",
+      "split": "test",
+      "intent": "billing",
+      "family": "invoice_extra",
+      "text": "Please explain the extra €18 on my latest invoice."
+    },
+    {
+      "id": "test_billing_unexpected_debit_05",
+      "split": "test",
+      "intent": "billing",
+      "family": "unexpected_debit",
+      "text": "Why did my card get debited £54 more than I expected?"
+    },
+    {
+      "id": "test_technical_support_sync_failure_03",
+      "split": "test",
+      "intent": "technical support",
+      "family": "sync_failure",
+      "text": "Synchronization stops when it reaches the final file."
+    },
+    {
+      "id": "test_account_access_verification_block_05",
+      "split": "test",
+      "intent": "account access",
+      "family": "verification_block",
+      "text": "I cannot get past the identity verification step on my home PC."
+    },
+    {
+      "id": "test_sales_buy_licenses_04",
+      "split": "test",
+      "intent": "sales",
+      "family": "buy_licenses",
+      "text": "Our company is considering buying 110 user licenses."
+    },
+    {
+      "id": "test_account_access_credentials_rejected_01",
+      "split": "test",
+      "intent": "account access",
+      "family": "credentials_rejected",
+      "text": "My credentials are rejected even though I can use them on another browser."
+    },
+    {
+      "id": "test_technical_support_sync_failure_05",
+      "split": "test",
+      "intent": "technical support",
+      "family": "sync_failure",
+      "text": "Synchronization stops when it reaches the shared workspace."
+    },
+    {
+      "id": "test_sales_team_trial_05",
+      "split": "test",
+      "intent": "sales",
+      "family": "team_trial",
+      "text": "Can we arrange a product trial for a team of 160 people before buying?"
+    },
+    {
+      "id": "test_sales_annual_quote_01",
+      "split": "test",
+      "intent": "sales",
+      "family": "annual_quote",
+      "text": "Could you prepare an annual quote for our marketing department?"
+    },
+    {
+      "id": "test_cancellation_discontinue_plan_04",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "discontinue_plan",
+      "text": "I would like to discontinue my current plan after Sunday."
+    },
+    {
+      "id": "test_account_access_reset_expired_02",
+      "split": "test",
+      "intent": "account access",
+      "family": "reset_expired",
+      "text": "The password recovery link says it expired after one attempt."
+    },
+    {
+      "id": "test_cancellation_membership_end_04",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "membership_end",
+      "text": "I don't need the membership anymore; please end it next Friday."
+    },
+    {
+      "id": "test_cancellation_disable_renewal_04",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "disable_renewal",
+      "text": "Please turn off the next renewal for my membership."
+    },
+    {
+      "id": "test_sales_compare_plans_02",
+      "split": "test",
+      "intent": "sales",
+      "family": "compare_plans",
+      "text": "We're evaluating the product and want to compare plans for 35 users."
+    },
+    {
+      "id": "test_technical_support_sync_failure_04",
+      "split": "test",
+      "intent": "technical support",
+      "family": "sync_failure",
+      "text": "Synchronization stops when it reaches my phone."
+    },
+    {
+      "id": "test_account_access_credentials_rejected_02",
+      "split": "test",
+      "intent": "account access",
+      "family": "credentials_rejected",
+      "text": "My credentials are rejected even though I can use them on my old laptop."
+    },
+    {
+      "id": "test_account_access_new_phone_02",
+      "split": "test",
+      "intent": "account access",
+      "family": "new_phone",
+      "text": "I changed phones and can no longer authenticate on my workspace."
+    },
+    {
+      "id": "test_account_access_new_phone_04",
+      "split": "test",
+      "intent": "account access",
+      "family": "new_phone",
+      "text": "I changed phones and can no longer authenticate on my user page."
+    },
+    {
+      "id": "test_sales_annual_quote_04",
+      "split": "test",
+      "intent": "sales",
+      "family": "annual_quote",
+      "text": "Could you prepare an annual quote for our support department?"
+    },
+    {
+      "id": "test_technical_support_screen_freeze_04",
+      "split": "test",
+      "intent": "technical support",
+      "family": "screen_freeze",
+      "text": "The application freezes whenever I open the history view."
+    },
+    {
+      "id": "test_sales_buy_licenses_05",
+      "split": "test",
+      "intent": "sales",
+      "family": "buy_licenses",
+      "text": "Our company is considering buying 200 user licenses."
+    },
+    {
+      "id": "test_technical_support_api_error_03",
+      "split": "test",
+      "intent": "technical support",
+      "family": "api_error",
+      "text": "The API returns an invalid response whenever my integration sends a request."
+    },
+    {
+      "id": "test_technical_support_screen_freeze_05",
+      "split": "test",
+      "intent": "technical support",
+      "family": "screen_freeze",
+      "text": "The application freezes whenever I open the media viewer."
+    },
+    {
+      "id": "test_billing_unknown_fee_04",
+      "split": "test",
+      "intent": "billing",
+      "family": "unknown_fee",
+      "text": "The receipt for order Q954 contains a fee I do not recognize."
+    },
+    {
+      "id": "test_billing_invoice_extra_01",
+      "split": "test",
+      "intent": "billing",
+      "family": "invoice_extra",
+      "text": "Please explain the extra $7 on my latest invoice."
+    },
+    {
+      "id": "test_sales_buy_licenses_01",
+      "split": "test",
+      "intent": "sales",
+      "family": "buy_licenses",
+      "text": "Our company is considering buying 18 user licenses."
+    },
+    {
+      "id": "test_account_access_new_phone_01",
+      "split": "test",
+      "intent": "account access",
+      "family": "new_phone",
+      "text": "I changed phones and can no longer authenticate on my profile."
+    },
+    {
+      "id": "test_account_access_reset_expired_01",
+      "split": "test",
+      "intent": "account access",
+      "family": "reset_expired",
+      "text": "The password recovery link says it expired after a few minutes."
+    },
+    {
+      "id": "test_technical_support_desktop_closes_03",
+      "split": "test",
+      "intent": "technical support",
+      "family": "desktop_closes",
+      "text": "The desktop client closes by itself while I open settings."
+    },
+    {
+      "id": "test_cancellation_discontinue_plan_03",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "discontinue_plan",
+      "text": "I would like to discontinue my current plan at the end of the month."
+    },
+    {
+      "id": "test_shipping_delivery_progress_01",
+      "split": "test",
+      "intent": "shipping",
+      "family": "delivery_progress",
+      "text": "Where is parcel RV121, and how long until it reaches my address?"
+    },
+    {
+      "id": "test_billing_unexpected_debit_03",
+      "split": "test",
+      "intent": "billing",
+      "family": "unexpected_debit",
+      "text": "Why did my card get debited $49 more than I expected?"
+    },
+    {
+      "id": "test_shipping_wrong_location_02",
+      "split": "test",
+      "intent": "shipping",
+      "family": "wrong_location",
+      "text": "The courier says parcel YT227 was delivered somewhere else."
+    },
+    {
+      "id": "test_sales_team_trial_02",
+      "split": "test",
+      "intent": "sales",
+      "family": "team_trial",
+      "text": "Can we arrange a product trial for a team of 20 people before buying?"
+    },
+    {
+      "id": "test_technical_support_api_error_01",
+      "split": "test",
+      "intent": "technical support",
+      "family": "api_error",
+      "text": "The API returns status 500 whenever my integration sends a request."
+    },
+    {
+      "id": "test_sales_compare_plans_05",
+      "split": "test",
+      "intent": "sales",
+      "family": "compare_plans",
+      "text": "We're evaluating the product and want to compare plans for 140 users."
+    },
+    {
+      "id": "test_sales_buy_licenses_03",
+      "split": "test",
+      "intent": "sales",
+      "family": "buy_licenses",
+      "text": "Our company is considering buying 70 user licenses."
+    },
+    {
+      "id": "test_shipping_parcel_delayed_05",
+      "split": "test",
+      "intent": "shipping",
+      "family": "parcel_delayed",
+      "text": "The parcel is already several days late. When will it arrive?"
+    },
+    {
+      "id": "test_sales_team_trial_03",
+      "split": "test",
+      "intent": "sales",
+      "family": "team_trial",
+      "text": "Can we arrange a product trial for a team of 50 people before buying?"
+    },
+    {
+      "id": "test_billing_invoice_extra_02",
+      "split": "test",
+      "intent": "billing",
+      "family": "invoice_extra",
+      "text": "Please explain the extra $13 on my latest invoice."
+    },
+    {
+      "id": "test_technical_support_desktop_closes_01",
+      "split": "test",
+      "intent": "technical support",
+      "family": "desktop_closes",
+      "text": "The desktop client closes by itself while I edit a document."
+    },
+    {
+      "id": "test_cancellation_discontinue_plan_01",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "discontinue_plan",
+      "text": "I would like to discontinue my current plan immediately."
+    },
+    {
+      "id": "test_cancellation_membership_end_01",
+      "split": "test",
+      "intent": "cancellation",
+      "family": "membership_end",
+      "text": "I don't need the membership anymore; please end it today."
+    },
+    {
+      "id": "test_account_access_verification_block_01",
+      "split": "test",
+      "intent": "account access",
+      "family": "verification_block",
+      "text": "I cannot get past the identity verification step on my new laptop."
+    }
+  ]
+}
