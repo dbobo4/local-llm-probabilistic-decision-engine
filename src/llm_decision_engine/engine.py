@@ -220,20 +220,38 @@ Answer exactly one word: True or False."""
         *,
         state: str,
         question: str,
-        scale: list[int],
+        levels: list[str] | list[int],
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> RatingResult:
-        if len(scale) < 2:
-            raise ValueError("rating() requires at least two scale values.")
+        if len(levels) < 2:
+            raise ValueError("rating() requires at least two levels.")
 
-        if any(isinstance(value, bool) or not isinstance(value, int) for value in scale):
-            raise TypeError("Scale values must be integers.")
+        if any(
+            isinstance(level, bool)
+            or not isinstance(level, (str, int))
+            for level in levels
+        ):
+            raise TypeError(
+                "Rating levels must be strings or integers."
+            )
 
-        if len(set(scale)) != len(scale):
-            raise ValueError("Scale values must be unique.")
+        level_types = {type(level) for level in levels}
+        if len(level_types) != 1:
+            raise TypeError(
+                "Rating levels must all use the same type."
+            )
 
-        candidates = [str(value) for value in scale]
+        if any(
+            isinstance(level, str) and not level.strip()
+            for level in levels
+        ):
+            raise ValueError("Rating levels must not be empty.")
+
+        if len(set(levels)) != len(levels):
+            raise ValueError("Rating levels must be unique.")
+
+        candidates = [str(level) for level in levels]
 
         choice_result = self.choice(
             state=state,
@@ -244,24 +262,28 @@ Answer exactly one word: True or False."""
         )
 
         probabilities = {
-            value: choice_result.probabilities[str(value)]
-            for value in scale
+            level: choice_result.probabilities[str(level)]
+            for level in levels
         }
+
         scores = {
-            value: choice_result.scores[str(value)]
-            for value in scale
+            level: choice_result.scores[str(level)]
+            for level in levels
         }
 
         selected = next(
-            value
-            for value in scale
-            if str(value) == choice_result.selected
+            level
+            for level in levels
+            if str(level) == choice_result.selected
         )
 
-        expected_value = sum(
-            value * probabilities[value]
-            for value in scale
-        )
+        expected_value = None
+
+        if all(isinstance(level, int) for level in levels):
+            expected_value = sum(
+                level * probabilities[level]
+                for level in levels
+            )
 
         return RatingResult(
             probabilities=probabilities,

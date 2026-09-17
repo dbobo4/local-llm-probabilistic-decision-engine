@@ -25,6 +25,9 @@ class FakeTokenizer:
             "P1": [10, 11, 1],
             "P2": [10, 11, 2],
             "P3": [10, 11, 3],
+            "Pminor": [10, 11, 1],
+            "Pmoderate": [10, 11, 2],
+            "Pserious": [10, 11, 3],
         }
         return mapping[text]
 
@@ -188,16 +191,16 @@ def test_boolean_supports_batch_execution():
     assert result.execution_mode == "batch"
     assert engine.model.calls == 1
 
-def test_rating_returns_distribution_and_expected_value():
+def test_rating_returns_numeric_distribution_and_expected_value():
     engine = make_engine()
 
     result = engine.rating(
         state="state",
         question="question",
-        scale=[1, 2, 3],
+        levels=[1, 2, 3],
     )
 
-    assert set(result.probabilities) == {1, 2, 3}
+    assert list(result.probabilities) == [1, 2, 3]
     assert sum(result.probabilities.values()) == pytest.approx(1.0)
     assert result.selected == 1
     assert result.expected_value == pytest.approx(
@@ -211,13 +214,37 @@ def test_rating_returns_distribution_and_expected_value():
     assert engine.model.calls == 3
 
 
+def test_rating_supports_text_levels():
+    engine = make_engine()
+
+    result = engine.rating(
+        state="state",
+        question="question",
+        levels=["minor", "moderate", "serious"],
+    )
+
+    assert list(result.probabilities) == [
+        "minor",
+        "moderate",
+        "serious",
+    ]
+    assert list(result.scores) == [
+        "minor",
+        "moderate",
+        "serious",
+    ]
+    assert result.selected == "minor"
+    assert result.expected_value is None
+    assert sum(result.probabilities.values()) == pytest.approx(1.0)
+
+
 def test_rating_supports_batch_execution():
     engine = make_engine()
 
     result = engine.rating(
         state="state",
         question="question",
-        scale=[1, 2, 3],
+        levels=[1, 2, 3],
         execution="batch",
     )
 
@@ -226,47 +253,83 @@ def test_rating_supports_batch_execution():
     assert engine.model.calls == 1
 
 
-def test_rating_rejects_duplicate_scale_values():
+def test_rating_rejects_duplicate_levels():
     engine = make_engine()
 
     with pytest.raises(ValueError, match="unique"):
         engine.rating(
             state="state",
             question="question",
-            scale=[1, 1],
+            levels=["minor", "minor"],
         )
 
 
-def test_rating_rejects_non_integer_scale_values():
+def test_rating_rejects_unsupported_level_types():
     engine = make_engine()
 
-    with pytest.raises(TypeError, match="integers"):
+    with pytest.raises(
+        TypeError,
+        match="strings or integers",
+    ):
         engine.rating(
             state="state",
             question="question",
-            scale=[1, 2.5],
+            levels=[1.5, 2.5],
         )
 
-def test_rating_requires_at_least_two_scale_values():
+
+def test_rating_rejects_mixed_level_types():
+    engine = make_engine()
+
+    with pytest.raises(
+        TypeError,
+        match="same type",
+    ):
+        engine.rating(
+            state="state",
+            question="question",
+            levels=[1, "2"],
+        )
+
+
+def test_rating_requires_at_least_two_levels():
     engine = make_engine()
 
     with pytest.raises(ValueError, match="at least two"):
         engine.rating(
             state="state",
             question="question",
-            scale=[1],
+            levels=["minor"],
         )
 
 
-def test_rating_rejects_boolean_scale_values():
+def test_rating_rejects_boolean_levels():
     engine = make_engine()
 
-    with pytest.raises(TypeError, match="integers"):
+    with pytest.raises(
+        TypeError,
+        match="strings or integers",
+    ):
         engine.rating(
             state="state",
             question="question",
-            scale=[1, True],
+            levels=[False, True],
         )
+
+
+def test_rating_rejects_empty_text_level():
+    engine = make_engine()
+
+    with pytest.raises(
+        ValueError,
+        match="must not be empty",
+    ):
+        engine.rating(
+            state="state",
+            question="question",
+            levels=["minor", "   "],
+        )
+
 
 def test_boolean_rejects_invalid_scoring_method():
     engine = make_engine()
