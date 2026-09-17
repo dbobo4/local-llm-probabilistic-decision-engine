@@ -1,41 +1,8 @@
-# Local LLM Probabilistic Decision Engine
+﻿# Local LLM Probabilistic Decision Engine
 
-A local, open-source probabilistic decision engine built on top of open-weight LLMs. It replaces autoregressive answer generation with direct candidate scoring, producing structured, normalized decision probabilities with zero generated output tokens.
+A local, open-source Python library for turning compatible causal language models into structured probabilistic decision engines through direct candidate-sequence scoring.
 
-## Independent implementation
-
-This is a fully independent implementation based only on publicly described product behavior. I have no access to TypeSafe/Jev internals, architecture, training code, weights, or proprietary technical details. The design in this repository is my own approach to building a local probabilistic decision engine with similar externally observable behavior.
-
-This project does not reproduce, reverse-engineer, or claim knowledge of Jev's proprietary architecture. Any architectural choices in this repository are independent design decisions.
-
-## What it does
-
-Instead of asking a causal language model to autoregressively generate a textual answer, the engine directly scores the complete token sequence of each allowed candidate. The resulting candidate scores are normalized into a distribution over the supplied decision set.
-
-Example input:
-
-```text
-State: My account has not worked for three days and I am losing sales.
-
-Question: Which department should handle this?
-
-Candidates:
-- technical support
-- billing
-- sales
-```
-
-Measured result with `Qwen/Qwen2.5-1.5B-Instruct` using sequence log-likelihood scoring:
-
-```text
-technical support    94.65%
-billing               0.64%
-sales                 4.71%
-
-Generated output tokens: 0
-```
-
-## Basic usage
+Instead of asking the model to autoregressively generate an answer, the library scores the allowed answers directly and returns normalized probabilities over the supplied decision set.
 
 ```python
 from llm_decision_engine import DecisionEngine
@@ -45,120 +12,211 @@ engine = DecisionEngine(
 )
 
 result = engine.choice(
-    state="My account has not worked for three days and I am losing sales.",
-    question="Which department should handle this?",
+    state="The customer cannot sign in after resetting their password twice.",
+    question="Which support category best matches this request?",
+    candidates={
+        "billing": "Charges, invoices, payments, receipts, refunds, and unexpected fees.",
+        "technical support": "Product failures, crashes, errors, broken features, or synchronization problems.",
+        "account access": "Login, password, authentication, locked-account, or two-factor-access problems.",
+    },
+)
+
+print(result.selected)
+print(result.probabilities)
+print(result.generated_output_tokens)
+```
+
+The main decision methods produce **zero autoregressively generated output tokens**.
+
+## Why this exists
+
+Many LLM tasks are not fundamentally open-ended generation tasks.
+
+Sometimes the application already knows the allowed outputs:
+
+- route a support request to one of several teams
+- decide whether a condition is true or false
+- assign a severity level
+- classify an event into a known schema
+- choose a workflow branch
+- evaluate several structured questions over the same state
+
+For these cases, generating free-form text and parsing it back into a structured decision may be unnecessary.
+
+This project explores a different inference pattern:
+
+```text
+state + question + allowed candidates
+                |
+                v
+       causal language model
+                |
+                v
+   candidate sequence likelihoods
+                |
+                v
+ normalized decision probabilities
+```
+
+The central research question is:
+
+> When can autoregressive generation be replaced by direct probabilistic decision inference?
+
+## Installation
+
+The project can currently be installed from source:
+
+```text
+git clone https://github.com/dbobo4/local-llm-probabilistic-decision-engine.git
+cd local-llm-probabilistic-decision-engine
+python -m pip install .
+```
+
+For development:
+
+```text
+python -m pip install -e ".[dev]"
+```
+
+The public Python import is:
+
+```python
+import llm_decision_engine
+```
+
+## Model loading
+
+A model must be supplied explicitly.
+
+### Hugging Face model ID
+
+```python
+from llm_decision_engine import DecisionEngine
+
+engine = DecisionEngine(
+    model="Qwen/Qwen2.5-1.5B-Instruct",
+)
+```
+
+If the required files are not already cached, Hugging Face Transformers may download them from the model provider.
+
+### Local model directory
+
+```python
+engine = DecisionEngine(
+    model="./models/Qwen2.5-1.5B-Instruct",
+)
+```
+
+### Offline-only loading
+
+```python
+engine = DecisionEngine(
+    model="Qwen/Qwen2.5-1.5B-Instruct",
+    local_files_only=True,
+)
+```
+
+With `local_files_only=True`, the required model files must already exist locally, either in the Hugging Face cache or in the directory supplied through `model=`.
+
+Model weights are not bundled with this package.
+
+See [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md) for model-related notes.
+
+## Core API
+
+The v0.1.0 decision API contains three primitives:
+
+```text
+choice()
+boolean()
+rating()
+```
+
+and one orchestration method:
+
+```text
+decide()
+```
+
+`decide()` is not a fourth inference primitive. It composes the existing decision types over a shared state.
+
+## Choice
+
+Use `choice()` when the valid outputs are known in advance.
+
+```python
+result = engine.choice(
+    state="The customer was charged twice for the same invoice.",
+    question="Which team should handle this?",
     candidates=[
-        "technical support",
         "billing",
+        "technical support",
         "sales",
     ],
 )
 
+print(result.selected)
 print(result.probabilities)
 ```
 
-Example result:
+Candidates may contain multiple tokens. They are scored as complete causal continuations rather than being reduced to single-token labels.
 
-```python
-{
-    "technical support": 0.9465,
-    "billing": 0.0064,
-    "sales": 0.0471,
-}
-```
-
-Additional result information includes the raw candidate sequence scores, selected candidate, scoring method, execution mode, candidate token counts, and generated output token count.
-
-## Current implementation status
-
-The repository contains a validated arbitrary multi-token candidate-scoring engine and an installable Python package. The original single-token A/B/C implementation is retained separately as a historical baseline experiment.
-
-Current capabilities:
-
-- Local open-weight Hugging Face causal language models
-- Direct arbitrary multi-token candidate scoring
-- Sequential reference execution with optional batched execution
-- Sum log-likelihood scoring
-- Optional mean log-likelihood scoring
-- Normalized candidate-set probability distributions
-- Zero generated output tokens for the decision
-- Structured `ChoiceResult` output
-- Tokenizer-boundary validation
-- Correct causal-logit alignment
-- Unit-tested scoring mathematics
-- Installable `llm_decision_engine` Python package
-
-Candidates are scored directly as their own token sequences. No intermediate A/B/C labels or 26-candidate limit are required.
-
-Sequential execution is the default reference mode. Batched execution is available as an opt-in performance mode and evaluates all candidates in one model forward.
-
-## Core idea
-
-For a candidate token sequence
-
-```math
-c = (c_1, c_2, ..., c_T)
-```
-
-the default sequence score is
-
-```math
-S(c) = \sum_{t=1}^{T} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
-```
-
-where `x` is the model context.
-
-Candidate scores are then normalized across the allowed set `C`:
-
-```math
-P(c_i \mid x, c_i \in C) = \frac{\exp(S(c_i))}{\sum_j \exp(S(c_j))}
-```
-
-The optional `mean` scoring mode uses average token log-probability instead of the sum:
-
-```math
-S_{\mathrm{mean}}(c) = \frac{1}{T}\sum_{t=1}^{T} \log P(c_t \mid x, c_1, \ldots, c_{t-1})
-```
-
-The resulting values are normalized model preferences over the supplied candidate set. They should not be interpreted as calibrated probabilities of objective correctness unless calibration has been separately measured.
-
-## Why causal alignment matters
-
-For a prompt followed by candidate tokens `c1, c2`, a causal model predicts:
+The result includes:
 
 ```text
-last prompt position -> c1
-c1 position          -> c2
+probabilities
+scores
+selected
+token_counts
+scoring_method
+execution_mode
+generated_output_tokens
 ```
 
-The engine explicitly handles this one-token causal shift so that every candidate token is scored from the logits that actually predict it.
+## Described choices
 
-## Execution modes
-
-The default execution mode is:
-
-```python
-execution="sequential"
-```
-
-Sequential mode performs one model forward per candidate and is treated as the numerical reference path.
-
-Batched execution is available with:
+Short candidate names can be ambiguous. `choice()` can therefore accept a dictionary mapping each scored candidate to a semantic description.
 
 ```python
 result = engine.choice(
-    ...,
-    execution="batch",
+    state="The customer cannot sign in after resetting their password.",
+    question="Which support category best matches this request?",
+    candidates={
+        "billing": "Charges, invoices, payments, receipts, refunds, and unexpected fees.",
+        "technical support": "Product failures, crashes, errors, broken features, or synchronization problems.",
+        "account access": "Login, password, authentication, locked-account, or two-factor-access problems.",
+    },
 )
 ```
 
-Batch mode evaluates all candidate continuations in one model forward. The scoring definition is unchanged, but exact numerical equivalence is not guaranteed under reduced-precision inference: GPU kernels and operation ordering can make BF16 results depend slightly on batch shape. For probability-sensitive evaluation, sequential mode remains the default reference.
+Only the dictionary keys are scored as candidate continuations.
+
+The descriptions are added to the model context to define what each candidate means.
+
+The returned result therefore remains keyed by:
+
+```text
+billing
+technical support
+account access
+```
+
+rather than by the longer descriptions.
+
+Candidate insertion order is preserved. This matters because language-model decisions can be sensitive to candidate ordering. Applications should keep candidate order deterministic and evaluate order sensitivity on representative data.
+
+Runnable example:
+
+```text
+examples/described_choice.py
+```
 
 ## Boolean decisions
 
-`boolean()` uses a dedicated binary inference protocol rather than routing through the generic `choice()` candidate-list prompt. It asks the model to answer exactly `True` or `False`, then directly scores those two continuations. No answer tokens are generated.
+`boolean()` uses a dedicated binary protocol with the fixed candidate continuations `True` and `False`.
 
-~~~python
+```python
 result = engine.boolean(
     state="The payment was charged twice.",
     question="Should this be escalated?",
@@ -167,181 +225,626 @@ result = engine.boolean(
 print(result.probability_true)
 print(result.probability_false)
 print(result.selected)
-~~~
+```
 
-The returned `BooleanResult` contains:
+`selected` is a Python `bool`.
 
-- `probability_true`: normalized probability assigned to the `True` continuation
-- `probability_false`: normalized probability assigned to the `False` continuation
-- `selected`: `True` when the `True` continuation has the higher score, otherwise `False`
-- `scores`: raw sequence log-likelihood scores, exposed under the semantic keys `"yes"` and `"no"` for API compatibility
-- `scoring_method`: `sum` or `mean`
-- `execution_mode`: `sequential` or `batch`
-- `generated_output_tokens`: always `0`
+The result includes:
 
-The binary protocol deliberately keeps the two verbalizers fixed and does not place a candidate list in the prompt. This avoids candidate-order variation from becoming part of the binary decision context.
+```text
+probability_true
+probability_false
+selected
+scores
+scoring_method
+execution_mode
+generated_output_tokens
+```
 
-The returned probabilities are normalized model preferences over the two binary continuations. They should not automatically be interpreted as calibrated probabilities of objective truth. Calibration quality should be evaluated on labeled data with metrics such as Brier score, negative log-likelihood, and expected calibration error.
+Runnable example:
 
-Batched execution is also supported:
+```text
+examples/basic_boolean.py
+```
 
-~~~python
-result = engine.boolean(
-    state="The payment was charged twice.",
-    question="Should this be escalated?",
-    execution="batch",
-)
-~~~
+## Numeric ratings
 
-A runnable example is available at `examples/basic_boolean.py`.
-## Rating decisions
+`rating()` can score an arbitrary ordered set of integer levels.
 
-`rating()` scores an integer scale through the same direct candidate-scoring path used by `choice()`. The scale values are converted to candidate continuations, scored without answer generation, and returned as a probability distribution over the supplied ratings.
-
-~~~python
+```python
 result = engine.rating(
     state="The response is mostly correct but contains one minor factual error.",
-    question="Rate the reliability from 1 to 5, where 1 is very unreliable and 5 is very reliable.",
-    scale=[1, 2, 3, 4, 5],
+    question="Rate the reliability from 1 to 5.",
+    levels=[1, 2, 3, 4, 5],
 )
 
 print(result.probabilities)
 print(result.selected)
 print(result.expected_value)
-~~~
-
-For a scale with values `r_i`, the expected value is:
-
-~~~text
-E[R] = sum(r_i * P(r_i))
-~~~
-
-`selected` is the single scale value with the highest candidate probability. `expected_value` uses the entire distribution, so the two values do not need to be equal.
-
-The returned `RatingResult` contains:
-
-- `probabilities`: normalized probability for each integer scale value
-- `selected`: highest-probability scale value
-- `expected_value`: probability-weighted mean of the supplied scale
-- `scores`: raw sequence log-likelihood scores for each scale value
-- `scoring_method`: `sum` or `mean`
-- `execution_mode`: `sequential` or `batch`
-- `generated_output_tokens`: always `0`
-
-The scale must contain at least two unique integer values. Python booleans are rejected even though `bool` is an `int` subclass.
-
-These probabilities are model preferences over the supplied rating candidates. The expected value is therefore a summary of that model distribution, not automatically a calibrated estimate of real-world reliability or correctness.
-
-Batched execution is supported with `execution="batch"`. Reduced-precision inference such as BF16 can produce batch-shape-dependent numerical differences, so sequential execution remains the default reference mode.
-
-A runnable example is available at `examples/basic_rating.py`.
-
-## Benchmark
-
-A paired, interleaved execution benchmark was run with `Qwen/Qwen2.5-1.5B-Instruct` in BF16 on an NVIDIA GeForce RTX 5070 Ti using three candidate continuations.
-
-~~~text
-Sequential median latency:    54.551 ms
-Batch median latency:         23.869 ms
-Median paired speedup:         2.288x
-Mean paired speedup:           2.262x
-Sequential p95 latency:       98.988 ms
-Batch p95 latency:            43.956 ms
-Max probability delta:         0.002875
-Selected candidate agreement: true
-~~~
-
-The benchmark alternates execution order between sequential and batch runs to reduce time-dependent GPU and system effects. These measurements are hardware-, model-, prompt-, candidate-set-, and precision-specific and should not be interpreted as universal performance guarantees.
-
-Under BF16, sequential and batched execution can produce slightly different numerical probabilities even though they implement the same candidate-scoring definition. FP32 control experiments showed near-equivalence, indicating that the observed drift is primarily a reduced-precision numerical effect.
-
-The reproducible benchmark is available in `benchmarks/execution_modes_paired.py`.
-
-## Engine roadmap
-
-```text
-Implemented
-- Choice
-- arbitrary multi-token candidates
-- sum and mean sequence scoring
-- sequential and batched execution modes
-- tokenizer-boundary validation
-- Hugging Face / PyTorch backend
-
-Planned
-- Boolean / proposition probability
-- Score
-- multiple questions per state
-- probability calibration
-- llama.cpp / GGUF backend
 ```
 
-## Research
-
-The project is also a reproducible research platform for studying when autoregressive generation is actually necessary for decision tasks.
-
-The central research question is:
-
-> When can autoregressive generation be replaced by direct probabilistic decision inference?
-
-Planned comparison:
+For numeric levels, the expected value is:
 
 ```text
-A) Autoregressive reasoning + answer
-B) Direct candidate scoring
-C) Extra compute + candidate scoring
+E[R] = sum(level_i * P(level_i))
 ```
 
-Primary measurements:
+`selected` is the highest-probability level.
 
-- accuracy vs. latency
-- calibration quality
-- candidate wording sensitivity
-- candidate ordering sensitivity
-- candidate-cardinality scaling
-- compute / quality trade-offs
+`expected_value` uses the full distribution and therefore does not need to equal `selected`.
 
-The goal is to distinguish the value of generated reasoning tokens from the value of additional computation itself.
+Runnable example:
+
+```text
+examples/basic_rating.py
+```
+
+## Named rating levels
+
+Ratings are not restricted to numeric scales.
+
+```python
+result = engine.rating(
+    state="The issue blocks the customer from using a core product feature.",
+    question="How severe is this issue?",
+    levels=[
+        "minor",
+        "moderate",
+        "serious",
+        "critical",
+    ],
+)
+
+print(result.probabilities)
+print(result.selected)
+print(result.expected_value)
+```
+
+For string levels, `expected_value` is `None` because the library does not invent a numeric distance between user-defined labels.
+
+Runnable example:
+
+```text
+examples/text_rating.py
+```
+
+## Multiple structured decisions
+
+`decide()` applies several decision specifications to the same state.
+
+```python
+from llm_decision_engine import Boolean, Choice, DecisionEngine, Rating
+
+engine = DecisionEngine(
+    model="Qwen/Qwen2.5-1.5B-Instruct",
+)
+
+message = "I cannot log in and I need access immediately."
+
+result = engine.decide(
+    state=message,
+    questions={
+        "route": Choice(
+            question="Which team should handle this request?",
+            candidates={
+                "billing": "Charges, invoices, payments, receipts, refunds, and unexpected fees.",
+                "technical support": "Product failures, crashes, errors, broken features, or synchronization problems.",
+                "account access": "Login, password, authentication, locked-account, or two-factor-access problems.",
+            },
+        ),
+        "urgent": Boolean(
+            question="Does this request require urgent attention?",
+        ),
+        "severity": Rating(
+            question="How severe is the issue?",
+            levels=[
+                "minor",
+                "moderate",
+                "serious",
+                "critical",
+            ],
+        ),
+    },
+)
+
+print(result.results["route"].selected)
+print(result.results["urgent"].selected)
+print(result.results["severity"].selected)
+```
+
+Question insertion order is preserved.
+
+Each specification may independently choose:
+
+```python
+scoring="sum"        # or "mean"
+execution="sequential"  # or "batch"
+```
+
+`decide()` currently delegates to the individual primitives. It does not fuse all questions into a single model forward.
+
+Runnable example:
+
+```text
+examples/decide.py
+```
+
+## Direct sequence scoring
+
+For a candidate token sequence
+
+```text
+c = (c1, c2, ..., cT)
+```
+
+the default score is:
+
+```text
+S(c) = sum_t log P(ct | x, c<t)
+```
+
+where `x` is the complete prompt context.
+
+In probability space, this corresponds to:
+
+```text
+P(c | x)
+=
+P(c1 | x)
+*
+P(c2 | x, c1)
+*
+...
+*
+P(cT | x, c1, ..., cT-1)
+```
+
+The implementation works in log-space because addition is numerically more stable than multiplying many small probabilities.
+
+Scores are normalized across the supplied candidates:
+
+```text
+P(ci | x, ci in C)
+=
+exp(S(ci))
+/
+sum_j exp(S(cj))
+```
+
+This creates a probability distribution over the supplied candidate set.
+
+## Probability interpretation
+
+The returned probabilities are **restricted-candidate model probabilities**.
+
+For example:
+
+```python
+{
+    "billing": 0.82,
+    "technical support": 0.11,
+    "sales": 0.07,
+}
+```
+
+means that the model assigns 82% of the normalized probability mass to `billing` among those supplied candidates under the current inference protocol.
+
+It does **not** automatically mean:
+
+```text
+There is an objectively calibrated 82% probability that billing is correct.
+```
+
+Calibration must be measured separately on representative labeled data.
+
+A candidate absent from the supplied set cannot receive probability mass.
+
+## Sum versus mean scoring
+
+The default is:
+
+```python
+scoring="sum"
+```
+
+This uses the log-likelihood of the complete candidate sequence:
+
+```text
+sum(log token probabilities)
+```
+
+It is the direct log-space form of the full candidate sequence probability.
+
+An alternative is:
+
+```python
+scoring="mean"
+```
+
+which uses:
+
+```text
+mean(log token probabilities)
+```
+
+This length-normalized score can be useful as a diagnostic when candidate lengths differ, but it is not the same probabilistic quantity as the full sequence probability.
+
+`sum` therefore remains the default.
+
+## Sequential versus batch execution
+
+The default execution mode is:
+
+```python
+execution="sequential"
+```
+
+Sequential mode evaluates candidate continuations separately and is treated as the numerical reference path.
+
+Batch mode is available through:
+
+```python
+execution="batch"
+```
+
+and evaluates the candidate continuations together in one model forward.
+
+Example:
+
+```python
+result = engine.choice(
+    state="The parcel has not arrived.",
+    question="Which team should handle this?",
+    candidates=[
+        "billing",
+        "technical support",
+        "shipping",
+    ],
+    execution="batch",
+)
+```
+
+Both modes implement the same scoring definition, but reduced-precision inference can produce small batch-shape-dependent numerical differences.
+
+For this reason, bit-identical probabilities between sequential and batch execution are not guaranteed.
+
+## What zero generated output tokens means
+
+The main inference path does not autoregressively generate the selected answer.
+
+It evaluates model logits and directly scores the allowed continuations.
+
+Therefore:
+
+```text
+generated_output_tokens == 0
+```
+
+for the direct decision methods.
+
+This does **not** mean that no model computation occurs.
+
+The causal language model still performs forward inference to produce logits, and direct scoring is not automatically guaranteed to use less total compute or lower latency than every generation-based alternative.
+
+## Example applications
+
+The API is designed for tasks where the output space is known in advance, such as:
+
+- customer-support routing
+- intent classification
+- moderation categories
+- workflow branching
+- binary policy checks
+- risk or severity levels
+- reliability or quality ratings
+- event classification
+- tool or handler selection
+- structured decision extraction from text
+- several related decisions over the same state
+
+For example, an application can turn one customer message into:
+
+```text
+route    -> account access
+urgent   -> True
+severity -> serious
+```
+
+while retaining a probability distribution for every decision.
+
+## When this approach is a good fit
+
+Direct candidate scoring is most natural when:
+
+- the allowed outputs are known before inference
+- the task is primarily a constrained semantic decision
+- structured output is required
+- free-form generation is unnecessary
+- candidate probabilities are useful to downstream logic
+- deterministic output schemas are valuable
+
+The routing experiments in this repository provide controlled evidence that this can work well for that type of problem.
+
+## When not to use it
+
+Direct answer scoring should not be assumed to replace generation when:
+
+- the answer space is open-ended
+- the correct answer may not be present in the supplied candidates
+- the task requires substantial intermediate reasoning or computation
+- creative or explanatory text is required
+- the application needs the model to construct a new answer rather than select among known alternatives
+
+The project's binary arithmetic and verification benchmark provides an explicit negative result: direct answer readout was substantially weaker than a reasoning-conditioned control on tasks requiring intermediate computation.
+
+## Research results
+
+The repository intentionally includes both positive and negative results.
+
+### Frozen routing evaluation
+
+A six-class synthetic support-routing benchmark used a pre-specified protocol frozen before model evaluation.
+
+| Model | Direct accuracy | Greedy accuracy | Direct / greedy agreement | Direct generated tokens |
+| --- | ---: | ---: | ---: | ---: |
+| Qwen2.5-1.5B-Instruct | 88.3% | 87.5% | 99.2% | 0 |
+| Qwen2.5-3B-Instruct | 96.7% | 96.7% | 100.0% | 0 |
+
+The test split was held out from model evaluation until the frozen run, but this was not a blind benchmark: the benchmark generator and template source were known during benchmark construction.
+
+The result is specific to this synthetic task, prompt protocol, candidate schema, and the two tested models. It is not evidence of universal equivalence between direct scoring and generation.
+
+### Explicit candidate definitions
+
+On the routing calibration split:
+
+| Model | Bare labels | Definition-guided |
+| --- | ---: | ---: |
+| Qwen2.5-1.5B-Instruct | 70.8% | 90.0% |
+| Qwen2.5-3B-Instruct | 75.0% | 100.0% |
+
+This experiment motivated support for described candidates in the public API.
+
+### Reasoning boundary
+
+On a separate 120-example binary arithmetic and verification test:
+
+| Model | Direct accuracy | Reasoning-conditioned accuracy |
+| --- | ---: | ---: |
+| Qwen2.5-1.5B-Instruct | 65.0% | 94.2% |
+| Qwen2.5-3B-Instruct | 74.2% | 85.0% |
+
+The reasoning-conditioned path generated intermediate verification text and therefore falls outside the main no-generation method.
+
+This result is retained as evidence that direct answer readout is not a universal replacement for computation or reasoning.
+
+For the complete methodology, additional metrics, candidate-order experiments, scoring comparisons, dataset hashes, and limitations, see:
+
+- [Research Report](results/RESEARCH_REPORT.md)
+- [Performance Benchmark Report](results/BENCHMARK_REPORT.md)
+
+## Performance benchmark
+
+A paired benchmark compared sequential and batch execution using:
+
+```text
+Model:     Qwen/Qwen2.5-1.5B-Instruct
+GPU:       NVIDIA GeForce RTX 5070 Ti
+Precision: torch.bfloat16
+```
+
+For the three-candidate benchmark:
+
+| Metric | Sequential | Batch |
+| --- | ---: | ---: |
+| Median latency | 54.551 ms | 23.869 ms |
+| P95 latency | 98.988 ms | 43.956 ms |
+
+Median paired speedup:
+
+```text
+2.288x
+```
+
+Selected candidate agreement in that benchmark:
+
+```text
+100%
+```
+
+Maximum absolute probability difference:
+
+```text
+0.002875
+```
+
+Candidate-count scaling was also measured for 2, 3, 5, 10, and 20 candidates.
+
+These results are specific to the tested hardware, model, prompt, candidate set, precision, software stack, and benchmark procedure. They are not universal performance guarantees.
+
+See [results/BENCHMARK_REPORT.md](results/BENCHMARK_REPORT.md) for the complete benchmark.
+
+## Candidate-order sensitivity
+
+Candidate order is part of the model context.
+
+In the routing calibration experiment, changing candidate order altered some decisions.
+
+The smaller 1.5B model produced the same decision across all tested orders on:
+
+```text
+99 / 120 examples
+```
+
+The 3B model did so on:
+
+```text
+117 / 120 examples
+```
+
+The library therefore preserves the insertion order supplied by the application and does not silently sort candidates.
+
+Applications should evaluate order sensitivity when it matters for their task.
+
+## Model compatibility
+
+The current backend uses:
+
+```text
+PyTorch
+Hugging Face Transformers
+Hugging Face Accelerate
+Safetensors
+```
+
+The library is intended for compatible causal language models whose tokenizer provides the chat-template behavior required by the current prompt construction.
+
+Model-family behavior can differ because of:
+
+- tokenizer behavior
+- chat templates
+- vocabulary
+- candidate tokenization
+- numerical precision
+- instruction tuning
+- device support
+
+Compatibility with one causal model does not imply identical behavior across all models.
+
+See [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md).
+
+## Local and offline use
+
+Model inference is performed by the locally loaded model.
+
+However, passing a Hugging Face model ID without `local_files_only=True` may cause Transformers to contact the Hugging Face Hub to obtain missing files.
+
+For explicitly offline operation, use either:
+
+```text
+a local model directory
+```
+
+or:
+
+```python
+local_files_only=True
+```
+
+with all required files already present locally.
+
+Runnable example:
+
+```text
+examples/offline_model.py
+```
+
+## Examples
+
+The repository includes:
+
+```text
+examples/basic_choice.py
+examples/described_choice.py
+examples/basic_boolean.py
+examples/basic_rating.py
+examples/text_rating.py
+examples/decide.py
+examples/offline_model.py
+```
 
 ## Repository structure
 
 ```text
-src/llm_decision_engine/   reusable library
-examples/                  user-facing examples
-experiments/               research and historical baselines
-benchmarks/                performance and quality benchmarks
+src/llm_decision_engine/   reusable Python package
+examples/                  user-facing runnable examples
 tests/                     automated tests
-results/                   reproducible published results
+benchmarks/                benchmark and dataset tooling
+experiments/               research experiments and diagnostics
+results/                   committed benchmark and research results
 ```
 
-## Development install
+## Development
+
+Install development dependencies:
 
 ```text
 python -m pip install -e ".[dev]"
 ```
 
-Run the example:
-
-```text
-python examples/basic_choice.py
-```
-
-Run the tests:
+Run tests:
 
 ```text
 python -m pytest -q
 ```
 
-Build the package:
+Build the distribution:
 
 ```text
 python -m build
 ```
 
-## Model weights
+Generate the performance report from committed benchmark results:
 
-Model weights are not distributed with this repository. Models are downloaded from their original providers and cached locally by the selected inference backend. Inference itself runs locally on the user's machine. Users are responsible for complying with the license and terms of the model they choose.
+```text
+python benchmarks/generate_report.py
+```
 
-## Project status
+Generate the research report:
 
-Early development. Arbitrary multi-token candidate scoring and batched execution are implemented and validated. Calibration, benchmarking, additional decision primitives, and backend support remain under active development.
+```text
+python benchmarks/generate_research_report.py
+```
+
+## Project scope
+
+v0.1.0 focuses on a deliberately small public API:
+
+```text
+Choice
+Boolean
+Rating
+decide()
+```
+
+The project does not currently attempt to provide every possible structured-output primitive or every local inference backend.
+
+The API is pre-1.0 and may evolve in future releases.
+
+## Independent implementation
+
+This project is an independent implementation.
+
+It was developed without access to TypeSafe/Jev internals, proprietary architecture details, training code, model weights, or non-public implementation information.
+
+The repository does not reproduce or reverse-engineer a proprietary implementation and does not claim knowledge of one.
+
+Any reference to publicly described behavior or problem framing should not be interpreted as affiliation with, endorsement by, or implementation of TypeSafe/Jev technology.
+
+## Licensing
+
+The code and original materials in this repository are licensed under the Apache License 2.0.
+
+Third-party dependencies and model weights remain governed by their own licenses and terms.
+
+Model weights are not redistributed with this package.
+
+See:
+
+- [LICENSE](LICENSE)
+- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
+- [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md)
+
+## Research and production use
+
+The project is an experimental research-oriented library.
+
+The committed benchmarks demonstrate specific behavior under specific controlled conditions. They should not be interpreted as guarantees of:
+
+- universal accuracy
+- universal calibration
+- universal latency improvement
+- equivalent behavior across models
+- production suitability for every task
+
+Applications should validate the method on representative data from their own domain before relying on its probabilities or decisions.
