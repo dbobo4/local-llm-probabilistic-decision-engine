@@ -680,3 +680,113 @@ def test_decide_rejects_empty_question_name():
             },
         )
 
+
+def test_choice_rejects_invalid_candidate_container_type():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="list or dictionary"):
+        engine.choice(
+            state="state",
+            question="question",
+            candidates="alpha",
+        )
+
+
+def test_choice_rejects_non_string_candidate_names():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    for candidates in ([1, 2], {1: "first", 2: "second"}):
+        with pytest.raises(TypeError, match="Candidate names must be strings"):
+            engine.choice(
+                state="state",
+                question="question",
+                candidates=candidates,
+            )
+
+
+def test_choice_rejects_whitespace_only_candidate():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(ValueError, match="must not be empty"):
+        engine.choice(
+            state="state",
+            question="question",
+            candidates=["alpha", "   "],
+        )
+
+
+def test_choice_rejects_non_string_state_and_question():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="state must be a string"):
+        engine.choice(
+            state=123,
+            question="question",
+            candidates=["alpha", "beta"],
+        )
+
+    with pytest.raises(TypeError, match="question must be a string"):
+        engine.choice(
+            state="state",
+            question=None,
+            candidates=["alpha", "beta"],
+        )
+
+
+def test_boolean_rejects_non_string_state_and_question():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="state must be a string"):
+        engine.boolean(state=123, question="question")
+
+    with pytest.raises(TypeError, match="question must be a string"):
+        engine.boolean(state="state", question=None)
+
+
+def test_rating_requires_list_levels():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="levels must be a list"):
+        engine.rating(
+            state="state",
+            question="question",
+            levels=(1, 2, 3),
+        )
+
+
+def test_rating_rejects_non_string_state_and_question():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="state must be a string"):
+        engine.rating(
+            state=123,
+            question="question",
+            levels=[1, 2],
+        )
+
+    with pytest.raises(TypeError, match="question must be a string"):
+        engine.rating(
+            state="state",
+            question=None,
+            levels=[1, 2],
+        )
+
+
+def test_decide_requires_dictionary_questions():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="questions must be a dictionary"):
+        engine.decide(
+            state="state",
+            questions=[],
+        )
+
+
+def test_decide_rejects_non_string_state():
+    engine = DecisionEngine.__new__(DecisionEngine)
+
+    with pytest.raises(TypeError, match="state must be a string"):
+        engine.decide(
+            state=123,
+            questions={"q": Boolean(question="Question?")},
+        )

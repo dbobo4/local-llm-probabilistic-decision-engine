@@ -14,6 +14,11 @@ from .types import (
 )
 
 
+def _validate_string_argument(value, name: str) -> None:
+    if not isinstance(value, str):
+        raise TypeError(f"{name} must be a string.")
+
+
 class DecisionEngine:
     def __init__(
         self,
@@ -41,6 +46,14 @@ class DecisionEngine:
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> ChoiceResult:
+        _validate_string_argument(state, "state")
+        _validate_string_argument(question, "question")
+
+        if not isinstance(candidates, (list, dict)):
+            raise TypeError(
+                "candidates must be a list or dictionary."
+            )
+
         if isinstance(candidates, dict):
             candidate_names = list(candidates)
             candidate_definitions = candidates
@@ -48,10 +61,16 @@ class DecisionEngine:
             candidate_names = candidates
             candidate_definitions = None
 
+        if any(
+            not isinstance(candidate, str)
+            for candidate in candidate_names
+        ):
+            raise TypeError("Candidate names must be strings.")
+
         if len(candidate_names) < 2:
             raise ValueError("choice() requires at least two candidates.")
 
-        if any(not candidate for candidate in candidate_names):
+        if any(not candidate.strip() for candidate in candidate_names):
             raise ValueError("Candidates must not be empty.")
 
         if len(set(candidate_names)) != len(candidate_names):
@@ -167,6 +186,9 @@ Return exactly one candidate."""
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> BooleanResult:
+        _validate_string_argument(state, "state")
+        _validate_string_argument(question, "question")
+
         if scoring not in {"sum", "mean"}:
             raise ValueError("scoring must be either 'sum' or 'mean'.")
 
@@ -232,6 +254,12 @@ Answer exactly one word: True or False."""
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> RatingResult:
+        _validate_string_argument(state, "state")
+        _validate_string_argument(question, "question")
+
+        if not isinstance(levels, list):
+            raise TypeError("levels must be a list.")
+
         if len(levels) < 2:
             raise ValueError("rating() requires at least two levels.")
 
@@ -309,6 +337,11 @@ Answer exactly one word: True or False."""
         state: str,
         questions: dict[str, Choice | Boolean | Rating],
     ) -> DecisionResult:
+        _validate_string_argument(state, "state")
+
+        if not isinstance(questions, dict):
+            raise TypeError("questions must be a dictionary.")
+
         if not questions:
             raise ValueError("decide() requires at least one question.")
 
