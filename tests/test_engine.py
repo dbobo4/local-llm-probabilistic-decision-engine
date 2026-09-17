@@ -3,7 +3,16 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from llm_decision_engine import DecisionEngine
+from llm_decision_engine import (
+    Boolean,
+    BooleanResult,
+    Choice,
+    ChoiceResult,
+    DecisionEngine,
+    DecisionResult,
+    Rating,
+    RatingResult,
+)
 
 
 class FakeTokenizer:
@@ -527,6 +536,147 @@ def test_choice_rejects_empty_candidate_description():
             candidates={
                 "alpha": "Valid description.",
                 "beta": "   ",
+            },
+        )
+
+def test_decide_composes_all_three_primitives():
+    engine = make_engine()
+
+    result = engine.decide(
+        state="state",
+        questions={
+            "route": Choice(
+                question="Which route?",
+                candidates=["alpha", "beta"],
+            ),
+            "urgent": Boolean(
+                question="Is this urgent?",
+            ),
+            "severity": Rating(
+                question="How severe is this?",
+                levels=[1, 2, 3],
+            ),
+        },
+    )
+
+    assert isinstance(result, DecisionResult)
+    assert list(result.results) == [
+        "route",
+        "urgent",
+        "severity",
+    ]
+
+    assert isinstance(
+        result.results["route"],
+        ChoiceResult,
+    )
+    assert isinstance(
+        result.results["urgent"],
+        BooleanResult,
+    )
+    assert isinstance(
+        result.results["severity"],
+        RatingResult,
+    )
+
+    assert result.results["route"].selected == "alpha"
+    assert result.results["urgent"].selected is True
+    assert result.results["severity"].selected == 1
+
+    assert result.generated_output_tokens == 0
+    assert engine.model.calls == 7
+
+
+def test_decide_preserves_question_insertion_order():
+    engine = make_engine()
+
+    result = engine.decide(
+        state="state",
+        questions={
+            "second": Boolean(
+                question="Second question?",
+            ),
+            "first": Choice(
+                question="First question?",
+                candidates=["alpha", "beta"],
+            ),
+        },
+    )
+
+    assert list(result.results) == [
+        "second",
+        "first",
+    ]
+
+
+def test_decide_respects_per_question_execution_mode():
+    engine = make_engine()
+
+    result = engine.decide(
+        state="state",
+        questions={
+            "route": Choice(
+                question="Which route?",
+                candidates=["alpha", "beta"],
+                execution="batch",
+            ),
+            "urgent": Boolean(
+                question="Is this urgent?",
+                execution="batch",
+            ),
+            "severity": Rating(
+                question="How severe is this?",
+                levels=[1, 2, 3],
+                execution="batch",
+            ),
+        },
+    )
+
+    assert result.generated_output_tokens == 0
+    assert engine.model.calls == 3
+
+
+def test_decide_requires_at_least_one_question():
+    engine = make_engine()
+
+    with pytest.raises(
+        ValueError,
+        match="at least one question",
+    ):
+        engine.decide(
+            state="state",
+            questions={},
+        )
+
+
+def test_decide_rejects_invalid_specification():
+    engine = make_engine()
+
+    with pytest.raises(
+        TypeError,
+        match="Choice, Boolean, or Rating",
+    ):
+        engine.decide(
+            state="state",
+            questions={
+                "invalid": object(),
+            },
+        )
+
+
+def test_decide_rejects_empty_question_name():
+    engine = make_engine()
+
+    with pytest.raises(
+        ValueError,
+        match="non-empty strings",
+    ):
+        engine.decide(
+            state="state",
+            questions={
+                "   ": Boolean(
+                    question="Question?",
+                ),
             },
         )
 

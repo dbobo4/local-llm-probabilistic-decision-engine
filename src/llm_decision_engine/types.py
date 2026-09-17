@@ -2,6 +2,29 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True, slots=True)
+class Choice:
+    question: str
+    candidates: list[str] | dict[str, str]
+    scoring: str = "sum"
+    execution: str = "sequential"
+
+
+@dataclass(frozen=True, slots=True)
+class Boolean:
+    question: str
+    scoring: str = "sum"
+    execution: str = "sequential"
+
+
+@dataclass(frozen=True, slots=True)
+class Rating:
+    question: str
+    levels: list[str] | list[int]
+    scoring: str = "sum"
+    execution: str = "sequential"
+
+
+@dataclass(frozen=True, slots=True)
 class ChoiceResult:
     probabilities: dict[str, float]
     scores: dict[str, float]
@@ -54,3 +77,12 @@ class BinaryCalibrationResult:
     num_bins: int
     expected_calibration_error: float
     bins: tuple[CalibrationBin, ...]
+
+@dataclass(frozen=True, slots=True)
+class DecisionResult:
+    results: dict[
+        str,
+        ChoiceResult | BooleanResult | RatingResult,
+    ]
+    generated_output_tokens: int
+

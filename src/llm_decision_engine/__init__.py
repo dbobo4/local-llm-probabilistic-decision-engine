@@ -8,17 +8,25 @@ from .evaluation import (
 from .types import (
     BinaryCalibrationResult,
     BinaryEvaluationResult,
+    Boolean,
     BooleanResult,
     CalibrationBin,
+    Choice,
     ChoiceResult,
+    DecisionResult,
+    Rating,
     RatingResult,
 )
 
 __all__ = [
     "DecisionEngine",
+    "Choice",
+    "Boolean",
+    "Rating",
     "ChoiceResult",
     "BooleanResult",
     "RatingResult",
+    "DecisionResult",
     "BinaryEvaluationResult",
     "CalibrationBin",
     "BinaryCalibrationResult",

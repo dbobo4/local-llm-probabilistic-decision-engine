@@ -3,7 +3,15 @@ import torch
 from .models import load_model
 from .scoring import normalize_candidate_scores, score_causal_continuation
 from .tokenization import batch_continuations, tokenize_continuation
-from .types import BooleanResult, ChoiceResult, RatingResult
+from .types import (
+    Boolean,
+    BooleanResult,
+    Choice,
+    ChoiceResult,
+    DecisionResult,
+    Rating,
+    RatingResult,
+)
 
 
 class DecisionEngine:
@@ -293,6 +301,65 @@ Answer exactly one word: True or False."""
             generated_output_tokens=choice_result.generated_output_tokens,
             scoring_method=choice_result.scoring_method,
             execution_mode=choice_result.execution_mode,
+        )
+
+    def decide(
+        self,
+        *,
+        state: str,
+        questions: dict[str, Choice | Boolean | Rating],
+    ) -> DecisionResult:
+        if not questions:
+            raise ValueError("decide() requires at least one question.")
+
+        if any(
+            not isinstance(name, str) or not name.strip()
+            for name in questions
+        ):
+            raise ValueError(
+                "Decision question names must be non-empty strings."
+            )
+
+        results = {}
+
+        for name, specification in questions.items():
+            if isinstance(specification, Choice):
+                result = self.choice(
+                    state=state,
+                    question=specification.question,
+                    candidates=specification.candidates,
+                    scoring=specification.scoring,
+                    execution=specification.execution,
+                )
+            elif isinstance(specification, Boolean):
+                result = self.boolean(
+                    state=state,
+                    question=specification.question,
+                    scoring=specification.scoring,
+                    execution=specification.execution,
+                )
+            elif isinstance(specification, Rating):
+                result = self.rating(
+                    state=state,
+                    question=specification.question,
+                    levels=specification.levels,
+                    scoring=specification.scoring,
+                    execution=specification.execution,
+                )
+            else:
+                raise TypeError(
+                    "Each decide() question must be a "
+                    "Choice, Boolean, or Rating specification."
+                )
+
+            results[name] = result
+
+        return DecisionResult(
+            results=results,
+            generated_output_tokens=sum(
+                result.generated_output_tokens
+                for result in results.values()
+            ),
         )
 
     def _score_sequential(self, tokenized_candidates, *, scoring, device):
