@@ -79,3 +79,36 @@ def normalize_candidate_scores(scores: list[float]) -> list[float]:
     )
 
     return probabilities.tolist()
+
+
+def score_causal_continuation(
+    logits: torch.Tensor,
+    prefix_length: int,
+    target_token_ids: list[int],
+    *,
+    reduction: str = "sum",
+) -> float:
+    if logits.ndim != 2:
+        raise ValueError("logits must have shape [sequence_length, vocabulary_size].")
+
+    if prefix_length < 1:
+        raise ValueError("prefix_length must be at least 1.")
+
+    if not target_token_ids:
+        raise ValueError("target_token_ids must contain at least one token.")
+
+    start = prefix_length - 1
+    end = start + len(target_token_ids)
+
+    if end > logits.shape[0]:
+        raise ValueError(
+            "The logits tensor is too short to score the requested continuation."
+        )
+
+    continuation_logits = logits[start:end]
+
+    return score_sequence_log_likelihood(
+        continuation_logits,
+        target_token_ids,
+        reduction=reduction,
+    )
