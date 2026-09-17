@@ -110,24 +110,62 @@ Return exactly one candidate."""
         scoring: str = "sum",
         execution: str = "sequential",
     ) -> BooleanResult:
-        choice_result = self.choice(
-            state=state,
-            question=question,
-            candidates=["yes", "no"],
-            scoring=scoring,
-            execution=execution,
+        if scoring not in {"sum", "mean"}:
+            raise ValueError("scoring must be either 'sum' or 'mean'.")
+
+        if execution not in {"sequential", "batch"}:
+            raise ValueError("execution must be either 'sequential' or 'batch'.")
+
+        user_prompt = f"""STATE:
+{state}
+
+QUESTION:
+{question}
+
+Answer exactly one word: True or False."""
+
+        prefix = self.tokenizer.apply_chat_template(
+            [{"role": "user", "content": user_prompt}],
+            tokenize=False,
+            add_generation_prompt=True,
         )
+
+        candidates = ["True", "False"]
+
+        tokenized_candidates = [
+            tokenize_continuation(self.tokenizer, prefix, candidate)
+            for candidate in candidates
+        ]
+
+        input_device = next(self.model.parameters()).device
+
+        if execution == "sequential":
+            scores = self._score_sequential(
+                tokenized_candidates,
+                scoring=scoring,
+                device=input_device,
+            )
+        else:
+            scores = self._score_batch(
+                tokenized_candidates,
+                scoring=scoring,
+                device=input_device,
+            )
+
+        probabilities = normalize_candidate_scores(scores)
 
         return BooleanResult(
-            probability_true=choice_result.probabilities["yes"],
-            probability_false=choice_result.probabilities["no"],
-            selected=choice_result.selected == "yes",
-            scores=choice_result.scores,
-            generated_output_tokens=choice_result.generated_output_tokens,
-            scoring_method=choice_result.scoring_method,
-            execution_mode=choice_result.execution_mode,
+            probability_true=probabilities[0],
+            probability_false=probabilities[1],
+            selected=probabilities[0] >= probabilities[1],
+            scores={
+                "yes": scores[0],
+                "no": scores[1],
+            },
+            generated_output_tokens=0,
+            scoring_method=scoring,
+            execution_mode=execution,
         )
-
     def rating(
         self,
         *,

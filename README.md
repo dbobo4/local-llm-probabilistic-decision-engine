@@ -156,7 +156,7 @@ Batch mode evaluates all candidate continuations in one model forward. The scori
 
 ## Boolean decisions
 
-`boolean()` is a typed convenience primitive built on top of the same candidate-scoring path as `choice()`. It scores the continuations `yes` and `no` directly and returns probabilities plus a Python boolean decision. No answer tokens are generated.
+`boolean()` uses a dedicated binary inference protocol rather than routing through the generic `choice()` candidate-list prompt. It asks the model to answer exactly `True` or `False`, then directly scores those two continuations. No answer tokens are generated.
 
 ~~~python
 result = engine.boolean(
@@ -171,15 +171,17 @@ print(result.selected)
 
 The returned `BooleanResult` contains:
 
-- `probability_true`: normalized probability assigned to `yes`
-- `probability_false`: normalized probability assigned to `no`
-- `selected`: `True` when `yes` has the higher candidate score, otherwise `False`
-- `scores`: raw sequence log-likelihood scores for `yes` and `no`
+- `probability_true`: normalized probability assigned to the `True` continuation
+- `probability_false`: normalized probability assigned to the `False` continuation
+- `selected`: `True` when the `True` continuation has the higher score, otherwise `False`
+- `scores`: raw sequence log-likelihood scores, exposed under the semantic keys `"yes"` and `"no"` for API compatibility
 - `scoring_method`: `sum` or `mean`
 - `execution_mode`: `sequential` or `batch`
-- `generated_output_tokens`: always `0` for this decision primitive
+- `generated_output_tokens`: always `0`
 
-The probabilities are normalized model preferences over the two supplied semantic alternatives. They should not automatically be interpreted as calibrated probabilities of objective truth.
+The binary protocol deliberately keeps the two verbalizers fixed and does not place a candidate list in the prompt. This avoids candidate-order variation from becoming part of the binary decision context.
+
+The returned probabilities are normalized model preferences over the two binary continuations. They should not automatically be interpreted as calibrated probabilities of objective truth. Calibration quality should be evaluated on labeled data with metrics such as Brier score, negative log-likelihood, and expected calibration error.
 
 Batched execution is also supported:
 
@@ -192,7 +194,6 @@ result = engine.boolean(
 ~~~
 
 A runnable example is available at `examples/basic_boolean.py`.
-
 ## Rating decisions
 
 `rating()` scores an integer scale through the same direct candidate-scoring path used by `choice()`. The scale values are converted to candidate continuations, scored without answer generation, and returned as a probability distribution over the supplied ratings.

@@ -19,7 +19,9 @@ class FakeTokenizer:
             "Palpha": [10, 11, 1, 2],
             "Pbeta": [10, 11, 3],
             "Pyes": [10, 11, 1],
+            "PTrue": [10, 11, 1],
             "Pno": [10, 11, 3],
+            "PFalse": [10, 11, 3],
             "P1": [10, 11, 1],
             "P2": [10, 11, 2],
             "P3": [10, 11, 3],
@@ -265,3 +267,56 @@ def test_rating_rejects_boolean_scale_values():
             question="question",
             scale=[1, True],
         )
+
+def test_boolean_rejects_invalid_scoring_method():
+    engine = make_engine()
+
+    with pytest.raises(ValueError, match="scoring"):
+        engine.boolean(
+            state="state",
+            question="question",
+            scoring="invalid",
+        )
+
+
+def test_boolean_rejects_invalid_execution_mode():
+    engine = make_engine()
+
+    with pytest.raises(ValueError, match="execution"):
+        engine.boolean(
+            state="state",
+            question="question",
+            execution="invalid",
+        )
+
+
+def test_boolean_preserves_semantic_score_keys():
+    engine = make_engine()
+
+    result = engine.boolean(
+        state="state",
+        question="question",
+    )
+
+    assert set(result.scores) == {"yes", "no"}
+
+def test_boolean_uses_true_false_verbalizers():
+    engine = make_engine()
+    seen = []
+    original_encode = engine.tokenizer.encode
+
+    def recording_encode(text, add_special_tokens=False):
+        seen.append(text)
+        return original_encode(text, add_special_tokens=add_special_tokens)
+
+    engine.tokenizer.encode = recording_encode
+
+    engine.boolean(
+        state="state",
+        question="question",
+    )
+
+    assert "PTrue" in seen
+    assert "PFalse" in seen
+    assert "Pyes" not in seen
+    assert "Pno" not in seen

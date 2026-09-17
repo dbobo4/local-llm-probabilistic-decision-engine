@@ -1,0 +1,287 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "dataset": "benchmarks\\data\\binary_quality_v1.json",
+  "execution": "sequential",
+  "scoring": "sum",
+  "example_count": 20,
+  "generated_output_tokens": 0,
+  "evaluation": {
+    "count": 20,
+    "accuracy": 0.85,
+    "mean_brier": 0.13245001236703752,
+    "mean_nll": 0.42873209931485856
+  },
+  "calibration": {
+    "count": 20,
+    "num_bins": 5,
+    "expected_calibration_error": 0.11016027847799705,
+    "bins": [
+      {
+        "lower_bound": 0.0,
+        "upper_bound": 0.2,
+        "count": 9,
+        "mean_probability_true": 0.07014502596252391,
+        "observed_true_rate": 0.1111111111111111,
+        "absolute_gap": 0.0409660851485872
+      },
+      {
+        "lower_bound": 0.6,
+        "upper_bound": 0.8,
+        "count": 1,
+        "mean_probability_true": 0.6791787147521973,
+        "observed_true_rate": 1.0,
+        "absolute_gap": 0.32082128524780273
+      },
+      {
+        "lower_bound": 0.8,
+        "upper_bound": 1.0,
+        "count": 10,
+        "mean_probability_true": 0.9513689517974854,
+        "observed_true_rate": 0.8,
+        "absolute_gap": 0.15136895179748533
+      }
+    ]
+  },
+  "predictions": [
+    {
+      "id": "math_01",
+      "category": "math",
+      "state": "2 + 2 = 4.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9959298968315125,
+      "probability_false": 0.004070138093084097,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_02",
+      "category": "math",
+      "state": "7 is an even number.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.8519527316093445,
+      "probability_false": 0.14804719388484955,
+      "selected": true,
+      "correct": false,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_03",
+      "category": "math",
+      "state": "The square root of 81 is 9.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9324532747268677,
+      "probability_false": 0.06754668802022934,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_04",
+      "category": "math",
+      "state": "10 is less than 3.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.0004305570910219103,
+      "probability_false": 0.9995694756507874,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "geometry_01",
+      "category": "geometry",
+      "state": "A triangle has three sides.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.977022647857666,
+      "probability_false": 0.022977370768785477,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "geometry_02",
+      "category": "geometry",
+      "state": "A square has five sides.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.0017007224960252643,
+      "probability_false": 0.9982993006706238,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "science_01",
+      "category": "science",
+      "state": "Water freezes at 0 degrees Celsius at standard atmospheric pressure.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.09534946084022522,
+      "probability_false": 0.9046505093574524,
+      "selected": false,
+      "correct": false,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "science_02",
+      "category": "science",
+      "state": "The Earth is the fourth planet from the Sun.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.11920292675495148,
+      "probability_false": 0.8807970285415649,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "science_03",
+      "category": "science",
+      "state": "The Earth is the third planet from the Sun.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.6791787147521973,
+      "probability_false": 0.3208213150501251,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "science_04",
+      "category": "science",
+      "state": "Venus is farther from the Sun than Earth.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.13296423852443695,
+      "probability_false": 0.8670357465744019,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "computing_01",
+      "category": "computing",
+      "state": "A byte commonly contains 8 bits.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9046505093574524,
+      "probability_false": 0.09534946084022522,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "computing_02",
+      "category": "computing",
+      "state": "The binary numeral 10 represents decimal 3.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.18242551386356354,
+      "probability_false": 0.8175744414329529,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "python_01",
+      "category": "python",
+      "state": "Python lists are mutable.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9241418242454529,
+      "probability_false": 0.07585818320512772,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "python_02",
+      "category": "python",
+      "state": "A Python tuple can always be modified in place.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.0007096704212017357,
+      "probability_false": 0.9992903470993042,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "logic_01",
+      "category": "logic",
+      "state": "If all A are B and x is A, then x is B.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9933071732521057,
+      "probability_false": 0.006692850962281227,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "logic_02",
+      "category": "logic",
+      "state": "If some A are B, then all A are B.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.09534946084022522,
+      "probability_false": 0.9046505093574524,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_05",
+      "category": "math",
+      "state": "15 is divisible by 3.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9940890073776245,
+      "probability_false": 0.005911069456487894,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_06",
+      "category": "math",
+      "state": "17 is divisible by 4.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.9525741338729858,
+      "probability_false": 0.04742587357759476,
+      "selected": true,
+      "correct": false,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "geometry_03",
+      "category": "geometry",
+      "state": "The interior angles of a Euclidean triangle sum to 180 degrees.",
+      "question": "Is the statement correct?",
+      "target": true,
+      "probability_true": 0.9875683188438416,
+      "probability_false": 0.012431650422513485,
+      "selected": true,
+      "correct": true,
+      "generated_output_tokens": 0
+    },
+    {
+      "id": "math_07",
+      "category": "math",
+      "state": "0.5 is greater than 0.75.",
+      "question": "Is the statement correct?",
+      "target": false,
+      "probability_true": 0.0031726828310638666,
+      "probability_false": 0.9968273043632507,
+      "selected": false,
+      "correct": true,
+      "generated_output_tokens": 0
+    }
+  ]
+}
