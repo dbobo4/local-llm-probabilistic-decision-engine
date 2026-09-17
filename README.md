@@ -167,7 +167,7 @@ Sequential p95 latency:       98.988 ms
 Batch p95 latency:            43.956 ms
 Max probability delta:         0.002875
 Selected candidate agreement: true
-~~~text
+~~~
 
 The benchmark alternates execution order between sequential and batch runs to reduce time-dependent GPU and system effects. These measurements are hardware-, model-, prompt-, candidate-set-, and precision-specific and should not be interpreted as universal performance guarantees.
 
