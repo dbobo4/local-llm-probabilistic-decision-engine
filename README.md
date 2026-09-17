@@ -94,9 +94,41 @@ python -m pip install -e ".[dev]"
 
 ## Model loading
 
-A model must be supplied explicitly.
+A model must be supplied explicitly. Pass either a Hugging Face model ID or a local compatible model directory through `model=`.
 
 ### Hugging Face model ID
+
+Hugging Face model IDs normally have this form:
+
+```text
+organization-or-user/model-name
+```
+
+For example:
+
+```text
+Qwen/Qwen2.5-1.5B-Instruct
+```
+
+You can browse models at:
+
+https://huggingface.co/models
+
+When you open a model page, use the repository ID shown at the top of the page. You do not need to pass the full Hugging Face URL.
+
+For example, this page:
+
+```text
+https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct
+```
+
+corresponds to:
+
+```text
+Qwen/Qwen2.5-1.5B-Instruct
+```
+
+which can be passed directly to the engine:
 
 ```python
 from llm_decision_engine import DecisionEngine
@@ -106,9 +138,34 @@ engine = DecisionEngine(
 )
 ```
 
-If the required files are not already cached, Hugging Face Transformers may download them from the model provider.
+The library is not limited to Qwen. Examples of Hugging Face model IDs from other causal instruction-model families include:
+
+```text
+mistralai/Mistral-7B-Instruct-v0.3
+meta-llama/Llama-3.2-3B-Instruct
+google/gemma-2-2b-it
+```
+
+These additional IDs are examples of the model-ID format and available model families, not a claim that they have been validated by this project.
+
+The v0.1.0 release has been directly tested with:
+
+- `Qwen/Qwen2.5-1.5B-Instruct`
+- `Qwen/Qwen2.5-3B-Instruct`
+
+For the current backend, choose a causal instruction/chat model that is compatible with Hugging Face Transformers and whose tokenizer provides a usable chat template. A model being loadable does not guarantee good decision quality; direct candidate-scoring behavior can differ substantially between models.
+
+If the required files are not already cached, Hugging Face Transformers may download them from the model provider when the engine is created.
+
+Some Hugging Face models are gated. In that case, follow the access or license instructions on the model page first. If authentication is required, log in on the machine running the model:
+
+```text
+hf auth login
+```
 
 ### Local model directory
+
+You can also point `model=` at a local Hugging Face Transformers-compatible model directory:
 
 ```python
 engine = DecisionEngine(
@@ -116,7 +173,17 @@ engine = DecisionEngine(
 )
 ```
 
+An absolute path can be used in the same way:
+
+```python
+engine = DecisionEngine(
+    model="/path/to/my-model",
+)
+```
+
 ### Offline-only loading
+
+To prevent Transformers from attempting to download missing files, use:
 
 ```python
 engine = DecisionEngine(
@@ -129,7 +196,7 @@ With `local_files_only=True`, the required model files must already exist locall
 
 Model weights are not bundled with this package.
 
-See [MODEL_COMPATIBILITY.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/MODEL_COMPATIBILITY.md) for model-related notes.
+See [MODEL_COMPATIBILITY.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/MODEL_COMPATIBILITY.md) for detailed compatibility notes.
 
 ## Core API
 
