@@ -536,6 +536,32 @@ This does **not** mean that no model computation occurs.
 
 The causal language model still performs forward inference to produce logits, and direct scoring is not automatically guaranteed to use less total compute or lower latency than every generation-based alternative.
 
+## Important limitation: direct scoring does not add reasoning steps
+
+Direct candidate scoring reads the model's probabilities over the allowed continuations without first generating an intermediate reasoning trace.
+
+This means that the method depends strongly on what the underlying model can already represent at the answer position. A model may sometimes assign more probability to the wrong candidate even on a seemingly simple verification task, despite being able to reach the correct answer when allowed to generate intermediate reasoning.
+
+A wrong direct decision is therefore not, by itself, evidence of a scoring implementation error. When the causal sequence likelihood is computed correctly, the engine is faithfully exposing the model's conditional preference over the supplied candidates. That model preference can still be wrong.
+
+The binary arithmetic and verification benchmark in this repository demonstrates this boundary. Reasoning-conditioned evaluation substantially improved accuracy, but it generated intermediate verification text and therefore falls outside the library's main zero-generated-output-token method.
+
+For reasoning-heavy tasks, the main ways to improve reliability are:
+
+- use a stronger base model whose reasoning capability is already reflected more reliably in the direct candidate logits
+- improve the prompt and candidate definitions when ambiguity or task framing is the main problem
+- allow generated intermediate reasoning when the application values reasoning quality more than the zero-generated-output-token constraint
+
+The last option changes the inference method: once intermediate reasoning is generated, the system is no longer using the library's main zero-output-token decision path.
+
+If zero generated output tokens must be preserved, stronger base-model capability is therefore especially important for tasks that require computation or multi-step reasoning.
+
+In short:
+
+**Stronger base-model capability -> more reliable direct decision readout.**
+
+**Generated reasoning -> potentially better reasoning, but no longer zero output tokens.**
+
 ## Example applications
 
 The API is designed for tasks where the output space is known in advance, such as:
