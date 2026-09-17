@@ -1,4 +1,4 @@
-﻿# Local LLM Probabilistic Decision Engine
+# Local LLM Probabilistic Decision Engine
 
 A local, open-source Python library for turning compatible causal language models into structured probabilistic decision engines through direct candidate-sequence scoring.
 
@@ -64,7 +64,23 @@ The central research question is:
 
 ## Installation
 
-The project can currently be installed from source:
+### From PyPI
+
+After the package is published on PyPI, installation will be:
+
+```text
+pip install <distribution-name>
+```
+
+The final PyPI distribution name will be inserted here before the v0.1.0 release.
+
+The Python import will remain:
+
+```python
+import llm_decision_engine
+```
+
+### From source
 
 ```text
 git clone https://github.com/dbobo4/local-llm-probabilistic-decision-engine.git
@@ -76,12 +92,6 @@ For development:
 
 ```text
 python -m pip install -e ".[dev]"
-```
-
-The public Python import is:
-
-```python
-import llm_decision_engine
 ```
 
 ## Model loading
@@ -373,45 +383,68 @@ examples/decide.py
 
 For a candidate token sequence
 
-```text
-c = (c1, c2, ..., cT)
-```
+$$
+c = (c_1, c_2, \dots, c_T)
+$$
 
-the default score is:
+the default sequence score is
 
-```text
-S(c) = sum_t log P(ct | x, c<t)
-```
-
-where `x` is the complete prompt context.
-
-In probability space, this corresponds to:
-
-```text
-P(c | x)
+$$
+S(c)
 =
-P(c1 | x)
-*
-P(c2 | x, c1)
-*
-...
-*
-P(cT | x, c1, ..., cT-1)
-```
+\sum_{t=1}^{T}
+\log P(c_t \mid x, c_1, \dots, c_{t-1})
+$$
 
-The implementation works in log-space because addition is numerically more stable than multiplying many small probabilities.
+where $x$ is the complete model context.
 
-Scores are normalized across the supplied candidates:
+In probability space, this corresponds to the probability of the complete candidate continuation:
 
-```text
-P(ci | x, ci in C)
+$$
+P(c \mid x)
 =
-exp(S(ci))
-/
-sum_j exp(S(cj))
-```
+\prod_{t=1}^{T}
+P(c_t \mid x, c_1, \dots, c_{t-1})
+$$
 
-This creates a probability distribution over the supplied candidate set.
+Written out explicitly:
+
+$$
+P(c \mid x)
+=
+P(c_1 \mid x)
+\cdot
+P(c_2 \mid x, c_1)
+\cdot
+\dots
+\cdot
+P(c_T \mid x, c_1, \dots, c_{T-1})
+$$
+
+The implementation works in log-space because adding log-probabilities is numerically more stable than multiplying many small probabilities.
+
+Candidate scores are then normalized across the supplied candidate set $C$:
+
+$$
+P(c_i \mid x,\; c_i \in C)
+=
+\frac{\exp(S(c_i))}
+{\sum_j \exp(S(c_j))}
+$$
+
+This produces a probability distribution over the supplied candidate set.
+
+The optional `mean` scoring mode uses average token log-probability instead of the sum:
+
+$$
+S_{\mathrm{mean}}(c)
+=
+\frac{1}{T}
+\sum_{t=1}^{T}
+\log P(c_t \mid x, c_1, \dots, c_{t-1})
+$$
+
+The resulting normalized values represent model preferences over the supplied candidates. They should not automatically be interpreted as calibrated probabilities of objective correctness unless calibration has been evaluated separately.
 
 ## Probability interpretation
 
@@ -813,13 +846,15 @@ The API is pre-1.0 and may evolve in future releases.
 
 ## Independent implementation
 
-This project is an independent implementation.
+This project is an independent implementation based on the author's own technical approach to the general problem.
 
-It was developed without access to TypeSafe/Jev internals, proprietary architecture details, training code, model weights, or non-public implementation information.
+Any inspiration from TypeSafe/Jev was limited to brief, publicly available promotional material. That material prompted the author to explore the general problem using their own technical approach. The architecture, methods, implementation, and source code in this repository were independently designed and developed.
 
-The repository does not reproduce or reverse-engineer a proprietary implementation and does not claim knowledge of one.
+The project was developed without access to TypeSafe/Jev internals, proprietary architecture details, training code, model weights, source code, or other non-public implementation information.
 
-Any reference to publicly described behavior or problem framing should not be interpreted as affiliation with, endorsement by, or implementation of TypeSafe/Jev technology.
+This repository does not reproduce or reverse-engineer a proprietary implementation and does not claim knowledge of one.
+
+References to TypeSafe/Jev should not be interpreted as affiliation with, endorsement by, sponsorship by, or implementation of TypeSafe/Jev technology.
 
 ## Licensing
 
