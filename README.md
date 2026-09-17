@@ -129,7 +129,7 @@ With `local_files_only=True`, the required model files must already exist locall
 
 Model weights are not bundled with this package.
 
-See [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md) for model-related notes.
+See [MODEL_COMPATIBILITY.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/MODEL_COMPATIBILITY.md) for model-related notes.
 
 ## Core API
 
@@ -630,8 +630,8 @@ This result is retained as evidence that direct answer readout is not a universa
 
 For the complete methodology, additional metrics, candidate-order experiments, scoring comparisons, dataset hashes, and limitations, see:
 
-- [Research Report](results/RESEARCH_REPORT.md)
-- [Performance Benchmark Report](results/BENCHMARK_REPORT.md)
+- [Research Report](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/results/RESEARCH_REPORT.md)
+- [Performance Benchmark Report](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/results/BENCHMARK_REPORT.md)
 
 ## Performance benchmark
 
@@ -672,7 +672,7 @@ Candidate-count scaling was also measured for 2, 3, 5, 10, and 20 candidates.
 
 These results are specific to the tested hardware, model, prompt, candidate set, precision, software stack, and benchmark procedure. They are not universal performance guarantees.
 
-See [results/BENCHMARK_REPORT.md](results/BENCHMARK_REPORT.md) for the complete benchmark.
+See [results/BENCHMARK_REPORT.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/results/BENCHMARK_REPORT.md) for the complete benchmark.
 
 ## Candidate-order sensitivity
 
@@ -721,7 +721,7 @@ Model-family behavior can differ because of:
 
 Compatibility with one causal model does not imply identical behavior across all models.
 
-See [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md).
+See [MODEL_COMPATIBILITY.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/MODEL_COMPATIBILITY.md).
 
 ## Local and offline use
 
@@ -843,9 +843,9 @@ Model weights are not redistributed with this package.
 
 See:
 
-- [LICENSE](LICENSE)
-- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
-- [MODEL_COMPATIBILITY.md](MODEL_COMPATIBILITY.md)
+- [LICENSE](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/LICENSE)
+- [THIRD_PARTY_LICENSES.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/THIRD_PARTY_LICENSES.md)
+- [MODEL_COMPATIBILITY.md](https://github.com/dbobo4/local-llm-probabilistic-decision-engine/blob/main/MODEL_COMPATIBILITY.md)
 
 ## Research and production use
 
