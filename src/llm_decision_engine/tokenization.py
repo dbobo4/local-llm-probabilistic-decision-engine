@@ -1,11 +1,21 @@
 from dataclasses import dataclass
 
+import torch
+
 
 @dataclass(frozen=True, slots=True)
 class TokenizedContinuation:
     input_ids: list[int]
     prefix_length: int
     target_token_ids: list[int]
+
+
+@dataclass(frozen=True, slots=True)
+class BatchedContinuations:
+    input_ids: torch.Tensor
+    attention_mask: torch.Tensor
+    prefix_lengths: list[int]
+    target_token_ids: list[list[int]]
 
 
 def tokenize_continuation(
@@ -44,4 +54,48 @@ def tokenize_continuation(
         input_ids=full_ids,
         prefix_length=len(prefix_ids),
         target_token_ids=target_token_ids,
+    )
+
+
+def batch_continuations(
+    continuations: list[TokenizedContinuation],
+    *,
+    pad_token_id: int,
+    device: torch.device | str | None = None,
+) -> BatchedContinuations:
+    if not continuations:
+        raise ValueError("continuations must not be empty.")
+
+    if pad_token_id < 0:
+        raise ValueError("pad_token_id must be non-negative.")
+
+    max_length = max(len(item.input_ids) for item in continuations)
+
+    input_ids = torch.full(
+        (len(continuations), max_length),
+        pad_token_id,
+        dtype=torch.long,
+        device=device,
+    )
+
+    attention_mask = torch.zeros(
+        (len(continuations), max_length),
+        dtype=torch.long,
+        device=device,
+    )
+
+    for row, item in enumerate(continuations):
+        length = len(item.input_ids)
+        input_ids[row, :length] = torch.tensor(
+            item.input_ids,
+            dtype=torch.long,
+            device=device,
+        )
+        attention_mask[row, :length] = 1
+
+    return BatchedContinuations(
+        input_ids=input_ids,
+        attention_mask=attention_mask,
+        prefix_lengths=[item.prefix_length for item in continuations],
+        target_token_ids=[item.target_token_ids for item in continuations],
     )
