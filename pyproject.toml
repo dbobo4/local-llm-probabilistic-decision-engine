@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-llm-probabilistic-decision-engine"
+version = "0.1.0"
+description = "Local probabilistic decision inference for open-weight language models using direct candidate scoring."
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.14.0",
+    "transformers>=5.17.0,<6",
+    "accelerate>=1.15.0,<2",
+    "safetensors>=0.8.0,<1",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
