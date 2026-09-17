@@ -157,3 +157,52 @@ def test_evaluate_binary_calibration_bin_boundaries():
     assert second.lower_bound == pytest.approx(0.5)
     assert second.upper_bound == pytest.approx(1.0)
     assert second.count == 2
+
+
+def test_binary_brier_score_rejects_non_real_probability():
+    for probability in (True, "0.5", None):
+        with pytest.raises(TypeError, match="real number"):
+            binary_brier_score(probability, True)
+
+
+def test_negative_log_likelihood_rejects_non_real_probability():
+    for probability in (True, "0.5", None):
+        with pytest.raises(TypeError, match="real number"):
+            negative_log_likelihood(probability)
+
+
+def test_probability_metrics_reject_non_finite_values():
+    for probability in (float("nan"), float("inf"), float("-inf")):
+        with pytest.raises(ValueError, match="between 0 and 1"):
+            binary_brier_score(probability, True)
+
+        with pytest.raises(ValueError, match="between 0 and 1"):
+            negative_log_likelihood(probability)
+
+
+def test_evaluate_binary_predictions_rejects_invalid_threshold_type():
+    for threshold in (True, "0.5", None):
+        with pytest.raises(TypeError, match="real number"):
+            evaluate_binary_predictions(
+                [0.9],
+                [True],
+                threshold=threshold,
+            )
+
+
+def test_evaluate_binary_predictions_rejects_non_finite_threshold():
+    for threshold in (float("nan"), float("inf"), float("-inf")):
+        with pytest.raises(ValueError, match="between 0 and 1"):
+            evaluate_binary_predictions(
+                [0.9],
+                [True],
+                threshold=threshold,
+            )
+
+
+def test_evaluate_binary_calibration_rejects_invalid_probability_type():
+    with pytest.raises(TypeError, match="real number"):
+        evaluate_binary_calibration(
+            ["0.9"],
+            [True],
+        )

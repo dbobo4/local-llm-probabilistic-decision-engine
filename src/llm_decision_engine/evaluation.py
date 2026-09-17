@@ -1,23 +1,34 @@
 import math
 from collections.abc import Sequence
+from numbers import Real
 
 from .types import BinaryCalibrationResult, BinaryEvaluationResult, CalibrationBin
+
+
+def _validate_probability(value: object, name: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise TypeError(f"{name} must be a real number.")
+
+    numeric_value = float(value)
+
+    if not 0.0 <= numeric_value <= 1.0:
+        raise ValueError(f"{name} must be between 0 and 1.")
+
+    return numeric_value
 
 
 def binary_brier_score(probability_true: float, target: bool) -> float:
     if not isinstance(target, bool):
         raise TypeError("target must be a boolean.")
 
-    if not 0.0 <= probability_true <= 1.0:
-        raise ValueError("probability_true must be between 0 and 1.")
+    probability_true = _validate_probability(probability_true, "probability_true")
 
     target_value = 1.0 if target else 0.0
     return (probability_true - target_value) ** 2
 
 
 def negative_log_likelihood(probability: float) -> float:
-    if not 0.0 <= probability <= 1.0:
-        raise ValueError("probability must be between 0 and 1.")
+    probability = _validate_probability(probability, "probability")
 
     if probability == 0.0:
         return math.inf
@@ -34,11 +45,10 @@ def evaluate_binary_predictions(
     if len(probabilities_true) != len(targets):
         raise ValueError("probabilities_true and targets must have the same length.")
 
-    if not probabilities_true:
+    if len(probabilities_true) == 0:
         raise ValueError("At least one prediction is required.")
 
-    if not 0.0 <= threshold <= 1.0:
-        raise ValueError("threshold must be between 0 and 1.")
+    threshold = _validate_probability(threshold, "threshold")
 
     brier_scores = []
     nll_values = []
@@ -76,7 +86,7 @@ def evaluate_binary_calibration(
     if len(probabilities_true) != len(targets):
         raise ValueError("probabilities_true and targets must have the same length.")
 
-    if not probabilities_true:
+    if len(probabilities_true) == 0:
         raise ValueError("At least one prediction is required.")
 
     if isinstance(num_bins, bool) or not isinstance(num_bins, int):
