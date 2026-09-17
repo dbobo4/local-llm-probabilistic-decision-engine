@@ -193,6 +193,48 @@ result = engine.boolean(
 
 A runnable example is available at `examples/basic_boolean.py`.
 
+## Rating decisions
+
+`rating()` scores an integer scale through the same direct candidate-scoring path used by `choice()`. The scale values are converted to candidate continuations, scored without answer generation, and returned as a probability distribution over the supplied ratings.
+
+~~~python
+result = engine.rating(
+    state="The response is mostly correct but contains one minor factual error.",
+    question="Rate the reliability from 1 to 5, where 1 is very unreliable and 5 is very reliable.",
+    scale=[1, 2, 3, 4, 5],
+)
+
+print(result.probabilities)
+print(result.selected)
+print(result.expected_value)
+~~~
+
+For a scale with values `r_i`, the expected value is:
+
+~~~text
+E[R] = sum(r_i * P(r_i))
+~~~
+
+`selected` is the single scale value with the highest candidate probability. `expected_value` uses the entire distribution, so the two values do not need to be equal.
+
+The returned `RatingResult` contains:
+
+- `probabilities`: normalized probability for each integer scale value
+- `selected`: highest-probability scale value
+- `expected_value`: probability-weighted mean of the supplied scale
+- `scores`: raw sequence log-likelihood scores for each scale value
+- `scoring_method`: `sum` or `mean`
+- `execution_mode`: `sequential` or `batch`
+- `generated_output_tokens`: always `0`
+
+The scale must contain at least two unique integer values. Python booleans are rejected even though `bool` is an `int` subclass.
+
+These probabilities are model preferences over the supplied rating candidates. The expected value is therefore a summary of that model distribution, not automatically a calibrated estimate of real-world reliability or correctness.
+
+Batched execution is supported with `execution="batch"`. Reduced-precision inference such as BF16 can produce batch-shape-dependent numerical differences, so sequential execution remains the default reference mode.
+
+A runnable example is available at `examples/basic_rating.py`.
+
 ## Benchmark
 
 A paired, interleaved execution benchmark was run with `Qwen/Qwen2.5-1.5B-Instruct` in BF16 on an NVIDIA GeForce RTX 5070 Ti using three candidate continuations.

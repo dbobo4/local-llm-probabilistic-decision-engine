@@ -3,7 +3,7 @@ import torch
 from .models import load_model
 from .scoring import normalize_candidate_scores, score_causal_continuation
 from .tokenization import batch_continuations, tokenize_continuation
-from .types import BooleanResult, ChoiceResult
+from .types import BooleanResult, ChoiceResult, RatingResult
 
 
 class DecisionEngine:
@@ -123,6 +123,64 @@ Return exactly one candidate."""
             probability_false=choice_result.probabilities["no"],
             selected=choice_result.selected == "yes",
             scores=choice_result.scores,
+            generated_output_tokens=choice_result.generated_output_tokens,
+            scoring_method=choice_result.scoring_method,
+            execution_mode=choice_result.execution_mode,
+        )
+
+    def rating(
+        self,
+        *,
+        state: str,
+        question: str,
+        scale: list[int],
+        scoring: str = "sum",
+        execution: str = "sequential",
+    ) -> RatingResult:
+        if len(scale) < 2:
+            raise ValueError("rating() requires at least two scale values.")
+
+        if any(isinstance(value, bool) or not isinstance(value, int) for value in scale):
+            raise TypeError("Scale values must be integers.")
+
+        if len(set(scale)) != len(scale):
+            raise ValueError("Scale values must be unique.")
+
+        candidates = [str(value) for value in scale]
+
+        choice_result = self.choice(
+            state=state,
+            question=question,
+            candidates=candidates,
+            scoring=scoring,
+            execution=execution,
+        )
+
+        probabilities = {
+            value: choice_result.probabilities[str(value)]
+            for value in scale
+        }
+        scores = {
+            value: choice_result.scores[str(value)]
+            for value in scale
+        }
+
+        selected = next(
+            value
+            for value in scale
+            if str(value) == choice_result.selected
+        )
+
+        expected_value = sum(
+            value * probabilities[value]
+            for value in scale
+        )
+
+        return RatingResult(
+            probabilities=probabilities,
+            expected_value=expected_value,
+            selected=selected,
+            scores=scores,
             generated_output_tokens=choice_result.generated_output_tokens,
             scoring_method=choice_result.scoring_method,
             execution_mode=choice_result.execution_mode,

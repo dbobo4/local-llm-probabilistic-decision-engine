@@ -20,3 +20,13 @@ class BooleanResult:
     generated_output_tokens: int
     scoring_method: str
     execution_mode: str
+
+@dataclass(frozen=True, slots=True)
+class RatingResult:
+    probabilities: dict[int, float]
+    expected_value: float
+    selected: int
+    scores: dict[int, float]
+    generated_output_tokens: int
+    scoring_method: str
+    execution_mode: str
