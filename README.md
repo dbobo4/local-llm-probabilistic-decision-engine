@@ -69,10 +69,8 @@ The central research question is:
 After the package is published on PyPI, installation will be:
 
 ```text
-pip install <distribution-name>
+pip install llm-decision-engine
 ```
-
-The final PyPI distribution name will be inserted here before the v0.1.0 release.
 
 The Python import will remain:
 

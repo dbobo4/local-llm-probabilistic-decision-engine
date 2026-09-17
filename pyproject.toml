@@ -3,13 +3,31 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "local-llm-probabilistic-decision-engine"
+name = "llm-decision-engine"
 version = "0.1.0"
-description = "Local probabilistic decision inference for open-weight language models using direct candidate scoring."
+description = "Structured probabilistic decision inference for local causal language models using direct candidate scoring."
 readme = "README.md"
 license = "Apache-2.0"
-keywords = ["llm", "local-ai", "inference", "decision-engine", "candidate-scoring", "probabilistic-ai"]
+keywords = [
+    "llm",
+    "local-ai",
+    "inference",
+    "decision-engine",
+    "candidate-scoring",
+    "probabilistic-ai",
+    "transformers",
+    "classification",
+]
 requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "torch>=2.14.0",
     "transformers>=5.17.0,<6",
@@ -21,7 +39,12 @@ dependencies = [
 dev = [
     "pytest>=9,<10",
     "build>=1.6,<2",
+    "twine>=6,<7",
 ]
+
+[project.urls]
+Repository = "https://github.com/dbobo4/local-llm-probabilistic-decision-engine"
+Issues = "https://github.com/dbobo4/local-llm-probabilistic-decision-engine/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
